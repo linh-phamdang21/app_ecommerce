@@ -13,4 +13,22 @@ public class HomeController {
         return modelAndView;
     }
 
+    @GetMapping("/carts")
+    public ModelAndView cartPage(){
+        ModelAndView modelAndView = new ModelAndView("cart");
+        return modelAndView;
+    }
+
+    @GetMapping("/products")
+    public ModelAndView productPage(){
+        ModelAndView modelAndView = new ModelAndView("product");
+        return modelAndView;
+    }
+
+    @GetMapping("/product-detail")
+    public ModelAndView productDetailsPage(){
+        ModelAndView modelAndView = new ModelAndView("product-detail");
+        return modelAndView;
+    }
+
 }
