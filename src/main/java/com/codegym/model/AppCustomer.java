@@ -10,9 +10,9 @@ public class AppCustomer {
 
     private Long id;
 
-    private String CustomerName;
+    private String username;
 
-    private String CustomerPass;
+    private String password;
 
     private String phone;
 
@@ -40,20 +40,20 @@ public class AppCustomer {
         this.id = id;
     }
 
-    public String getCustomerName() {
-        return CustomerName;
+    public String getUsername() {
+        return username;
     }
 
-    public void setCustomerName(String customerName) {
-        CustomerName = customerName;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
-    public String getCustomerPass() {
-        return CustomerPass;
+    public String getPassword() {
+        return password;
     }
 
-    public void setCustomerPass(String customerPass) {
-        CustomerPass = customerPass;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getPhone() {
