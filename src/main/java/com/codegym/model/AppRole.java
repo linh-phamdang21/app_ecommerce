@@ -12,7 +12,10 @@ public class AppRole implements GrantedAuthority{
     private Long id;
     private String name;
 
-    public AppRole() {
+
+    @Override
+    public String getAuthority() {
+        return this.name;
     }
 
     public Long getId() {
@@ -29,10 +32,5 @@ public class AppRole implements GrantedAuthority{
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    @Override
-    public String getAuthority() {
-        return this.name;
     }
 }

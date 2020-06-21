@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+</head>
+<body>
+<div>
+    <div class="row">
+        <form th:action="@{/addToCart}" th:object="${product}" method="post" class="col-xl-3" th:each="pro : ${product}">
+            <div class="card" style="width: 18rem;">
+                <td><img class="card-img-top" th:src="@{/images/{img}(img=${pro.getImage()})}" width="300px" height="300px"/></td>
+                <div class="card-body">
+                    <p class="card-title" th:text="${pro.getProductName()}"></p>
+                    <p class="card-text" th:text="${pro.getPrice()}"></p>
+                </div>
+                <div>
+                    <a th:href="@{/product/edit-product/{id}(id=${pro.id})}">Edit</a>
+                    <a th:href="@{/product/delete-product/{id}(id=${pro.id})}">Delete</a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+</body>
+</html>
