@@ -6,7 +6,7 @@ import javax.persistence.*;
 
 @Entity
 @Table
-public class AppRole implements GrantedAuthority {
+public class AppRole implements GrantedAuthority{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

@@ -1,6 +1,12 @@
 package com.codegym.model;
 
+import org.springframework.validation.Errors;
+import org.springframework.validation.ValidationUtils;
+import org.springframework.validation.Validator;
+
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table
@@ -10,6 +16,8 @@ public class Category {
 
     private Long id;
 
+    @NotEmpty
+    @Size(min = 2, max = 100)
     private String name;
 
     public Category() {
