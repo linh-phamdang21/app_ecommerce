@@ -20,12 +20,12 @@ public class AppCustomer {
     @Pattern(regexp = "^$|[a-zA-Z0-9]*$")
     @NotEmpty
     @Size(min = 4, max = 220)
-    private String customerName;
+    private String username;
 
     @Pattern(regexp = "^$|[a-zA-Z0-9]*$")
     @NotEmpty
     @Size(min = 4, max = 220)
-    private String customerPass;
+    private String password;
 
     @Pattern(regexp = "^$|[0-9]*$")
     @NotEmpty
@@ -59,20 +59,20 @@ public class AppCustomer {
         this.id = id;
     }
 
-    public String getCustomerName() {
-        return customerName;
+    public String getUsername() {
+        return username;
     }
 
-    public void setCustomerName(String customerName) {
-        customerName = customerName;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
-    public String getCustomerPass() {
-        return customerPass;
+    public String getPassword() {
+        return password;
     }
 
-    public void setCustomerPass(String customerPass) {
-        customerPass = customerPass;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getPhone() {
