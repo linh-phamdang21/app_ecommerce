@@ -70,12 +70,15 @@
 <body>
 
 <div class="container">
-    <form method="post" th:action="@{/product/edit-product}" th:object="${product}">
-        <div class="container" style="width: 650px; margin-left: 400px">
+    <form method="post" th:action="@{/product/edit-product}" th:object="${products}">
+        <div class="container" style="width: 650px; margin-left: 400px; border: 1px solid black">
+        <div style="margin-left: 200px">
             <h1>Edit Product</h1>
+        </div>
             <hr>
+            <input type="hidden" th:field="*{id}">
             <label><b>Image</b></label>
-            <input type="file" placeholder="Enter image"  required th:field="*{image}">
+            <input type="text" th:field="*{image}">
             <br>
             <br>
             <label><b>Product Name</b></label>

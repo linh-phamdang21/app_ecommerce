@@ -71,8 +71,10 @@
 
 <div class="container">
     <form method="post" th:action="@{/product/create-product}" th:object="${product}">
-        <div class="container" style="width: 650px; margin-left: 400px">
-            <h1>Create Product</h1>
+        <div class="container" style="width: 650px; margin-left: 400px;border: 1px solid black">
+            <div style="margin-left: 180px">
+                <h1>Create Product</h1>
+            </div>
             <hr>
             <label><b>Image</b></label>
             <input type="file" placeholder="Enter image"  required th:field="*{image}">

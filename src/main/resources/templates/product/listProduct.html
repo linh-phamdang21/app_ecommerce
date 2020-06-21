@@ -17,34 +17,12 @@
                 </div>
                 <div>
                     <a th:href="@{/product/edit-product/{id}(id=${pro.id})}">Edit</a>
+                    <a th:href="@{/product/delete-product/{id}(id=${pro.id})}">Delete</a>
                 </div>
             </div>
         </form>
     </div>
 </div>
-<!--<div class="container">-->
 
-<!--    <table class="table">-->
-<!--        <thead class="thead-dark">-->
-<!--        <tr>-->
-<!--            <th scope="col">ID</th>-->
-<!--            <th scope="col">Product Name</th>-->
-<!--            <th scope="col">Image</th>-->
-<!--            <th scope="col">Price</th>-->
-<!--            <th scope="col">Describes</th>-->
-<!--        </tr>-->
-<!--        </thead>-->
-<!--        <tbody>-->
-<!--        <tr th:each="pro:${product}">-->
-<!--            <td th:text="${pro.id}"></td>-->
-<!--            <td th:text="${pro.productName}"></td>-->
-<!--            <td><img th:src="@{/static/images/{img}(img=${pro.image})}" ></td>-->
-<!--            <td th:text="${pro.price}"></td>-->
-<!--            <td th:text="${pro.describes}"></td>-->
-<!--        </tr>-->
-<!--        </tbody>-->
-<!--    </table>-->
-
-<!--</div>-->
 </body>
 </html>

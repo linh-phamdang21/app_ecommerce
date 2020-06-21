@@ -3,6 +3,7 @@ package com.codegym.controller;
 import com.codegym.model.Product;
 import com.codegym.service.product.IProduceService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -37,9 +38,23 @@ public class ProductController {
         return modelAndView;
     }
     @GetMapping("edit-product/{id}")
-    public ModelAndView editProduct(@PathVariable Long id){
+    public ModelAndView showEditProduct(@PathVariable Long id){
         ModelAndView modelAndView = new ModelAndView("/product/editProduct");
-        modelAndView.addObject("product",produceService.getById(id));
+        modelAndView.addObject("products",produceService.getById(id));
+        return  modelAndView;
+    }
+    @PostMapping("edit-product")
+    public  ModelAndView editProduct(@ModelAttribute Product products){
+        ModelAndView modelAndView = new ModelAndView("/product/listProduct");
+        produceService.save(products);
+        modelAndView.addObject("product",produceService.findAll());
+        return modelAndView;
+    }
+    @GetMapping("delete-product/{id}")
+    public ModelAndView deleteProduct(@PathVariable Long id){
+        ModelAndView modelAndView = new ModelAndView("/product/listProduct");
+        produceService.remove(id);
+        modelAndView.addObject("product",produceService.findAll());
         return  modelAndView;
     }
 }
