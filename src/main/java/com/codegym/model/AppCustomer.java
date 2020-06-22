@@ -1,6 +1,13 @@
 package com.codegym.model;
 
+import org.springframework.validation.Errors;
+import org.springframework.validation.ValidationUtils;
+import org.springframework.validation.Validator;
+
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table
@@ -10,12 +17,24 @@ public class AppCustomer {
 
     private Long id;
 
+    @Pattern(regexp = "^$|[a-zA-Z0-9]*$")
+    @NotEmpty
+    @Size(min = 4, max = 220)
     private String username;
 
+    @Pattern(regexp = "^$|[a-zA-Z0-9]*$")
+    @NotEmpty
+    @Size(min = 4, max = 220)
     private String password;
 
+    @Pattern(regexp = "^$|[0-9]*$")
+    @NotEmpty
+    @Size(min = 10, max = 11)
     private String phone;
 
+    @Pattern(regexp = "^$|[a-zA-Z0-9]*$")
+    @NotEmpty
+    @Size(min = 4, max = 220)
     private String address;
 
     @ManyToOne
@@ -72,3 +91,4 @@ public class AppCustomer {
         this.address = address;
     }
 }
+

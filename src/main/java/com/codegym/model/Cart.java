@@ -6,7 +6,7 @@ import java.util.List;
 
 public class Cart {
 
-    private List<Product> products;
+    private List<CartProduct> products;
 
     private int totalQuantity;
 
@@ -20,11 +20,11 @@ public class Cart {
         totalPrice=0;
     }
 
-    public List<Product> getProduct() {
+    public List<CartProduct> getProduct() {
         return products;
     }
 
-    public void setProduct(List<Product> product) {
+    public void setProduct(List<CartProduct> product) {
         this.products = product;
     }
 
