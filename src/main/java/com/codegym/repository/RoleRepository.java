@@ -1,0 +1,11 @@
+package com.codegym.repository;
+
+import com.codegym.model.AppRole;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
+
+@Repository
+public interface RoleRepository extends JpaRepository<AppRole, Long> {
+    AppRole findByid(Long id);
+}

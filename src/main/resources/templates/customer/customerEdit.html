@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Product</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+          integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+</head>
+<body>
+
+<div style="margin: auto; width: 800px">
+    <h1 style="margin: auto"> Customer List </h1>
+    <br>
+    <form th:action="@{/customer_edit}" th:object="${customer}" method="post">
+        <input th:type="hidden" name="id" th:field="*{id}">
+        <table class="table table-striped row" style="margin: auto">
+            <tr>
+                <td th:text="Username" style="width: 200px"></td>
+                <td>
+                    <input type="text" th:field="*{username}">
+                </td>
+            </tr>
+
+            <tr>
+                <td th:text="Password" style="width: 200px"></td>
+                <td>
+                    <input type="text" th:field="*{password}">
+                </td>
+            </tr>
+
+            <tr>
+                <td th:text="Phone" style="width: 150px"></td>
+                <td>
+                    <input type="text" th:field="*{phone}">
+                </td>
+            </tr>
+
+            <tr>
+                <td th:text="Address" style="width: 200px"></td>
+                <td>
+                    <input type="text" th:field="*{address}">
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <input type="submit" value="Edit">
+                </td>
+            </tr>
+
+        </table>
+        <div style="margin-left: 40px">
+            <a th:href="@{/customer_list}"> Back to list </a>
+        </div>
+    </form>
+
+</div>
+
+</body>
+</html>
