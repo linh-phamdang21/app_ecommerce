@@ -10,6 +10,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -38,6 +40,8 @@ public class ProductService implements IProduceService {
     public void remove(Long id) {
         productRepository.deleteById(id);
     }
+
+
 
     @Override
     public Page<Product> findAll(Pageable pageable) {
