@@ -1,13 +1,19 @@
 package com.codegym.controller;
 
+import com.codegym.model.Category;
 import com.codegym.model.Product;
+import com.codegym.service.category.ICategoryService;
 import com.codegym.service.product.IProduceService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.web.PageableDefault;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.awt.*;
 import java.util.Optional;
 
 @Controller
@@ -15,46 +21,67 @@ import java.util.Optional;
 public class ProductController {
     @Autowired
     private IProduceService produceService;
+    @Autowired
+    private ICategoryService categoryService;
+
+    @ModelAttribute("categories")
+    public Iterable<Category> categories() {
+        return categoryService.findAll();
+    }
 
     @GetMapping("/list")
-    public ModelAndView showListProduct(){
-        ModelAndView modelAndView = new ModelAndView("/product/listProduct");
-        Iterable<Product> products = produceService.findAll();
-        modelAndView.addObject("product",products);
+    public ModelAndView listProduct(@RequestParam("s") Optional<String> s,
+                                    @RequestParam(defaultValue = "0") int page,
+                                    @RequestParam(defaultValue = "4") int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        Page<Product> products;
+        if (s.isPresent()) {
+            products = produceService.findAllByProductNameContaining(s.get(), pageable);
+        } else {
+            products = produceService.findAll(pageable);
+        }
+        ModelAndView modelAndView = new ModelAndView("product/listProduct");
+        modelAndView.addObject("products", products);
         return modelAndView;
     }
 
     @GetMapping("/create-product")
-    public ModelAndView showCreateProduct(){
+    public ModelAndView showCreateProduct() {
         ModelAndView modelAndView = new ModelAndView("/product/createProduct");
-        modelAndView.addObject("product",new Product());
+        modelAndView.addObject("product", new Product());
         return modelAndView;
     }
+
     @PostMapping("/create-product")
-    public ModelAndView  createProduct(@ModelAttribute Product product){
-        ModelAndView modelAndView = new ModelAndView("/product/listProduct");
+    public ModelAndView createProduct(@ModelAttribute Product product) {
+        ModelAndView modelAndView = new ModelAndView("/product/createProduct");
         produceService.save(product);
-        modelAndView.addObject("product",produceService.findAll());
+        modelAndView.addObject("message", "create success");
         return modelAndView;
     }
+
     @GetMapping("edit-product/{id}")
-    public ModelAndView showEditProduct(@PathVariable Long id){
+    public ModelAndView showEditProduct(@PathVariable Long id) {
         ModelAndView modelAndView = new ModelAndView("/product/editProduct");
-        modelAndView.addObject("products",produceService.getById(id));
-        return  modelAndView;
-    }
-    @PostMapping("edit-product")
-    public  ModelAndView editProduct(@ModelAttribute Product products){
-        ModelAndView modelAndView = new ModelAndView("/product/listProduct");
-        produceService.save(products);
-        modelAndView.addObject("product",produceService.findAll());
+        modelAndView.addObject("product", produceService.getById(id));
         return modelAndView;
     }
+
+    @PostMapping("edit-product")
+    public ModelAndView editProduct(@ModelAttribute Product products) {
+        ModelAndView modelAndView = new ModelAndView("/product/editProduct");
+        Product product = produceService.save(products);
+        if (product != null) {
+            modelAndView.addObject("edit", "Edit success");
+        } else {
+            modelAndView.addObject("edit", "Edit no success");
+        }
+        return modelAndView;
+    }
+
     @GetMapping("delete-product/{id}")
-    public ModelAndView deleteProduct(@PathVariable Long id){
-        ModelAndView modelAndView = new ModelAndView("/product/listProduct");
+    public ModelAndView deleteProduct(@PathVariable Long id) {
         produceService.remove(id);
-        modelAndView.addObject("product",produceService.findAll());
-        return  modelAndView;
+        return new ModelAndView("redirect:/product/list");
     }
 }
