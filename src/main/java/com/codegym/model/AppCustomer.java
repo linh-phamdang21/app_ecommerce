@@ -17,24 +17,24 @@ public class AppCustomer {
 
     private Long id;
 
-    @Pattern(regexp = "^$|[a-zA-Z0-9]*$")
+//    @Pattern(regexp = "^$|[a-zA-Z0-9]*$")
     @NotEmpty
-    @Size(min = 4, max = 220)
+//    @Size(min = 4, max = 220)
     private String username;
 
-    @Pattern(regexp = "^$|[a-zA-Z0-9]*$")
+//    @Pattern(regexp = "^$|[a-zA-Z0-9]*$")
     @NotEmpty
-    @Size(min = 4, max = 220)
+//    @Size(min = 4, max = 220)
     private String password;
 
-    @Pattern(regexp = "^$|[0-9]*$")
+//    @Pattern(regexp = "^$|[0-9]*$")
     @NotEmpty
-    @Size(min = 10, max = 11)
+//    @Size(min = 10, max = 11)
     private String phone;
 
-    @Pattern(regexp = "^$|[a-zA-Z0-9]*$")
+//    @Pattern(regexp = "^$|[a-zA-Z0-9]*$")
     @NotEmpty
-    @Size(min = 4, max = 220)
+//    @Size(min = 4, max = 220)
     private String address;
 
     @ManyToOne
@@ -49,6 +49,14 @@ public class AppCustomer {
     }
 
     public AppCustomer() {
+    }
+    public AppCustomer(Long id, String username, String password, String phone, String address, AppRole role) {
+        this.id = id;
+        this.username = username;
+        this.password = password;
+        this.phone = phone;
+        this.address = address;
+        this.appRole = role;
     }
 
     public Long getId() {

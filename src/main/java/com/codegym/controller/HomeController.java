@@ -1,5 +1,6 @@
 package com.codegym.controller;
 
+
 import com.codegym.model.Cart;
 import com.codegym.model.CartProduct;
 import com.codegym.model.Product;
@@ -21,6 +22,22 @@ import org.springframework.web.servlet.ModelAndView;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.codegym.model.AppCustomer;
+import com.codegym.model.AppRole;
+import com.codegym.service.approle.AppRoleService;
+import com.codegym.service.customer.ICustomerService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+
+import org.springframework.web.servlet.ModelAndView;
+
+import java.util.Optional;
+
+
 @Controller
 @SessionAttributes("cart")
 public class HomeController {
@@ -29,67 +46,76 @@ public class HomeController {
     private IProduceService produceService;
 
     @ModelAttribute("cart")
-    public Cart setUpCart(){
+    public Cart setUpCart() {
         return new Cart();
     }
 
+    @Autowired
+    private ICustomerService customerService;
+
+    @Autowired
+    private AppRoleService appRoleService;
+
+
     @GetMapping("/loginForm")
-    public String showLoginForm(){
-        return "loginForm";
+    public ModelAndView showLoginForm() {
+        ModelAndView modelAndView = new ModelAndView("loginForm");
+        return modelAndView;
     }
 
     @GetMapping("/")
-    public ModelAndView homePage(){
+    public ModelAndView homePage() {
         ModelAndView modelAndView = new ModelAndView("index");
         List<Product> products = (List<Product>) produceService.findAll();
-      //  System.out.println(products.size());
+        //  System.out.println(products.size());
         List<Product> featuredProducts = new ArrayList<>();
-        for (int i = 0; i < 8; i++){
+        for (int i = 0; i < 8; i++) {
             featuredProducts.add(products.get(i));
         }
 //        System.out.println(featuredProducts.size());
-        modelAndView.addObject("featuredProducts",featuredProducts );
+        modelAndView.addObject("featuredProducts", featuredProducts);
         return modelAndView;
     }
 
     @GetMapping("/carts")
-    public ModelAndView cartPage(){
+    public ModelAndView cartPage() {
         ModelAndView modelAndView = new ModelAndView("cart");
         return modelAndView;
     }
 
     @GetMapping("/products")
-    public ModelAndView productPage(){
+    public ModelAndView productPage() {
         ModelAndView modelAndView = new ModelAndView("product");
         return modelAndView;
     }
 
     @GetMapping("/product-detail")
-    public ModelAndView productDetailsPage(){
+    public ModelAndView productDetailsPage() {
         ModelAndView modelAndView = new ModelAndView("product-detail");
         return modelAndView;
     }
 
+
     @GetMapping("/blogs")
-    public ModelAndView details(){
+    public ModelAndView details() {
         ModelAndView modelAndView = new ModelAndView("blog");
         return modelAndView;
     }
 
     @GetMapping("/abouts")
-    public ModelAndView aboutPage(){
+    public ModelAndView aboutPage() {
         ModelAndView modelAndView = new ModelAndView("about");
         return modelAndView;
     }
 
     @GetMapping("/contacts")
-    public ModelAndView contactPage(){
+    public ModelAndView contactPage() {
         ModelAndView modelAndView = new ModelAndView("contact");
         return modelAndView;
     }
 
     @GetMapping("/blog-detail")
-    public ModelAndView blogDetailsPage(){
+    public ModelAndView blogDetailsPage() {
         ModelAndView modelAndView = new ModelAndView("blog-detail");
         return modelAndView;
     }
@@ -115,5 +141,58 @@ public class HomeController {
 //        System.out.println(totalQuantity);
 //        return new ResponseEntity<>(String.valueOf(totalQuantity), HttpStatus.OK);
 //    }
+
+
+    @GetMapping("/do_register")
+    public ModelAndView showRegisterForm() {
+        ModelAndView modelAndView = new ModelAndView("customer/registerForm");
+        AppCustomer appCustomer = new AppCustomer();
+        modelAndView.addObject("newCustomer", appCustomer);
+        return modelAndView;
+    }
+
+    @PostMapping("/do_register")
+    public ModelAndView createCustomer(@ModelAttribute("newCustomer") AppCustomer appCustomer){
+        AppRole appRole = appRoleService.getRoleById((long) 1);
+        appCustomer.setAppRole(appRole);
+        customerService.save(appCustomer);
+        ModelAndView modelAndView = new ModelAndView("customer/registerForm");
+        modelAndView.addObject("message", "Add new customer successfully!");
+        return modelAndView;
+    }
+
+    @GetMapping("/customer_list")
+    public ModelAndView showCustomerList() {
+        Iterable<AppCustomer> customers = customerService.findAll();
+        ModelAndView modelAndView = new ModelAndView("customer/customerList");
+        modelAndView.addObject("customers", customers);
+        return modelAndView;
+    }
+
+    @GetMapping("/customer_edit/{id}")
+    public ModelAndView showEditForm(@PathVariable("id") Long id) {
+        ModelAndView modelAndView = new ModelAndView("customer/customerEdit");
+        modelAndView.addObject("customer", customerService.getById(id));
+        return modelAndView;
+    }
+
+    @PostMapping("/customer_edit")
+    public String editCustomer(@ModelAttribute("customer") AppCustomer customer) {
+        customerService.save(customer);
+        return "redirect:/customer_list";
+    }
+
+    @GetMapping("/customer_delete/{id}")
+    public ModelAndView showDeleteForm(@PathVariable("id") Long id) {
+        ModelAndView modelAndView = new ModelAndView("customer/customerDelete");
+        modelAndView.addObject("customer", customerService.getById(id));
+        return modelAndView;
+    }
+
+    @PostMapping("/customer_delete")
+    public String deleteCustomer(@ModelAttribute("customer") AppCustomer customer) {
+        customerService.remove(customer.getId());
+        return "redirect:/customer_list";
+    }
 
 }

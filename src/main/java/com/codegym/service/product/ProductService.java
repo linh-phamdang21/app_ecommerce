@@ -3,6 +3,8 @@ package com.codegym.service.product;
 import com.codegym.model.Product;
 import com.codegym.repository.IProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -37,6 +39,18 @@ public class ProductService implements IProduceService {
     @Override
     public void remove(Long id) {
         productRepository.deleteById(id);
+    }
+
+
+
+    @Override
+    public Page<Product> findAll(Pageable pageable) {
+        return productRepository.findAll(pageable);
+    }
+
+    @Override
+    public Page<Product> findAllByProductNameContaining(String productName, Pageable pageable) {
+        return productRepository.findAllByProductNameContaining(productName,pageable);
     }
 
 }
