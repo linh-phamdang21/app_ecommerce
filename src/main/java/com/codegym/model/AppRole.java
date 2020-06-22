@@ -12,6 +12,8 @@ public class AppRole implements GrantedAuthority{
     private Long id;
     private String name;
 
+    public AppRole() {
+    }
 
     @Override
     public String getAuthority() {
