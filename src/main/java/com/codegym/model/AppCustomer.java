@@ -50,6 +50,14 @@ public class AppCustomer {
 
     public AppCustomer() {
     }
+    public AppCustomer(Long id, String username, String password, String phone, String address, AppRole role) {
+        this.id = id;
+        this.username = username;
+        this.password = password;
+        this.phone = phone;
+        this.address = address;
+        this.appRole = role;
+    }
 
     public Long getId() {
         return id;

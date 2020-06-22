@@ -6,5 +6,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
 public interface IProductRepository  extends PagingAndSortingRepository<Product ,Long> {
+
     Page<Product> findAllByProductNameContaining(String productName, Pageable pageable);
+
 }
