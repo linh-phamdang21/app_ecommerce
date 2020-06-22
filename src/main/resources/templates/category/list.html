@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+          integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="#">Navbar</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item ">
+                <a class="nav-link" th:href="@{/category/list}">List Category</a>
+            </li>
+            <li class="nav-item ">
+                <a class="nav-link" th:href="@{/category/create}">Create Category</a>
+            </li>
+        </ul>
+        <form class="form-inline my-2 my-lg-0">
+            <input class="form-control mr-sm-2" name="s" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-success my-2 my-sm-0" value="Search" type="submit">Search</button>
+        </form>
+    </div>
+</nav>
+
+<div class="container">
+    <table class="table table-hover" style="border: 1px solid black">
+        <thead>
+        <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Name</th>
+            <th scope="col">Edit</th>
+            <th scope="col">Delete</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="cate:${categories}">
+            <td th:text="${cate.id}"></td>
+            <td th:text="${cate.name}"></td>
+            <td>
+                <a th:href="@{/product/edit-product/{id}(id=${cate.id})}">Edit</a>
+            </td>
+            <td>
+                <a th:href="@{/product/delete-product/{id}(id=${cate.id})}">Delete</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <!--    <div>-->
+    <!--        <a th:href="@{'/product/list'(page=${products.number - 1})}" th:if="${products.hasPrevious()}">Previous</a>-->
+    <!--        <span th:text="${products.number + 1}"></span>/<span th:text="${products.totalPages}"></span>-->
+    <!--        <a th:href="@{'/product/list'(page=${products.number + 1})}" th:if="${products.hasNext()}">Next</a>-->
+    <!--    </div>-->
+</div>
+
+</body>
+</html>

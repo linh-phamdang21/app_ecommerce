@@ -67,7 +67,6 @@
         }
     </style>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 
 </head>
 <body>
@@ -80,42 +79,31 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item ">
-                <a class="nav-link" th:href="@{/product/list}">List Product</a>
+                <a class="nav-link" th:href="@{/category/list}">List Category</a>
             </li>
             <li class="nav-item ">
-                <a class="nav-link" th:href="@{/product/create-product}">Create Product</a>
+                <a class="nav-link" th:href="@{/category/create}">Create Category</a>
             </li>
         </ul>
     </div>
 </nav>
 <div class="container">
-    <div style="text-align: center ; color: red;margin-left: 100px">
-        <h1 th:text="${edit}" ></h1>
+    <div style="text-align: center ; color: red">
+        <h1 th:text="${message}" ></h1>
     </div>
-    <form method="post" th:action="@{/product/edit-product}"  th:object="${product}">
-        <div class="container" style="width: 600px; margin-left: 300px; border: 1px solid black">
-        <div style="margin-left: 200px">
-            <h1>Edit Product</h1>
-        </div>
-            <hr>
-            <input type="hidden" th:field="*{id}">
-            <label><b>Image</b></label>
-            <input type="text" th:field="*{image}">
+    <form method="post" th:action="@{/category/create}" th:object="${category}" >
+        <div class="container" style="width: 600px; margin-left: 300px;border: 1px solid black">
+            <div style="text-align: center">
+                <h1>Create Category</h1>
+            </div>
             <br>
             <br>
-            <label><b>Product Name</b></label>
-            <input type="text" placeholder="Enter Product Name" required th:field="*{productName}">
-
-            <label ><b>Price</b></label>
-            <input type="text" placeholder="Enter Price"  required th:field="*{price}">
-
-            <label ><b>Describes</b></label>
-            <hr>
-            <textarea style="width: 300px ;height: 150px" type="text" th:field="*{describes}" placeholder="Enter Describes"  required></textarea>
-            <button type="submit" class="registerbtn">Edit Product</button>
+            <label><b> Name Category </b></label>
+            <input type="text" placeholder="Enter Product Name" required th:field="*{name}">
+            <button type="submit" class="registerbtn">Create Category</button>
         </div>
-
     </form>
 </div>
+
 </body>
 </html>
