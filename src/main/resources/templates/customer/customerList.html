@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Product</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+          integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+</head>
+<body>
+
+<div style="margin: auto; width: 800px">
+    <h1 style="margin: auto"> Customer List </h1>
+    <br>
+    <form style="margin-left: 100px">
+        <span th:text="Search"></span>
+        <input type="text" name="s">
+        <input type="submit" th:value="Search">
+    </form>
+    <br>
+    <table class="table table-striped row" style="margin: auto">
+        <tr>
+            <td th:text="ID" style="width: 100px"></td>
+            <td th:text="Username" style="width: 200px"></td>
+            <td th:text="Password" style="width: 200px"></td>
+            <td th:text="Phone" style="width: 150px"></td>
+            <td th:text="Address" style="width: 200px"></td>
+            <td style="width: 50px"></td>
+            <td style="width: 50px"></td>
+        </tr>
+
+        <th:block th:each="customer : ${customers}">
+            <tr>
+                <td th:text="${customer.getId()}"></td>
+                <td th:text="${customer.getUsername()}"></td>
+                <td th:text="${customer.getPassword()}"></td>
+                <td th:text="${customer.getPhone()}"></td>
+                <td th:text="${customer.getAddress()}"></td>
+                <td><a th:href="@{/customer_edit/__${customer.id}__}" th:text="Edit"></a></td>
+                <td><a th:href="@{/customer_delete/__${customer.id}__}" th:text="Delete"></a></td>
+            </tr>
+        </th:block>
+    </table>
+    <br>
+    <a th:href="@{/logout}" style="margin-left: 100px">Logout</a>
+</div>
+
+<!--<div sec:authorize="isAuthenticated()">-->
+<!--    <div sec:authoriza="hasRole('ADMIN')">-->
+<!--        <div style="margin-left: 40px">-->
+<!--            <a th:href="@{'/customer_list'(page=${customers.number - 1})}" th:if="${products.hasPrevious()}" th:text="previous"></a>-->
+<!--            <span th:text="${customers.number + 1}"></span>/<span th:text="${products.totalPages}"></span>-->
+<!--            <a th:href="@{'/customer_list'(page=${customers.number + 1})}" th:if="${products.hasNext()}"th:text="next"></a>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
+
+</body>
+</html>
