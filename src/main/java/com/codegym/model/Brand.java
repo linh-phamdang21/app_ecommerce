@@ -12,8 +12,8 @@ public class Brand {
 
     private Long id;
 
-    @Size(min = 0, max = 100)
-    @Pattern(regexp = "^$|[a-zA-Z0-9]*$")
+//    @Size(min = 0, max = 100)
+//    @Pattern(regexp = "^$|[a-zA-Z0-9]*$")
     private String name;
 
     public Brand() {
