@@ -1,7 +1,9 @@
 package com.codegym.controller;
 
+import com.codegym.model.Brand;
 import com.codegym.model.Category;
 import com.codegym.model.Product;
+import com.codegym.service.Brand.IBrandService;
 import com.codegym.service.category.ICategoryService;
 import com.codegym.service.product.IProduceService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +25,13 @@ public class ProductController {
     private IProduceService produceService;
     @Autowired
     private ICategoryService categoryService;
+    @Autowired
+    private IBrandService brandService;
+
+    @ModelAttribute("brand")
+    public Iterable<Brand> brands(){
+        return brandService.findAll();
+    }
 
     @ModelAttribute("categories")
     public Iterable<Category> categories() {
@@ -32,7 +41,7 @@ public class ProductController {
     @GetMapping("/list")
     public ModelAndView listProduct(@RequestParam("s") Optional<String> s,
                                     @RequestParam(defaultValue = "0") int page,
-                                    @RequestParam(defaultValue = "4") int size) {
+                                    @RequestParam(defaultValue = "5") int size) {
         Pageable pageable = PageRequest.of(page, size);
         Page<Product> products;
         if (s.isPresent()) {
