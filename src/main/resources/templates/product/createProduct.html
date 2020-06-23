@@ -89,6 +89,7 @@
         </ul>
     </div>
 </nav>
+Language: <a href="?lang=en">English</a> |  <a href="?lang=vn">Vietnamese</a>
 <div class="container">
     <div style="text-align: center ; color: red">
         <h1 th:text="${message}"></h1>
@@ -112,7 +113,9 @@
             <label><b>Category</b></label>
             <td>
                 <select th:field="*{category}">
-                    <option th:each="cate : ${categories}" th:value="${cate.id}" th:text="${cate.name}"></option>
+                    <option th:each="cate : ${categories}"
+                            th:value="${cate.id}"
+                            th:text="${cate.name}"></option>
                 </select>
             </td>
             <br>

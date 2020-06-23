@@ -29,7 +29,7 @@ public class Product {
 //    @NotEmpty
 //    @Min(0)
     private float price;
-    @Size(min = 0, max = 200)
+//    @Size(min = 0, max = 200)
     private String describes;
 
     @ManyToOne
