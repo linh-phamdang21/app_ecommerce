@@ -7,16 +7,13 @@ import com.codegym.model.Product;
 import com.codegym.service.cart.ICartService;
 import com.codegym.service.product.IProduceService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.ArrayList;
@@ -30,7 +27,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import org.springframework.web.servlet.ModelAndView;
@@ -48,6 +44,11 @@ public class HomeController {
     @ModelAttribute("cart")
     public Cart setUpCart() {
         return new Cart();
+    }
+
+    @ModelAttribute("product")
+    public Iterable<Product> products(){
+        return produceService.findAll();
     }
 
     @Autowired
@@ -83,10 +84,27 @@ public class HomeController {
         return modelAndView;
     }
 
+//    @GetMapping("/products")
+//    public ModelAndView productPage() {
+//        ModelAndView modelAndView = new ModelAndView("product");
+//        modelAndView.addObject("products", produceService.findAll());
+//        return modelAndView;
+//    }
+
     @GetMapping("/products")
-    public ModelAndView productPage() {
+    public ModelAndView listProductPage(@RequestParam("s") Optional<String>s,
+                                        @RequestParam(defaultValue = "0") int page,
+                                        @RequestParam(defaultValue = "5") int size){
+
+        Pageable pageable= PageRequest.of(page,size);
+        Page<Product> products ;
+        if (s.isPresent()){
+            products = produceService.findAllByProductNameContaining(s.get(),pageable);
+        }else {
+            products = produceService.findAll(pageable);
+        }
         ModelAndView modelAndView = new ModelAndView("product");
-        modelAndView.addObject("products", produceService.findAll());
+        modelAndView.addObject("products",products);
         return modelAndView;
     }
 

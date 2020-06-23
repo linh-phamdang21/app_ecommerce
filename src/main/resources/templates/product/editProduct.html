@@ -90,13 +90,11 @@
 </nav>
 Language: <a href="?lang=en">English</a> |  <a href="?lang=vn">Vietnamese</a>
 <div class="container">
-    <div style="text-align: center ; color: red;margin-left: 100px">
-        <h1 th:text="${edit}" ></h1>
-    </div>
     <form method="post" th:action="@{/product/edit-product}"  th:object="${product}">
         <div class="container" style="width: 600px; margin-left: 300px; border: 1px solid black">
-        <div style="margin-left: 200px">
+        <div style="text-align: center">
             <h1>Edit Product</h1>
+            <span th:text="${edit}" ></span>
         </div>
             <hr>
             <input type="hidden" th:field="*{id}">
@@ -124,6 +122,15 @@ Language: <a href="?lang=en">English</a> |  <a href="?lang=vn">Vietnamese</a>
                         th:value="${b.id}"
                         th:text="${b.name}"
                         th:selected="(${b.id} == *{brand.id})">
+                </option>
+            </select>
+            <br>
+            <label ><b>Type</b></label>
+            <select name="Brand">
+                <option th:each="t : ${types}"
+                        th:value="${t.id}"
+                        th:text="${t.name}"
+                        th:selected="(${t.id} == *{type.id})">
                 </option>
             </select>
             <br>

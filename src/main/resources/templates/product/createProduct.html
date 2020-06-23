@@ -91,13 +91,11 @@
 </nav>
 Language: <a href="?lang=en">English</a> |  <a href="?lang=vn">Vietnamese</a>
 <div class="container">
-    <div style="text-align: center ; color: red">
-        <h1 th:text="${message}"></h1>
-    </div>
     <form method="post" th:action="@{/product/create-product}" th:object="${product}" id="newProduct">
         <div class="container" style="width: 600px; margin-left: 300px;border: 1px solid black">
-            <div style="text-align: center">
+            <div style="text-align: center ">
                 <h1>Create Product</h1>
+                <span th:text="${message}"></span>
             </div>
             <hr>
             <label><b>Image</b></label>
@@ -125,7 +123,9 @@ Language: <a href="?lang=en">English</a> |  <a href="?lang=vn">Vietnamese</a>
                     <option th:each="br : ${brand}"
                             th:value="${br.id}"
                             th:text="${br.name}"></option>
-
+                </select>
+            </td>
+            <label><b>Type</b></label>
             <td>
                 <select th:field="*{type}">
                     <option th:each="t : ${types}"

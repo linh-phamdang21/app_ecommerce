@@ -468,11 +468,10 @@
 						</div>
 
 						<div class="search-product pos-relative bo4 of-hidden">
-							<input class="s-text7 size6 p-l-23 p-r-50" type="text" name="search-product" placeholder="Search Products...">
-
-							<button class="flex-c-m size5 ab-r-m color2 color0-hov trans-0-4">
-								<i class="fs-12 fa fa-search" aria-hidden="true"></i>
-							</button>
+							<form class="form-inline my-2 my-lg-0">
+								<input class="form-control mr-sm-1" name="s" type="search" placeholder="Search" aria-label="Search">
+								<button class="btn btn-outline-success my-2 my-sm-0" value="Search" type="submit">Search</button>
+							</form>
 						</div>
 					</div>
 				</div>
@@ -509,20 +508,19 @@
 					</div>
 
 					<!-- Product -->
-<<<<<<< HEAD
+
 					<div class="row">
-						<div class="col-sm-12 col-md-6 col-lg-4 p-b-50" th:each="product : ${products}">
+						<div class="col-sm-12 col-md-6 col-lg-4 p-b-50" th:each="pro : ${products}">
 							<!-- Block2 -->
 							<div class="block2">
 								<div class="block2-img wrap-pic-w of-hidden pos-relative block2-labelnew">
-									<img th:src="@{/images/{img}(img=${product.getImage()})}" alt="IMG-PRODUCT">
+									<img th:src="@{/images/{img}(img=${pro.getImage()})}" alt="IMG-PRODUCT">
 									<div class="block2-overlay trans-0-4">
 										<a href="#" class="block2-btn-addwishlist hov-pointer trans-0-4">
 											<i class="icon-wishlist icon_heart_alt" aria-hidden="true"></i>
 											<i class="icon-wishlist icon_heart dis-none" aria-hidden="true"></i>
 										</a>
-
-										<a class="add-to-cart block2-btn-addcart w-size1 trans-0-4" th:href="@{/api/carts/{id}(id=${product.getId()})}">
+										<a class="add-to-cart block2-btn-addcart w-size1 trans-0-4" th:href="@{/api/carts/{id}(id=${pro.getId()})}">
 											<!-- Button -->
 											<button class=" flex-c-m size1 bg4 bo-rad-23 hov1 s-text1 trans-0-4">
 												Add to Cart
@@ -532,441 +530,28 @@
 								</div>
 
 								<div class="block2-txt p-t-20">
-									<a th:text="${product.getProductName()}" href="product-detail.html" class="block2-name dis-block s-text3 p-b-5">
+									<a th:text="${pro.productName}" href="product-detail.html" class="block2-name dis-block s-text3 p-b-5">
 									</a>
-									<span th:text="${product.getPrice()}" class="block2-price m-text6 p-r-5">
+									<span th:text="${pro.price}" class="block2-price m-text6 p-r-5">
 								</span>
 								</div>
 							</div>
 						</div>
 					</div>
-
-					<!-- Pagination -->
-					<div class="pagination flex-m flex-w p-t-26">
-						<a href="#" class="item-pagination flex-c-m trans-0-4 active-pagination">1</a>
-						<a href="#" class="item-pagination flex-c-m trans-0-4">2</a>
-=======
-
 					<div>
-
->>>>>>> 9982cb33cd8596e34caf3b2f0d23ebb0f7d8b06e
+						<a th:href="@{'/products'(page=${products.number - 1})}" th:if="${products.hasPrevious()}">Previous</a>
+						<span th:text="${products.number + 1}"></span>/<span th:text="${products.totalPages}"></span>
+						<a th:href="@{'/products'(page=${products.number + 1})}" th:if="${products.hasNext()}">Next</a>
 					</div>
-<!--					<div class="row">-->
-<!--						<div class="col-sm-12 col-md-6 col-lg-4 p-b-50">-->
-<!--							&lt;!&ndash; Block2 &ndash;&gt;-->
-<!--							<div class="block2">-->
-<!--								<div class="block2-img wrap-pic-w of-hidden pos-relative block2-labelnew">-->
-<!--									<img src="images/item-02.jpg" alt="IMG-PRODUCT">-->
-
-<!--									<div class="block2-overlay trans-0-4">-->
-<!--										<a href="#" class="block2-btn-addwishlist hov-pointer trans-0-4">-->
-<!--											<i class="icon-wishlist icon_heart_alt" aria-hidden="true"></i>-->
-<!--											<i class="icon-wishlist icon_heart dis-none" aria-hidden="true"></i>-->
-<!--										</a>-->
-
-<!--										<div class="block2-btn-addcart w-size1 trans-0-4">-->
-<!--											&lt;!&ndash; Button &ndash;&gt;-->
-<!--											<button class="flex-c-m size1 bg4 bo-rad-23 hov1 s-text1 trans-0-4">-->
-<!--												Add to Cart-->
-<!--											</button>-->
-<!--										</div>-->
-<!--									</div>-->
-<!--								</div>-->
-
-<!--								<div class="block2-txt p-t-20">-->
-<!--									<a href="product-detail.html" class="block2-name dis-block s-text3 p-b-5">-->
-<!--										Herschel supply co 25l-->
-<!--									</a>-->
-
-<!--									<span class="block2-price m-text6 p-r-5">-->
-<!--										$75.00-->
-<!--									</span>-->
-<!--								</div>-->
-<!--							</div>-->
-<!--						</div>-->
-
-<!--						<div class="col-sm-12 col-md-6 col-lg-4 p-b-50">-->
-<!--							&lt;!&ndash; Block2 &ndash;&gt;-->
-<!--							<div class="block2">-->
-<!--								<div class="block2-img wrap-pic-w of-hidden pos-relative">-->
-<!--									<img src="images/item-03.jpg" alt="IMG-PRODUCT">-->
-
-<!--									<div class="block2-overlay trans-0-4">-->
-<!--										<a href="#" class="block2-btn-addwishlist hov-pointer trans-0-4">-->
-<!--											<i class="icon-wishlist icon_heart_alt" aria-hidden="true"></i>-->
-<!--											<i class="icon-wishlist icon_heart dis-none" aria-hidden="true"></i>-->
-<!--										</a>-->
-
-<!--										<div class="block2-btn-addcart w-size1 trans-0-4">-->
-<!--											&lt;!&ndash; Button &ndash;&gt;-->
-<!--											<button class="flex-c-m size1 bg4 bo-rad-23 hov1 s-text1 trans-0-4">-->
-<!--												Add to Cart-->
-<!--											</button>-->
-<!--										</div>-->
-<!--									</div>-->
-<!--								</div>-->
-
-<!--								<div class="block2-txt p-t-20">-->
-<!--									<a href="product-detail.html" class="block2-name dis-block s-text3 p-b-5">-->
-<!--										Denim jacket blue-->
-<!--									</a>-->
-
-<!--									<span class="block2-price m-text6 p-r-5">-->
-<!--										$92.50-->
-<!--									</span>-->
-<!--								</div>-->
-<!--							</div>-->
-<!--						</div>-->
-
-<!--						<div class="col-sm-12 col-md-6 col-lg-4 p-b-50">-->
-<!--							&lt;!&ndash; Block2 &ndash;&gt;-->
-<!--							<div class="block2">-->
-<!--								<div class="block2-img wrap-pic-w of-hidden pos-relative">-->
-<!--									<img src="images/item-05.jpg" alt="IMG-PRODUCT">-->
-
-<!--									<div class="block2-overlay trans-0-4">-->
-<!--										<a href="#" class="block2-btn-addwishlist hov-pointer trans-0-4">-->
-<!--											<i class="icon-wishlist icon_heart_alt" aria-hidden="true"></i>-->
-<!--											<i class="icon-wishlist icon_heart dis-none" aria-hidden="true"></i>-->
-<!--										</a>-->
-
-<!--										<div class="block2-btn-addcart w-size1 trans-0-4">-->
-<!--											&lt;!&ndash; Button &ndash;&gt;-->
-<!--											<button class="flex-c-m size1 bg4 bo-rad-23 hov1 s-text1 trans-0-4">-->
-<!--												Add to Cart-->
-<!--											</button>-->
-<!--										</div>-->
-<!--									</div>-->
-<!--								</div>-->
-
-<!--								<div class="block2-txt p-t-20">-->
-<!--									<a href="product-detail.html" class="block2-name dis-block s-text3 p-b-5">-->
-<!--										Coach slim easton black-->
-<!--									</a>-->
-
-<!--									<span class="block2-price m-text6 p-r-5">-->
-<!--										$165.90-->
-<!--									</span>-->
-<!--								</div>-->
-<!--							</div>-->
-<!--						</div>-->
-
-<!--						<div class="col-sm-12 col-md-6 col-lg-4 p-b-50">-->
-<!--							&lt;!&ndash; Block2 &ndash;&gt;-->
-<!--							<div class="block2">-->
-<!--								<div class="block2-img wrap-pic-w of-hidden pos-relative block2-labelsale">-->
-<!--									<img src="images/item-07.jpg" alt="IMG-PRODUCT">-->
-
-<!--									<div class="block2-overlay trans-0-4">-->
-<!--										<a href="#" class="block2-btn-addwishlist hov-pointer trans-0-4">-->
-<!--											<i class="icon-wishlist icon_heart_alt" aria-hidden="true"></i>-->
-<!--											<i class="icon-wishlist icon_heart dis-none" aria-hidden="true"></i>-->
-<!--										</a>-->
-
-<!--										<div class="block2-btn-addcart w-size1 trans-0-4">-->
-<!--											&lt;!&ndash; Button &ndash;&gt;-->
-<!--											<button class="flex-c-m size1 bg4 bo-rad-23 hov1 s-text1 trans-0-4">-->
-<!--												Add to Cart-->
-<!--											</button>-->
-<!--										</div>-->
-<!--									</div>-->
-<!--								</div>-->
-
-<!--								<div class="block2-txt p-t-20">-->
-<!--									<a href="product-detail.html" class="block2-name dis-block s-text3 p-b-5">-->
-<!--										Frayed denim shorts-->
-<!--									</a>-->
-
-<!--									<span class="block2-oldprice m-text7 p-r-5">-->
-<!--										$29.50-->
-<!--									</span>-->
-
-<!--									<span class="block2-newprice m-text8 p-r-5">-->
-<!--										$15.90-->
-<!--									</span>-->
-<!--								</div>-->
-<!--							</div>-->
-<!--						</div>-->
-
-<!--						<div class="col-sm-12 col-md-6 col-lg-4 p-b-50">-->
-<!--							&lt;!&ndash; Block2 &ndash;&gt;-->
-<!--							<div class="block2">-->
-<!--								<div class="block2-img wrap-pic-w of-hidden pos-relative block2-labelnew">-->
-<!--									<img src="images/item-01.jpg" alt="IMG-PRODUCT">-->
-
-<!--									<div class="block2-overlay trans-0-4">-->
-<!--										<a href="#" class="block2-btn-addwishlist hov-pointer trans-0-4">-->
-<!--											<i class="icon-wishlist icon_heart_alt" aria-hidden="true"></i>-->
-<!--											<i class="icon-wishlist icon_heart dis-none" aria-hidden="true"></i>-->
-<!--										</a>-->
-
-<!--										<div class="block2-btn-addcart w-size1 trans-0-4">-->
-<!--											&lt;!&ndash; Button &ndash;&gt;-->
-<!--											<button class="flex-c-m size1 bg4 bo-rad-23 hov1 s-text1 trans-0-4">-->
-<!--												Add to Cart-->
-<!--											</button>-->
-<!--										</div>-->
-<!--									</div>-->
-<!--								</div>-->
-
-<!--								<div class="block2-txt p-t-20">-->
-<!--									<a href="product-detail.html" class="block2-name dis-block s-text3 p-b-5">-->
-<!--										Herschel supply co 25l-->
-<!--									</a>-->
-
-<!--									<span class="block2-price m-text6 p-r-5">-->
-<!--										$75.00-->
-<!--									</span>-->
-<!--								</div>-->
-<!--							</div>-->
-<!--						</div>-->
-
-<!--						<div class="col-sm-12 col-md-6 col-lg-4 p-b-50">-->
-<!--							&lt;!&ndash; Block2 &ndash;&gt;-->
-<!--							<div class="block2">-->
-<!--								<div class="block2-img wrap-pic-w of-hidden pos-relative">-->
-<!--									<img src="images/item-14.jpg" alt="IMG-PRODUCT">-->
-
-<!--									<div class="block2-overlay trans-0-4">-->
-<!--										<a href="#" class="block2-btn-addwishlist hov-pointer trans-0-4">-->
-<!--											<i class="icon-wishlist icon_heart_alt" aria-hidden="true"></i>-->
-<!--											<i class="icon-wishlist icon_heart dis-none" aria-hidden="true"></i>-->
-<!--										</a>-->
-
-<!--										<div class="block2-btn-addcart w-size1 trans-0-4">-->
-<!--											&lt;!&ndash; Button &ndash;&gt;-->
-<!--											<button class="flex-c-m size1 bg4 bo-rad-23 hov1 s-text1 trans-0-4">-->
-<!--												Add to Cart-->
-<!--											</button>-->
-<!--										</div>-->
-<!--									</div>-->
-<!--								</div>-->
-
-<!--								<div class="block2-txt p-t-20">-->
-<!--									<a href="product-detail.html" class="block2-name dis-block s-text3 p-b-5">-->
-<!--										Denim jacket blue-->
-<!--									</a>-->
-
-<!--									<span class="block2-price m-text6 p-r-5">-->
-<!--										$92.50-->
-<!--									</span>-->
-<!--								</div>-->
-<!--							</div>-->
-<!--						</div>-->
-
-<!--						<div class="col-sm-12 col-md-6 col-lg-4 p-b-50">-->
-<!--							&lt;!&ndash; Block2 &ndash;&gt;-->
-<!--							<div class="block2">-->
-<!--								<div class="block2-img wrap-pic-w of-hidden pos-relative block2-labelnew">-->
-<!--									<img src="images/item-06.jpg" alt="IMG-PRODUCT">-->
-
-<!--									<div class="block2-overlay trans-0-4">-->
-<!--										<a href="#" class="block2-btn-addwishlist hov-pointer trans-0-4">-->
-<!--											<i class="icon-wishlist icon_heart_alt" aria-hidden="true"></i>-->
-<!--											<i class="icon-wishlist icon_heart dis-none" aria-hidden="true"></i>-->
-<!--										</a>-->
-
-<!--										<div class="block2-btn-addcart w-size1 trans-0-4">-->
-<!--											&lt;!&ndash; Button &ndash;&gt;-->
-<!--											<button class="flex-c-m size1 bg4 bo-rad-23 hov1 s-text1 trans-0-4">-->
-<!--												Add to Cart-->
-<!--											</button>-->
-<!--										</div>-->
-<!--									</div>-->
-<!--								</div>-->
-
-<!--								<div class="block2-txt p-t-20">-->
-<!--									<a href="product-detail.html" class="block2-name dis-block s-text3 p-b-5">-->
-<!--										Herschel supply co 25l-->
-<!--									</a>-->
-
-<!--									<span class="block2-price m-text6 p-r-5">-->
-<!--										$75.00-->
-<!--									</span>-->
-<!--								</div>-->
-<!--							</div>-->
-<!--						</div>-->
-
-<!--						<div class="col-sm-12 col-md-6 col-lg-4 p-b-50">-->
-<!--							&lt;!&ndash; Block2 &ndash;&gt;-->
-<!--							<div class="block2">-->
-<!--								<div class="block2-img wrap-pic-w of-hidden pos-relative">-->
-<!--									<img src="images/item-08.jpg" alt="IMG-PRODUCT">-->
-
-<!--									<div class="block2-overlay trans-0-4">-->
-<!--										<a href="#" class="block2-btn-addwishlist hov-pointer trans-0-4">-->
-<!--											<i class="icon-wishlist icon_heart_alt" aria-hidden="true"></i>-->
-<!--											<i class="icon-wishlist icon_heart dis-none" aria-hidden="true"></i>-->
-<!--										</a>-->
-
-<!--										<div class="block2-btn-addcart w-size1 trans-0-4">-->
-<!--											&lt;!&ndash; Button &ndash;&gt;-->
-<!--											<button class="flex-c-m size1 bg4 bo-rad-23 hov1 s-text1 trans-0-4">-->
-<!--												Add to Cart-->
-<!--											</button>-->
-<!--										</div>-->
-<!--									</div>-->
-<!--								</div>-->
-
-<!--								<div class="block2-txt p-t-20">-->
-<!--									<a href="product-detail.html" class="block2-name dis-block s-text3 p-b-5">-->
-<!--										Denim jacket blue-->
-<!--									</a>-->
-
-<!--									<span class="block2-price m-text6 p-r-5">-->
-<!--										$92.50-->
-<!--									</span>-->
-<!--								</div>-->
-<!--							</div>-->
-<!--						</div>-->
-
-<!--						<div class="col-sm-12 col-md-6 col-lg-4 p-b-50">-->
-<!--							&lt;!&ndash; Block2 &ndash;&gt;-->
-<!--							<div class="block2">-->
-<!--								<div class="block2-img wrap-pic-w of-hidden pos-relative">-->
-<!--									<img src="images/item-10.jpg" alt="IMG-PRODUCT">-->
-
-<!--									<div class="block2-overlay trans-0-4">-->
-<!--										<a href="#" class="block2-btn-addwishlist hov-pointer trans-0-4">-->
-<!--											<i class="icon-wishlist icon_heart_alt" aria-hidden="true"></i>-->
-<!--											<i class="icon-wishlist icon_heart dis-none" aria-hidden="true"></i>-->
-<!--										</a>-->
-
-<!--										<div class="block2-btn-addcart w-size1 trans-0-4">-->
-<!--											&lt;!&ndash; Button &ndash;&gt;-->
-<!--											<button class="flex-c-m size1 bg4 bo-rad-23 hov1 s-text1 trans-0-4">-->
-<!--												Add to Cart-->
-<!--											</button>-->
-<!--										</div>-->
-<!--									</div>-->
-<!--								</div>-->
-
-<!--								<div class="block2-txt p-t-20">-->
-<!--									<a href="product-detail.html" class="block2-name dis-block s-text3 p-b-5">-->
-<!--										Coach slim easton black-->
-<!--									</a>-->
-
-<!--									<span class="block2-price m-text6 p-r-5">-->
-<!--										$165.90-->
-<!--									</span>-->
-<!--								</div>-->
-<!--							</div>-->
-<!--						</div>-->
-
-<!--						<div class="col-sm-12 col-md-6 col-lg-4 p-b-50">-->
-<!--							&lt;!&ndash; Block2 &ndash;&gt;-->
-<!--							<div class="block2">-->
-<!--								<div class="block2-img wrap-pic-w of-hidden pos-relative block2-labelsale">-->
-<!--									<img src="images/item-11.jpg" alt="IMG-PRODUCT">-->
-
-<!--									<div class="block2-overlay trans-0-4">-->
-<!--										<a href="#" class="block2-btn-addwishlist hov-pointer trans-0-4">-->
-<!--											<i class="icon-wishlist icon_heart_alt" aria-hidden="true"></i>-->
-<!--											<i class="icon-wishlist icon_heart dis-none" aria-hidden="true"></i>-->
-<!--										</a>-->
-
-<!--										<div class="block2-btn-addcart w-size1 trans-0-4">-->
-<!--											&lt;!&ndash; Button &ndash;&gt;-->
-<!--											<button class="flex-c-m size1 bg4 bo-rad-23 hov1 s-text1 trans-0-4">-->
-<!--												Add to Cart-->
-<!--											</button>-->
-<!--										</div>-->
-<!--									</div>-->
-<!--								</div>-->
-
-<!--								<div class="block2-txt p-t-20">-->
-<!--									<a href="product-detail.html" class="block2-name dis-block s-text3 p-b-5">-->
-<!--										Frayed denim shorts-->
-<!--									</a>-->
-
-<!--									<span class="block2-oldprice m-text7 p-r-5">-->
-<!--										$29.50-->
-<!--									</span>-->
-
-<!--									<span class="block2-newprice m-text8 p-r-5">-->
-<!--										$15.90-->
-<!--									</span>-->
-<!--								</div>-->
-<!--							</div>-->
-<!--						</div>-->
-
-<!--						<div class="col-sm-12 col-md-6 col-lg-4 p-b-50">-->
-<!--							&lt;!&ndash; Block2 &ndash;&gt;-->
-<!--							<div class="block2">-->
-<!--								<div class="block2-img wrap-pic-w of-hidden pos-relative block2-labelnew">-->
-<!--									<img src="images/item-12.jpg" alt="IMG-PRODUCT">-->
-
-<!--									<div class="block2-overlay trans-0-4">-->
-<!--										<a href="#" class="block2-btn-addwishlist hov-pointer trans-0-4">-->
-<!--											<i class="icon-wishlist icon_heart_alt" aria-hidden="true"></i>-->
-<!--											<i class="icon-wishlist icon_heart dis-none" aria-hidden="true"></i>-->
-<!--										</a>-->
-
-<!--										<div class="block2-btn-addcart w-size1 trans-0-4">-->
-<!--											&lt;!&ndash; Button &ndash;&gt;-->
-<!--											<button class="flex-c-m size1 bg4 bo-rad-23 hov1 s-text1 trans-0-4">-->
-<!--												Add to Cart-->
-<!--											</button>-->
-<!--										</div>-->
-<!--									</div>-->
-<!--								</div>-->
-
-<!--								<div class="block2-txt p-t-20">-->
-<!--									<a href="product-detail.html" class="block2-name dis-block s-text3 p-b-5">-->
-<!--										Herschel supply co 25l-->
-<!--									</a>-->
-
-<!--									<span class="block2-price m-text6 p-r-5">-->
-<!--										$75.00-->
-<!--									</span>-->
-<!--								</div>-->
-<!--							</div>-->
-<!--						</div>-->
-
-<!--						<div class="col-sm-12 col-md-6 col-lg-4 p-b-50">-->
-<!--							&lt;!&ndash; Block2 &ndash;&gt;-->
-<!--							<div class="block2">-->
-<!--								<div class="block2-img wrap-pic-w of-hidden pos-relative">-->
-<!--									<img src="images/item-15.jpg" alt="IMG-PRODUCT">-->
-
-<!--									<div class="block2-overlay trans-0-4">-->
-<!--										<a href="#" class="block2-btn-addwishlist hov-pointer trans-0-4">-->
-<!--											<i class="icon-wishlist icon_heart_alt" aria-hidden="true"></i>-->
-<!--											<i class="icon-wishlist icon_heart dis-none" aria-hidden="true"></i>-->
-<!--										</a>-->
-
-<!--										<div class="block2-btn-addcart w-size1 trans-0-4">-->
-<!--											&lt;!&ndash; Button &ndash;&gt;-->
-<!--											<button class="flex-c-m size1 bg4 bo-rad-23 hov1 s-text1 trans-0-4">-->
-<!--												Add to Cart-->
-<!--											</button>-->
-<!--										</div>-->
-<!--									</div>-->
-<!--								</div>-->
-
-<!--								<div class="block2-txt p-t-20">-->
-<!--									<a href="product-detail.html" class="block2-name dis-block s-text3 p-b-5">-->
-<!--										Denim jacket blue-->
-<!--									</a>-->
-
-<!--									<span class="block2-price m-text6 p-r-5">-->
-<!--										$92.50-->
-<!--									</span>-->
-<!--								</div>-->
-<!--							</div>-->
-<!--						</div>-->
-<!--					</div>-->
-
-<!--					&lt;!&ndash; Pagination &ndash;&gt;-->
+					<!-- Pagination -->
 <!--					<div class="pagination flex-m flex-w p-t-26">-->
 <!--						<a href="#" class="item-pagination flex-c-m trans-0-4 active-pagination">1</a>-->
 <!--						<a href="#" class="item-pagination flex-c-m trans-0-4">2</a>-->
 <!--					</div>-->
-<!--				</div>-->
-<!--			</div>-->
-<!--		</div>-->
-<!--	</section>-->
-
+				</div>
+			</div>
+		</div>
+	</section>
 
 	<!-- Footer -->
 	<footer class="bg6 p-t-45 p-b-43 p-l-45 p-r-45">
@@ -1270,8 +855,8 @@
 			});
 		});
 	</script>
-<!--===============================================================================================-->
 	<script src="js/main.js"></script>
 
 </body>
+
 </html>
