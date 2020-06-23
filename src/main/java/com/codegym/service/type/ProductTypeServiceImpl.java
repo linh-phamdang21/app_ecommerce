@@ -32,7 +32,7 @@ public class ProductTypeServiceImpl implements IProductTypeService {
 
     @Override
     public Optional getById(Long id) {
-        return Optional.empty();
+        return typeReposity.findById(id);
     }
 
     public ProductType save(ProductType productType) {

@@ -40,6 +40,7 @@ Language: <a href="?lang=en">English</a> |  <a href="?lang=vn">Vietnamese</a>
             <th scope="col">Describes</th>
             <th scope="col">Category_Name</th>
             <th scope="col">brand</th>
+            <th scope="col">Type</th>
             <th scope="col">Action</th>
         </tr>
         </thead>
@@ -55,6 +56,7 @@ Language: <a href="?lang=en">English</a> |  <a href="?lang=vn">Vietnamese</a>
             <td th:text="${pro.describes}"></td>
             <td th:text="${pro.category.name}"></td>
             <td th:text="${pro.brand.name}"></td>
+            <td th:text="${pro.type.name}"></td>
             <td>
                 <a th:href="@{/product/edit-product/{id}(id=${pro.id})}">Edit</a>
                 <a th:href="@{/product/delete-product/{id}(id=${pro.id})}">Delete</a>

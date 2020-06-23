@@ -10,6 +10,5 @@ import org.springframework.stereotype.Service;
 public interface IProductTypeService extends IGenericService<ProductType> {
     Page<ProductType> findAll(Pageable pageable);
     Page<ProductType> findAllByNameContaining(String name, Pageable pageable);
-    Iterable<ProductType> findAll();
 }
 
