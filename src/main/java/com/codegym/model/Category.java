@@ -17,9 +17,9 @@ public class Category {
     private Long id;
 
 
-    @NotEmpty
-
-    @Size(min = 2, max = 100)
+//    @NotEmpty
+//
+//    @Size(min = 2, max = 100)
     private String name;
 
     public Category() {

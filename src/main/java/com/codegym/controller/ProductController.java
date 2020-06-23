@@ -63,7 +63,15 @@ public class ProductController {
     @GetMapping("edit-product/{id}")
     public ModelAndView showEditProduct(@PathVariable Long id) {
         ModelAndView modelAndView = new ModelAndView("/product/editProduct");
-        modelAndView.addObject("product", produceService.getById(id));
+        Optional<Product> product = produceService.getById(id);
+        if (product.isPresent()){
+            Product product1 = new Product();
+            product1 = product.get();
+            modelAndView.addObject("product", product1);
+        }else {
+            modelAndView.addObject("product", new Product());
+        }
+
         return modelAndView;
     }
 
@@ -76,6 +84,7 @@ public class ProductController {
         } else {
             modelAndView.addObject("edit", "Edit no success");
         }
+        produceService.save(products);
         return modelAndView;
     }
 
