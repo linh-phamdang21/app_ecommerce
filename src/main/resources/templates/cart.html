@@ -79,27 +79,27 @@
 							</li>
 
 							<li>
-								<a href="product.html">Shop</a>
+								<a href="/products">Shop</a>
 							</li>
 
 							<li class="sale-noti">
-								<a href="product.html">Sale</a>
+								<a href="/products">Sale</a>
 							</li>
 
 							<li>
-								<a href="cart.html">Features</a>
+								<a href="/carts">Cart</a>
 							</li>
 
 							<li>
-								<a href="blog.html">Blog</a>
+								<a href="/blogs">Blog</a>
 							</li>
 
 							<li>
-								<a href="about.html">About</a>
+								<a href="/abouts">About</a>
 							</li>
 
 							<li>
-								<a href="contact.html">Contact</a>
+								<a href="/contacts">Contact</a>
 							</li>
 						</ul>
 					</nav>
@@ -115,68 +115,36 @@
 
 					<div class="header-wrapicon2">
 						<img src="images/icons/icon-header-02.png" class="header-icon1 js-show-header-dropdown" alt="ICON">
-						<span class="header-icons-noti" id="quantity" th:text="${cart.getTotalQuantity()}"></span>
+						<span class="header-icons-noti" id="totalQuantity" th:text="${cart.getTotalQuantity()}"></span>
 
 						<!-- Header cart noti -->
 						<div class="header-cart header-dropdown">
-							<ul class="header-cart-wrapitem">
-								<li class="header-cart-item">
+							<ul class="header-cart-wrapitem" id="cart-dropdown">
+								<li class="header-cart-item" th:each="cartProduct : ${cart.getProduct()}">
 									<div class="header-cart-item-img">
-										<img src="images/item-cart-01.jpg" alt="IMG">
+										<img th:src="@{/images/{img}(img=${cartProduct.getImage()})}" alt="IMG">
 									</div>
 
 									<div class="header-cart-item-txt">
-										<a href="#" class="header-cart-item-name">
-											White Shirt With Pleat Detail Back
+										<a href="#" class="header-cart-item-name" th:text="${cartProduct.getName()}">
+
 										</a>
 
 										<span class="header-cart-item-info">
-											1 x $19.00
-										</span>
-									</div>
-								</li>
-
-								<li class="header-cart-item">
-									<div class="header-cart-item-img">
-										<img src="images/item-cart-02.jpg" alt="IMG">
-									</div>
-
-									<div class="header-cart-item-txt">
-										<a href="#" class="header-cart-item-name">
-											Converse All Star Hi Black Canvas
-										</a>
-
-										<span class="header-cart-item-info">
-											1 x $39.00
-										</span>
-									</div>
-								</li>
-
-								<li class="header-cart-item">
-									<div class="header-cart-item-img">
-										<img src="images/item-cart-03.jpg" alt="IMG">
-									</div>
-
-									<div class="header-cart-item-txt">
-										<a href="#" class="header-cart-item-name">
-											Nixon Porter Leather Watch In Tan
-										</a>
-
-										<span class="header-cart-item-info">
-											1 x $17.00
+                                        <span th:text="${cartProduct.getQuantity()}"></span> x $<span th:text="${cartProduct.getPrice()}"></span>
 										</span>
 									</div>
 								</li>
 							</ul>
 
 							<div class="header-cart-total">
-								Total: $75.00
+								Total: $<span id="totalPrice" th:text="${cart.getTotalPrice()}"></span>
 							</div>
 
 							<div class="header-cart-buttons">
 								<div class="header-cart-wrapbtn">
 									<!-- Button -->
-									<a href="cart.html" class="flex-c-m size1 bg1 bo-rad-20 hov1 s-text1 trans-0-4">
+									<a href="/carts" class="flex-c-m size1 bg1 bo-rad-20 hov1 s-text1 trans-0-4">
 										View Cart
 									</a>
 								</div>
@@ -274,7 +242,7 @@
 							<div class="header-cart-buttons">
 								<div class="header-cart-wrapbtn">
 									<!-- Button -->
-									<a href="cart.html" class="flex-c-m size1 bg1 bo-rad-20 hov1 s-text1 trans-0-4">
+									<a href="/carts" class="flex-c-m size1 bg1 bo-rad-20 hov1 s-text1 trans-0-4">
 										View Cart
 									</a>
 								</div>
@@ -393,52 +361,31 @@
 							<th class="column-5">Total</th>
 						</tr>
 
-						<tr class="table-row">
+						<tr class="table-row" th:each="cartProduct : ${cart.getProduct()}">
 							<td class="column-1">
 								<div class="cart-img-product b-rad-4 o-f-hidden">
-									<img src="images/item-10.jpg" alt="IMG-PRODUCT">
+									<img th:src="@{/images/{img}(img=${cartProduct.getImage()})}" alt="IMG-PRODUCT">
 								</div>
+								<p>
+									<span><a th:href="@{/api/carts/{id}(id=${cartProduct.getId()})}" class="deleteProduct">Delete</a></span>
+								</p>
 							</td>
-							<td class="column-2">Men Tshirt</td>
-							<td class="column-3">$36.00</td>
+							<td class="column-2" th:text="${cartProduct.getName()}"></td>
+							<td class="column-3">$ <span th:text="${cartProduct.getPrice()}"></span></td>
 							<td class="column-4">
 								<div class="flex-w bo5 of-hidden w-size17">
 									<button class="btn-num-product-down color1 flex-c-m size7 bg8 eff2">
 										<i class="fs-12 fa fa-minus" aria-hidden="true"></i>
 									</button>
 
-									<input class="size8 m-text18 t-center num-product" type="number" name="num-product1" value="1">
+									<input class="size8 m-text18 t-center num-product" type="number" name="num-product1" th:value="${cartProduct.getQuantity()}">
 
-									<button class="btn-num-product-up color1 flex-c-m size7 bg8 eff2">
+									<a class="btn-num-product-up color1 flex-c-m size7 bg8 eff2 plusOneProduct" th:href="@{/api/carts/{id}(id=${cartProduct.getId()})}">
 										<i class="fs-12 fa fa-plus" aria-hidden="true"></i>
-									</button>
+									</a>
 								</div>
 							</td>
-							<td class="column-5">$36.00</td>
-						</tr>
-
-						<tr class="table-row">
-							<td class="column-1">
-								<div class="cart-img-product b-rad-4 o-f-hidden">
-									<img src="images/item-05.jpg" alt="IMG-PRODUCT">
-								</div>
-							</td>
-							<td class="column-2">Mug Adventure</td>
-							<td class="column-3">$16.00</td>
-							<td class="column-4">
-								<div class="flex-w bo5 of-hidden w-size17">
-									<button class="btn-num-product-down color1 flex-c-m size7 bg8 eff2">
-										<i class="fs-12 fa fa-minus" aria-hidden="true"></i>
-									</button>
-
-									<input class="size8 m-text18 t-center num-product" type="number" name="num-product2" value="1">
-
-									<button class="btn-num-product-up color1 flex-c-m size7 bg8 eff2">
-										<i class="fs-12 fa fa-plus" aria-hidden="true"></i>
-									</button>
-								</div>
-							</td>
-							<td class="column-5">$16.00</td>
+							<td class="column-5">$ <span th:text="${cartProduct.getQuantity() * cartProduct.getPrice()}"></span></td>
 						</tr>
 					</table>
 				</div>
@@ -475,11 +422,11 @@
 				<!--  -->
 				<div class="flex-w flex-sb-m p-b-12">
 					<span class="s-text18 w-size19 w-full-sm">
-						Subtotal:
+						Total Quantity:
 					</span>
 
-					<span class="m-text21 w-size20 w-full-sm">
-						$39.00
+					<span th:text="${cart.getTotalQuantity()}" class="m-text21 w-size20 w-full-sm" id="totalQuantity1">
+
 					</span>
 				</div>
 
@@ -527,11 +474,11 @@
 				<!--  -->
 				<div class="flex-w flex-sb-m p-t-26 p-b-30">
 					<span class="m-text22 w-size19 w-full-sm">
-						Total:
+						Total Price:
 					</span>
 
 					<span class="m-text21 w-size20 w-full-sm">
-						$39.00
+						$ <span th:text="${cart.getTotalPrice()}" id="totalPrice1"></span>
 					</span>
 				</div>
 
@@ -748,6 +695,113 @@
 		$(".selection-2").select2({
 			minimumResultsForSearch: 20,
 			dropdownParent: $('#dropDownSelect2')
+		});
+
+		$(document).ready(function () {
+			$('.deleteProduct').click(function (event) {
+				let a = $(this);
+				let url = a.attr("href");
+				$.ajax({
+					headers: {
+						'Accept': 'application/json',
+						'Content-Type': 'application/json'
+					},
+					url: url,
+					type: "DELETE",
+					success: function (cart) {
+						a.parent().parent().parent().parent().remove();
+						let totalQuantity = "";
+						totalQuantity += "<span class='success'>";
+						totalQuantity += cart.totalQuantity + "</span>";
+
+						let totalPrice = "";
+						totalPrice += "<span class='success'>";
+						totalPrice += cart.totalPrice + "</span>";
+
+						let result = "";
+						for(let i = 0; i < cart.product.length; i++){
+							result += "<span class='success'>";
+							result += "<li class=\"header-cart-item\">";
+							result += "<div class=\"header-cart-item-img\">";
+							result += "<img src=images/" + cart.product[i].image +" alt=IMG>";
+							result += "</div>";
+							result += "<div class=\"header-cart-item-txt\">";
+							result += "<a href=\"#\" class=\"header-cart-item-name\">";
+							result += cart.product[i].name;
+							result += "</a>";
+							result += "<span class=\"header-cart-item-info\">";
+							result += "<span>";
+							result += cart.product[i].quantity;
+							result += " </span>";
+							result += "x $";
+							result += "<span>";
+							result += cart.product[i].price;
+							result += " </span>";
+							result += " </span>";
+							result += "</div>";
+							result += "</li>";
+							result +=  "</span>";
+						}
+						$('#cart-dropdown').html(result);
+
+						$('#totalQuantity').html(totalQuantity);
+						$('#totalPrice').html(totalPrice);
+						$('#totalQuantity1').html(totalQuantity);
+						$('#totalPrice1').html(totalPrice);
+					}
+				});
+				event.preventDefault();
+			});
+			$('.plusOneProduct').click(function (event) {
+				let a = $(this);
+				let url = a.attr("href");
+				$.ajax({
+					headers: {
+						'Accept': 'application/json',
+						'Content-Type': 'application/json'
+					},
+					url: url,
+					type: "GET",
+					success: function (cart) {
+						let totalQuantity = "";
+						let totalPrice = "";
+						totalQuantity += "<span class='success'>" + cart.totalQuantity + "</span>";
+						totalPrice += "<span class='success'>" + cart.totalPrice + "</span>";
+						$("#totalQuantity").html(totalQuantity);
+						$('#totalPrice').html(totalPrice);
+
+						let result = "";
+						for(let i = 0; i < cart.product.length; i++){
+							result += "<span class='success'>";
+							result += "<li class=\"header-cart-item\">";
+							result += "<div class=\"header-cart-item-img\">";
+							result += "<img src=images/" + cart.product[i].image +" alt=IMG>";
+							result += "</div>";
+							result += "<div class=\"header-cart-item-txt\">";
+							result += "<a href=\"#\" class=\"header-cart-item-name\">";
+							result += cart.product[i].name;
+							result += "</a>";
+							result += "<span class=\"header-cart-item-info\">";
+							result += "<span>";
+							result += cart.product[i].quantity;
+							result += " </span>";
+							result += "x $";
+							result += "<span>";
+							result += cart.product[i].price;
+							result += " </span>";
+							result += " </span>";
+							result += "</div>";
+							result += "</li>";
+							result +=  "</span>";
+						}
+						$('#cart-dropdown').html(result);
+						$('#totalQuantity1').html(totalQuantity);
+						$('#totalPrice1').html(totalPrice);
+
+					}
+				});
+				event.preventDefault();
+			});
 		});
 	</script>
 <!--===============================================================================================-->

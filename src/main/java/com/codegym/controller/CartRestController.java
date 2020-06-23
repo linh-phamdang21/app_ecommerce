@@ -1,5 +1,6 @@
 package com.codegym.controller;
 
+import com.codegym.model.Bill;
 import com.codegym.model.Cart;
 import com.codegym.model.CartProduct;
 import com.codegym.model.Product;
@@ -57,22 +58,21 @@ public class CartRestController {
         System.out.println(totalQuantity);
         return new ResponseEntity<>(cart, HttpStatus.OK);
     }
-//
-//    @DeleteMapping("/carts/{id}")
-//    public ResponseEntity<Bill> removeProduct(@PathVariable("id") Long id, @ModelAttribute("cart") Cart cart) {
-//        List<Product> products = cart.getProducts();
-//        boolean isProductExist = cartService.isExists(id, products);
-//        if (isProductExist) {
-//            cartService.remove(id, products);
-//            int totalQuantity = cartService.getTotalQuantity(products);
-//            cart.setTotalQuantity(totalQuantity);
-//            float totalPrice = cartService.getTotalPrice(products);
-//            cart.setTotalPrice(totalPrice);
-//            Bill bill = new Bill(totalQuantity, totalPrice);
-//            return new ResponseEntity<>(bill, HttpStatus.OK);
-//        } else {
-//            System.out.println("Unable to delete. Customer with id " + id + "not found");
-//            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-//        }
-//    }
+
+    @DeleteMapping("/carts/{id}")
+    public ResponseEntity<Cart> removeProduct(@PathVariable("id") Long id, @ModelAttribute("cart") Cart cart) {
+        List<CartProduct> products = cart.getProduct();
+        boolean isProductExist = cartService.isExists(id, products);
+        if (isProductExist) {
+            cartService.remove(id, products);
+            int totalQuantity = cartService.getTotalQuantity(products);
+            cart.setTotalQuantity(totalQuantity);
+            float totalPrice = cartService.getTotalPrice(products);
+            cart.setTotalPrice(totalPrice);
+            return new ResponseEntity<>(cart, HttpStatus.OK);
+        } else {
+            System.out.println("Unable to delete. Customer with id " + id + "not found");
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
 }

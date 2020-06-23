@@ -86,6 +86,7 @@ public class HomeController {
     @GetMapping("/products")
     public ModelAndView productPage() {
         ModelAndView modelAndView = new ModelAndView("product");
+        modelAndView.addObject("products", produceService.findAll());
         return modelAndView;
     }
 
