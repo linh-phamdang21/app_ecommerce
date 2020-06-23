@@ -38,6 +38,9 @@ public class Product {
     @ManyToOne
     private Brand brand;
 
+    @ManyToOne
+    private ProductType type;
+
     public Product() {
     }
 
@@ -95,5 +98,13 @@ public class Product {
 
     public void setBrand(Brand brand) {
         this.brand = brand;
+    }
+
+    public ProductType getType(){
+        return type;
+    }
+
+    public void setType(ProductType type){
+        this.type = type;
     }
 }

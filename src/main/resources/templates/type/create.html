@@ -66,74 +66,42 @@
             text-align: center;
         }
     </style>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
-          integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
 
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <a class="navbar-brand" href="#">Navbar</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item ">
-                <a class="nav-link" th:href="@{/product/list}">List Product</a>
+                <a class="nav-link" th:href="@{/type/list}">List Product type</a>
             </li>
             <li class="nav-item ">
-                <a class="nav-link" th:href="@{/product/create-product}">Create Product</a>
+                <a class="nav-link" th:href="@{/type/create}">Create Product type</a>
             </li>
         </ul>
     </div>
 </nav>
-Language: <a href="?lang=en">English</a> |  <a href="?lang=vn">Vietnamese</a>
 <div class="container">
     <div style="text-align: center ; color: red">
-        <h1 th:text="${message}"></h1>
+        <h1 th:text="${message}" ></h1>
     </div>
-    <form method="post" th:action="@{/product/create-product}" th:object="${product}" id="newProduct">
+    <form method="post" th:action="@{/type/create}" th:object="${type}" >
         <div class="container" style="width: 600px; margin-left: 300px;border: 1px solid black">
             <div style="text-align: center">
-                <h1>Create Product</h1>
+                <h1>Create Product Type</h1>
             </div>
-            <hr>
-            <label><b>Image</b></label>
-            <input type="file" placeholder="Enter image" required th:field="*{image}">
             <br>
             <br>
-            <label><b>Product Name</b></label>
-            <input type="text" placeholder="Enter Product Name" required th:field="*{productName}">
-
-            <label><b>Price</b></label>
-            <input type="text" placeholder="Enter Price" required th:field="*{price}">
-            <br>
-            <label><b>Category</b></label>
-            <td>
-                <select th:field="*{category}">
-                    <option th:each="cate : ${categories}"
-                            th:value="${cate.id}"
-                            th:text="${cate.name}"></option>
-                </select>
-            </td>
-            <td>
-                <select th:field="*{type}">
-                    <option th:each="t : ${types}"
-                            th:value="${t.id}"
-                            th:text="${t.name}"></option>
-                </select>
-            </td>
-            <br>
-            <br>
-            <label><b>Describes</b></label>
-            <hr>
-            <textarea style="width: 300px ;height: 150px" type="text" th:field="*{describes}"
-                      placeholder="Enter Describes" required></textarea>
-            <button type="submit" class="registerbtn">Create Product</button>
+            <label><b> Name </b></label>
+            <input type="text" placeholder="Enter Product Name" required th:field="*{name}">
+            <button type="submit" class="registerbtn">Create</button>
         </div>
-
     </form>
 </div>
 

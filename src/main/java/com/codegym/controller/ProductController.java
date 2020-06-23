@@ -2,8 +2,11 @@ package com.codegym.controller;
 
 import com.codegym.model.Category;
 import com.codegym.model.Product;
+import com.codegym.model.ProductType;
+import com.codegym.repository.ITypeReposity;
 import com.codegym.service.category.ICategoryService;
 import com.codegym.service.product.IProduceService;
+import com.codegym.service.type.IProductTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -19,14 +22,24 @@ import java.util.Optional;
 @Controller
 @RequestMapping("/product")
 public class ProductController {
+
     @Autowired
     private IProduceService produceService;
+
     @Autowired
     private ICategoryService categoryService;
+
+    @Autowired
+    private IProductTypeService typeService;
 
     @ModelAttribute("categories")
     public Iterable<Category> categories() {
         return categoryService.findAll();
+    }
+
+    @ModelAttribute("types")
+    public Iterable<ProductType> types(){
+        return typeService.findAll();
     }
 
     @GetMapping("/list")

@@ -13,8 +13,10 @@ import java.util.Optional;
 @Controller
 @RequestMapping("/category")
 public class CategoryController {
+
     @Autowired
     private  ICategoryService categoryService;
+
     @GetMapping("list")
     public ModelAndView listCategory(){
         ModelAndView modelAndView = new ModelAndView("category/list");
