@@ -121,62 +121,30 @@
 
                 <div class="header-wrapicon2">
                     <img src="images/icons/icon-header-02.png" class="header-icon1 js-show-header-dropdown" alt="ICON">
-                    <span class="header-icons-noti" id="quantity"></span>
+                    <span class="header-icons-noti" id="quantity" th:text="${cart.getTotalQuantity()}"></span>
 
                     <!-- Header cart noti -->
                     <div class="header-cart header-dropdown">
-                        <ul class="header-cart-wrapitem">
-                            <li class="header-cart-item">
+                        <ul class="header-cart-wrapitem" id="cart-dropdown">
+                            <li class="header-cart-item" th:each="cartProduct : ${cart.getProduct()}">
                                 <div class="header-cart-item-img">
-                                    <img src="images/Test.jpg" alt="IMG">
+                                    <img th:src="@{/images/{img}(img=${cartProduct.getImage()})}" alt="IMG">
                                 </div>
 
                                 <div class="header-cart-item-txt">
-                                    <a href="#" class="header-cart-item-name">
-                                        White Shirt With Pleat Detail Back
+                                    <a href="#" class="header-cart-item-name" th:text="${cartProduct.getName()}">
+
                                     </a>
 
                                     <span class="header-cart-item-info">
-											1 x $19.00
-										</span>
-                                </div>
-                            </li>
-
-                            <li class="header-cart-item">
-                                <div class="header-cart-item-img">
-                                    <img src="images/item-cart-02.jpg" alt="IMG">
-                                </div>
-
-                                <div class="header-cart-item-txt">
-                                    <a href="#" class="header-cart-item-name">
-                                        Converse All Star Hi Black Canvas
-                                    </a>
-
-                                    <span class="header-cart-item-info">
-											1 x $39.00
-										</span>
-                                </div>
-                            </li>
-
-                            <li class="header-cart-item">
-                                <div class="header-cart-item-img">
-                                    <img src="images/item-cart-03.jpg" alt="IMG">
-                                </div>
-
-                                <div class="header-cart-item-txt">
-                                    <a href="#" class="header-cart-item-name">
-                                        Nixon Porter Leather Watch In Tan
-                                    </a>
-
-                                    <span class="header-cart-item-info">
-											1 x $17.00
+                                        <span th:text="${cartProduct.getQuantity()}"></span> x $<span th:text="${cartProduct.getPrice()}"></span>
 										</span>
                                 </div>
                             </li>
                         </ul>
 
                         <div class="header-cart-total">
-                            Total: $75.00
+                            Total: $<span id="totalPrice" th:text="${cart.getTotalPrice()}"></span>
                         </div>
 
                         <div class="header-cart-buttons">
@@ -553,7 +521,7 @@
         <!-- Slide2 -->
         <div class="wrap-slick2">
             <div class="slick2 row">
-                <div class="item-slick2 p-l-15 p-r-15 col-3" th:each="product : ${featuredProducts}">
+                <div id="" class="item-slick2 p-l-15 p-r-15 col-3" th:each="product : ${featuredProducts}">
                     <!-- Block2 -->
                     <div class="block2">
                         <div class="block2-img wrap-pic-w of-hidden pos-relative block2-labelnew">
@@ -566,12 +534,12 @@
                                     <i class="icon-wishlist icon_heart dis-none" aria-hidden="true"></i>
                                 </a>
 
-                                <div class="block2-btn-addcart w-size1 trans-0-4">
+                                <a class="add-to-cart block2-btn-addcart w-size1 trans-0-4" th:href="@{/api/carts/{id}(id=${product.getId()})}">
                                     <!-- Button -->
-                                    <button class="flex-c-m size1 bg4 bo-rad-23 hov1 s-text1 trans-0-4">
+                                    <button class=" flex-c-m size1 bg4 bo-rad-23 hov1 s-text1 trans-0-4">
                                         Add to Cart
                                     </button>
-                                </div>
+                                </a>
                             </div>
                         </div>
 
@@ -1187,49 +1155,53 @@
         });
     });
     $(document).ready(function () {
-        $('#add-to-cart').submit(function (event) {
-            let id = $('#id1').val();
-            let newId = parseInt(id);
-            let name = $('#name').html();
-            let image = $('#image').val();
-            let price = $('#price').html();
-            let newPrice = parseFloat(price);
-            let describes = $('#describes1').val();
-            let category = $('#category1').val();
-            let brand = $('#brand1').val();
-            let quantity;
-            let json = {
-                "id": newId,
-                "name": name,
-                "image": image,
-                "price": newPrice,
-                "describes": describes,
-                "category": {
-                    "id": 1,
-                    "name": category
-                },
-                "brand": {
-                    "id": 1,
-                    "name": brand
-                }
-            };
+        $('.add-to-cart').click(function (event) {
+            let a = $(this);
+            let url = a.attr("href");
             $.ajax({
                 headers: {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json'
                 },
-                type: "POST",
-                data: JSON.stringify(json),
-                url: "/api/carts",
-                success: function (quan) {
-                    let respContent = "";
-                    respContent += "<span class='success'>" + quan + "</span>";
-                    //  respContent += quan +
-                    $("#quantity").html(respContent);
+                url: url,
+                type: "GET",
+                success: function (cart) {
+                    let totalQuantity = "";
+                    let totalPrice = "";
+                    totalQuantity += "<span class='success'>" + cart.totalQuantity + "</span>";
+                    totalPrice += "<span class='success'>" + cart.totalPrice + "</span>";
+                    $("#quantity").html(totalQuantity);
+                    $('#totalPrice').html(totalPrice);
+
+                    let result = "";
+                    for(let i = 0; i < cart.product.length; i++){
+                        result += "<span class='success'>";
+                        result += "<li class=\"header-cart-item\">";
+                        result += "<div class=\"header-cart-item-img\">";
+                        result += "<img src=images/" + cart.product[i].image +" alt=IMG>";
+                        result += "</div>";
+                        result += "<div class=\"header-cart-item-txt\">";
+                        result += "<a href=\"#\" class=\"header-cart-item-name\">";
+                        result += cart.product[i].name;
+                        result += "</a>";
+                        result += "<span class=\"header-cart-item-info\">";
+                        result += "<span>";
+                        result += cart.product[i].quantity;
+                        result += " </span>";
+                        result += "x $";
+                        result += "<span>";
+                        result += cart.product[i].price;
+                        result += " </span>";
+                        result += " </span>";
+                        result += "</div>";
+                        result += "</li>";
+                        result +=  "</span>";
+                    }
+                    $('#cart-dropdown').html(result);
                 }
             });
             event.preventDefault();
-        })
+        });
     });
 
 </script>
