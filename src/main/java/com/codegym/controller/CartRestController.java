@@ -75,4 +75,34 @@ public class CartRestController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
+
+    @DeleteMapping("/carts/minus/{id}")
+    public ResponseEntity<Cart> minusQuantityProduct(@PathVariable("id") Long id, @ModelAttribute("cart") Cart cart) {
+        List<CartProduct> products = cart.getProduct();
+        boolean isProductExist = cartService.isExists(id, products);
+        CartProduct product = cartService.findOne(id, products);
+        if (isProductExist && product.getQuantity() > 1 ) {
+            product.setQuantity(product.getQuantity() - 1);
+        }
+        int totalQuantity = cartService.getTotalQuantity(products);
+        cart.setTotalQuantity(totalQuantity);
+        float totalPrice = cartService.getTotalPrice(products);
+        cart.setTotalPrice(totalPrice);
+        return new ResponseEntity<>(cart, HttpStatus.OK);
+    }
+
+    @GetMapping("/carts/plus/{id}")
+    public ResponseEntity<Cart> plusQuantityProduct(@PathVariable Long id, @ModelAttribute("cart") Cart cart){
+        List<CartProduct> products = cart.getProduct();
+        boolean isProductExist = cartService.isExists(id, products);
+        CartProduct product = cartService.findOne(id, products);
+        if (isProductExist && product.getQuantity() < 10 ) {
+            product.setQuantity(product.getQuantity() + 1);
+        }
+        int totalQuantity = cartService.getTotalQuantity(products);
+        cart.setTotalQuantity(totalQuantity);
+        float totalPrice = cartService.getTotalPrice(products);
+        cart.setTotalPrice(totalPrice);
+        return new ResponseEntity<>(cart, HttpStatus.OK);
+    }
 }
