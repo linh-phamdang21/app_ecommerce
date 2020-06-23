@@ -470,6 +470,7 @@
 						<div class="search-product pos-relative bo4 of-hidden">
 							<form class="form-inline my-2 my-lg-0">
 								<input class="form-control mr-sm-1" name="s" type="search" placeholder="Search" aria-label="Search">
+								<br>
 								<button class="btn btn-outline-success my-2 my-sm-0" value="Search" type="submit">Search</button>
 							</form>
 						</div>
@@ -538,6 +539,7 @@
 							</div>
 						</div>
 					</div>
+
 					<div>
 						<a th:href="@{'/products'(page=${products.number - 1})}" th:if="${products.hasPrevious()}">Previous</a>
 						<span th:text="${products.number + 1}"></span>/<span th:text="${products.totalPages}"></span>
@@ -552,6 +554,20 @@
 			</div>
 		</div>
 	</section>
+
+
+					<!-- Pagination -->
+					<div class="pagination flex-m flex-w p-t-26">
+						<a href="#" class="item-pagination flex-c-m trans-0-4 active-pagination">1</a>
+						<a href="#" class="item-pagination flex-c-m trans-0-4">2</a>
+					</div>
+                </div>
+            </div>
+
+		</div>
+	</section>
+
+
 
 	<!-- Footer -->
 	<footer class="bg6 p-t-45 p-b-43 p-l-45 p-r-45">
