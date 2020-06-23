@@ -1,9 +1,14 @@
 package com.codegym.controller;
 
+import com.codegym.model.Brand;
 import com.codegym.model.Category;
 import com.codegym.model.Product;
+
+import com.codegym.service.Brand.IBrandService;
+
 import com.codegym.model.ProductType;
 import com.codegym.repository.ITypeReposity;
+
 import com.codegym.service.category.ICategoryService;
 import com.codegym.service.product.IProduceService;
 import com.codegym.service.type.IProductTypeService;
@@ -28,6 +33,13 @@ public class ProductController {
 
     @Autowired
     private ICategoryService categoryService;
+    @Autowired
+    private IBrandService brandService;
+
+    @ModelAttribute("brand")
+    public Iterable<Brand> brands(){
+        return brandService.findAll();
+    }
 
     @Autowired
     private IProductTypeService typeService;
@@ -45,7 +57,7 @@ public class ProductController {
     @GetMapping("/list")
     public ModelAndView listProduct(@RequestParam("s") Optional<String> s,
                                     @RequestParam(defaultValue = "0") int page,
-                                    @RequestParam(defaultValue = "4") int size) {
+                                    @RequestParam(defaultValue = "5") int size) {
         Pageable pageable = PageRequest.of(page, size);
         Page<Product> products;
         if (s.isPresent()) {

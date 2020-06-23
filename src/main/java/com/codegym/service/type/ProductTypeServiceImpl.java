@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 import java.util.Optional;
 
 @Service
-public class ProductTypeServiceImpl implements IProductTypeService{
+public class ProductTypeServiceImpl implements IProductTypeService {
 
     @Autowired
     private ITypeReposity typeReposity;
@@ -35,16 +35,11 @@ public class ProductTypeServiceImpl implements IProductTypeService{
         return Optional.empty();
     }
 
-    @Override
-    public Object save(Object model) {
-        return null;
-    }
-
-    public ProductType save(ProductType productType){
+    public ProductType save(ProductType productType) {
         return typeReposity.save(productType);
     }
 
-    public void remove(Long id){
+    public void remove(Long id) {
         typeReposity.deleteById(id);
     }
 }

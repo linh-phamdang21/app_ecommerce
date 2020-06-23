@@ -104,13 +104,13 @@ Language: <a href="?lang=en">English</a> |  <a href="?lang=vn">Vietnamese</a>
             <input type="file" placeholder="Enter image" required th:field="*{image}">
             <br>
             <br>
-            <label><b>Product Name</b></label>
+            <label><b>Product Name: </b></label>
             <input type="text" placeholder="Enter Product Name" required th:field="*{productName}">
 
-            <label><b>Price</b></label>
+            <label><b>Price: </b></label>
             <input type="text" placeholder="Enter Price" required th:field="*{price}">
             <br>
-            <label><b>Category</b></label>
+            <label><b>Category: </b></label>
             <td>
                 <select th:field="*{category}">
                     <option th:each="cate : ${categories}"
@@ -118,6 +118,14 @@ Language: <a href="?lang=en">English</a> |  <a href="?lang=vn">Vietnamese</a>
                             th:text="${cate.name}"></option>
                 </select>
             </td>
+
+            <label><b>Brand: </b></label>
+            <td>
+                <select th:field="*{brand}">
+                    <option th:each="br : ${brand}"
+                            th:value="${br.id}"
+                            th:text="${br.name}"></option>
+
             <td>
                 <select th:field="*{type}">
                     <option th:each="t : ${types}"
