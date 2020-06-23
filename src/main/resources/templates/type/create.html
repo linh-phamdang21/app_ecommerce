@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
@@ -67,7 +67,6 @@
         }
     </style>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 
 </head>
 <body>
@@ -80,59 +79,31 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item ">
-                <a class="nav-link" th:href="@{/product/list}">List Product</a>
+                <a class="nav-link" th:href="@{/type/list}">List Product type</a>
             </li>
             <li class="nav-item ">
-                <a class="nav-link" th:href="@{/product/create-product}">Create Product</a>
+                <a class="nav-link" th:href="@{/type/create}">Create Product type</a>
             </li>
         </ul>
     </div>
 </nav>
-Language: <a href="?lang=en">English</a> |  <a href="?lang=vn">Vietnamese</a>
 <div class="container">
-    <div style="text-align: center ; color: red;margin-left: 100px">
-        <h1 th:text="${edit}" ></h1>
+    <div style="text-align: center ; color: red">
+        <h1 th:text="${message}" ></h1>
     </div>
-    <form method="post" th:action="@{/product/edit-product}"  th:object="${product}">
-        <div class="container" style="width: 600px; margin-left: 300px; border: 1px solid black">
-        <div style="margin-left: 200px">
-            <h1>Edit Product</h1>
+    <form method="post" th:action="@{/type/create}" th:object="${type}" >
+        <div class="container" style="width: 600px; margin-left: 300px;border: 1px solid black">
+            <div style="text-align: center">
+                <h1>Create Product Type</h1>
+            </div>
+            <br>
+            <br>
+            <label><b> Name </b></label>
+            <input type="text" placeholder="Enter Product Name" required th:field="*{name}">
+            <button type="submit" class="registerbtn">Create</button>
         </div>
-            <hr>
-            <input type="hidden" th:field="*{id}">
-            <label><b>Image</b></label>
-            <input type="text" th:field="*{image}">
-            <br>
-            <br>
-            <label><b>Product Name</b></label>
-            <input type="text" placeholder="Enter Product Name" required th:field="*{productName}">
-
-            <label ><b>Price</b></label>
-            <input type="text" placeholder="Enter Price"  required th:field="*{price}">
-            <br>
-            <label ><b>Category</b></label>
-            <select name="category">
-                <option th:each="c : ${categories}"
-                        th:value="${c.id}"
-                        th:text="${c.name}"
-                        th:selected="(${c.id} == *{category.id})">
-                </option>
-            </select>
-            <label ><b>Brand</b></label>
-            <select name="Brand">
-                <option th:each="b : ${brand}"
-                        th:value="${b.id}"
-                        th:text="${b.name}"
-                        th:selected="(${b.id} == *{brand.id})">
-                </option>
-            </select>
-            <br>
-            <label ><b>Describes</b></label>
-            <textarea style="width: 300px ;height: 150px" type="text" th:field="*{describes}" placeholder="Enter Describes"  required></textarea>
-            <button type="submit" class="registerbtn">Edit Product</button>
-        </div>
-
     </form>
 </div>
+
 </body>
 </html>

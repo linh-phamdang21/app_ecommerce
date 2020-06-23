@@ -1,9 +1,17 @@
 package com.codegym.controller;
 
+import com.codegym.model.Brand;
 import com.codegym.model.Category;
 import com.codegym.model.Product;
+
+import com.codegym.service.Brand.IBrandService;
+
+import com.codegym.model.ProductType;
+import com.codegym.repository.ITypeReposity;
+
 import com.codegym.service.category.ICategoryService;
 import com.codegym.service.product.IProduceService;
+import com.codegym.service.type.IProductTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -19,20 +27,37 @@ import java.util.Optional;
 @Controller
 @RequestMapping("/product")
 public class ProductController {
+
     @Autowired
     private IProduceService produceService;
+
     @Autowired
     private ICategoryService categoryService;
+    @Autowired
+    private IBrandService brandService;
+
+    @ModelAttribute("brand")
+    public Iterable<Brand> brands(){
+        return brandService.findAll();
+    }
+
+    @Autowired
+    private IProductTypeService typeService;
 
     @ModelAttribute("categories")
     public Iterable<Category> categories() {
         return categoryService.findAll();
     }
 
+    @ModelAttribute("types")
+    public Iterable<ProductType> types(){
+        return typeService.findAll();
+    }
+
     @GetMapping("/list")
     public ModelAndView listProduct(@RequestParam("s") Optional<String> s,
                                     @RequestParam(defaultValue = "0") int page,
-                                    @RequestParam(defaultValue = "4") int size) {
+                                    @RequestParam(defaultValue = "5") int size) {
         Pageable pageable = PageRequest.of(page, size);
         Page<Product> products;
         if (s.isPresent()) {

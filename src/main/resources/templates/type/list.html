@@ -18,10 +18,10 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item ">
-                <a class="nav-link" th:href="@{/category/list}">List Category</a>
+                <a class="nav-link" th:href="@{/type/list}">List Product Type</a>
             </li>
             <li class="nav-item ">
-                <a class="nav-link" th:href="@{/category/create}">Create Category</a>
+                <a class="nav-link" th:href="@{/type/create}">Create Product Type</a>
             </li>
         </ul>
         <form class="form-inline my-2 my-lg-0">
@@ -37,24 +37,23 @@
         <tr>
             <th scope="col">ID</th>
             <th scope="col">Name</th>
+            <th scope="col">Edit</th>
             <th scope="col">Delete</th>
         </tr>
         </thead>
         <tbody>
-        <tr th:each="cate:${categories}">
-            <td th:text="${cate.id}"></td>
-            <td th:text="${cate.name}"></td>
+        <tr th:each="type: ${types}">
+            <td th:text="${type.id}"></td>
+            <td th:text="${type.name}"></td>
             <td>
-                <a th:href="@{/category/delete/{id}(id=${cate.id})}">Delete</a>
+                <a th:href="@{/product/edit-product/{id}(id=${type.id})}">Edit</a>
+            </td>
+            <td>
+                <a th:href="@{/product/delete-product/{id}(id=${type.id})}">Delete</a>
             </td>
         </tr>
         </tbody>
     </table>
-        <div>
-            <a th:href="@{'/category/list'(page=${categories.number - 1})}" th:if="${categories.hasPrevious()}">Previous</a>
-            <span th:text="${categories.number + 1}"></span>/<span th:text="${categories.totalPages}"></span>
-            <a th:href="@{'/category/list'(page=${categories.number + 1})}" th:if="${categories.hasNext()}">Next</a>
-        </div>
 </div>
 
 </body>

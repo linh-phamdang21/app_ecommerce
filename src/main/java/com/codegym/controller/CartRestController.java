@@ -55,7 +55,7 @@ public class CartRestController {
         cart.setTotalQuantity(totalQuantity);
         float totalPrice = cartService.getTotalPrice(products);
         cart.setTotalPrice(totalPrice);
-        System.out.println(totalQuantity);
+//        System.out.println(totalQuantity);
         return new ResponseEntity<>(cart, HttpStatus.OK);
     }
 

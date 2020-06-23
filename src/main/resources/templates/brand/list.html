@@ -18,10 +18,10 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item ">
-                <a class="nav-link" th:href="@{/category/list}">List Category</a>
+                <a class="nav-link" th:href="@{/brand/list}">List Brand</a>
             </li>
             <li class="nav-item ">
-                <a class="nav-link" th:href="@{/category/create}">Create Category</a>
+                <a class="nav-link" th:href="@{/brand/create}">Create Brand</a>
             </li>
         </ul>
         <form class="form-inline my-2 my-lg-0">
@@ -41,20 +41,20 @@
         </tr>
         </thead>
         <tbody>
-        <tr th:each="cate:${categories}">
-            <td th:text="${cate.id}"></td>
-            <td th:text="${cate.name}"></td>
+        <tr th:each="b : ${brands}">
+            <td th:text="${b.id}"></td>
+            <td th:text="${b.name}"></td>
             <td>
-                <a th:href="@{/category/delete/{id}(id=${cate.id})}">Delete</a>
+                <a th:href="@{/brand/delete/{id}(id=${b.id})}">Delete</a>
             </td>
         </tr>
         </tbody>
     </table>
-        <div>
-            <a th:href="@{'/category/list'(page=${categories.number - 1})}" th:if="${categories.hasPrevious()}">Previous</a>
-            <span th:text="${categories.number + 1}"></span>/<span th:text="${categories.totalPages}"></span>
-            <a th:href="@{'/category/list'(page=${categories.number + 1})}" th:if="${categories.hasNext()}">Next</a>
-        </div>
+    <div>
+        <a th:href="@{'/brand/list'(page=${brands.number - 1})}" th:if="${brands.hasPrevious()}">Previous</a>
+        <span th:text="${brands.number + 1}"></span>/<span th:text="${brands.totalPages}"></span>
+        <a th:href="@{'/brand/list'(page=${brands.number + 1})}" th:if="${brands.hasNext()}">Next</a>
+    </div>
 </div>
 
 </body>

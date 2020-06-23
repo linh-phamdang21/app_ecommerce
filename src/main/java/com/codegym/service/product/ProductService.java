@@ -19,8 +19,8 @@ import java.util.Optional;
 public class ProductService implements IProduceService {
     @Autowired
     private IProductRepository productRepository;
-    @PersistenceContext
-    EntityManager en;
+
+
     @Override
     public Iterable<Product> findAll() {
         return productRepository.findAll();
