@@ -18,6 +18,7 @@ import java.util.Optional;
 @Controller
 @RequestMapping("/category")
 public class CategoryController {
+
     @Autowired
     private ICategoryService categoryService;
 
@@ -36,6 +37,7 @@ public class CategoryController {
         modelAndView.addObject("categories", categories);
         return modelAndView;
     }
+
 
     @GetMapping("create")
     public ModelAndView showCreateCategory() {

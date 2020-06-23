@@ -47,7 +47,9 @@ Language: <a href="?lang=en">English</a> |  <a href="?lang=vn">Vietnamese</a>
         <tr th:each="pro:${products}">
             <td th:text="${pro.id}"></td>
             <td style="width: 200px"><img class="card-img-top" th:src="@{/images/{img}(img=${pro.getImage()})}"
+
                      width="90px" height="160px"/></td>
+
             <td th:text="${pro.productName}"></td>
             <td th:text="${pro.price}"></td>
             <td th:text="${pro.describes}"></td>
