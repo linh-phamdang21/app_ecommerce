@@ -25,7 +25,7 @@ public class TypeController {
     @Autowired
     private IProductTypeService productTypeService;
 
-    @ModelAttribute("types")
+    @ModelAttribute("type")
     public Iterable<ProductType> productTypes(){
         return productTypeService.findAll();
     }
