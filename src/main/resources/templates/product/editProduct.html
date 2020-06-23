@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
@@ -88,6 +88,7 @@
         </ul>
     </div>
 </nav>
+Language: <a href="?lang=en">English</a> |  <a href="?lang=vn">Vietnamese</a>
 <div class="container">
     <div style="text-align: center ; color: red;margin-left: 100px">
         <h1 th:text="${edit}" ></h1>
@@ -108,9 +109,18 @@
 
             <label ><b>Price</b></label>
             <input type="text" placeholder="Enter Price"  required th:field="*{price}">
-
-            <label ><b>Describes</b></label>
+            <br>
+            <label ><b>Category</b></label>
+            <select name="category">
+                <option th:each="c : ${categories}"
+                        th:value="${c.id}"
+                        th:text="${c.name}"
+                        th:selected="(${c.id} == *{category.id})">
+                </option>
+            </select>
             <hr>
+            <br>
+            <label ><b>Describes</b></label>
             <textarea style="width: 300px ;height: 150px" type="text" th:field="*{describes}" placeholder="Enter Describes"  required></textarea>
             <button type="submit" class="registerbtn">Edit Product</button>
         </div>

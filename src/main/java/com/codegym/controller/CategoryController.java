@@ -5,10 +5,7 @@ import com.codegym.service.category.ICategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.Optional;
@@ -36,6 +33,19 @@ public class CategoryController {
         ModelAndView modelAndView = new ModelAndView("category/create");
         categoryService.save(category);
         modelAndView.addObject("message","add success category");
+        return modelAndView;
+    }
+
+    @GetMapping("edit/{id}")
+    public ModelAndView showEdit(@PathVariable Long id){
+        ModelAndView modelAndView = new ModelAndView("category/edit");
+        Optional<Category> category = categoryService.getById(id);
+        if (category != null){
+            modelAndView.addObject("category",category);
+        }else {
+            modelAndView.addObject("category",new Category());
+        }
+
         return modelAndView;
     }
 }
