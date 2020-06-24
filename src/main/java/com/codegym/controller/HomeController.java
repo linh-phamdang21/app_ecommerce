@@ -47,7 +47,7 @@ public class HomeController {
     }
 
     @ModelAttribute("product")
-    public Iterable<Product> products(){
+    public Iterable<Product> products() {
         return produceService.findAll();
     }
 
@@ -92,19 +92,19 @@ public class HomeController {
 //    }
 
     @GetMapping("/products")
-    public ModelAndView listProductPage(@RequestParam("s") Optional<String>s,
+    public ModelAndView listProductPage(@RequestParam("s") Optional<String> s,
                                         @RequestParam(defaultValue = "0") int page,
-                                        @RequestParam(defaultValue = "5") int size){
+                                        @RequestParam(defaultValue = "5") int size) {
 
-        Pageable pageable= PageRequest.of(page,size);
-        Page<Product> products ;
-        if (s.isPresent()){
-            products = produceService.findAllByProductNameContaining(s.get(),pageable);
-        }else {
+        Pageable pageable = PageRequest.of(page, size);
+        Page<Product> products;
+        if (s.isPresent()) {
+            products = produceService.findAllByProductNameContaining(s.get(), pageable);
+        } else {
             products = produceService.findAll(pageable);
         }
         ModelAndView modelAndView = new ModelAndView("product");
-        modelAndView.addObject("products",products);
+        modelAndView.addObject("products", products);
         return modelAndView;
     }
 
@@ -178,6 +178,7 @@ public class HomeController {
         return modelAndView;
     }
 
+
     @GetMapping("/blog-detail")
     public ModelAndView blogDetailsPage() {
         ModelAndView modelAndView = new ModelAndView("blog-detail");
@@ -216,7 +217,7 @@ public class HomeController {
     }
 
     @PostMapping("/do_register")
-    public ModelAndView createCustomer(@ModelAttribute("newCustomer") AppCustomer appCustomer){
+    public ModelAndView createCustomer(@ModelAttribute("newCustomer") AppCustomer appCustomer) {
         AppRole appRole = appRoleService.getRoleById((long) 1);
         appCustomer.setAppRole(appRole);
         customerService.save(appCustomer);
@@ -259,4 +260,23 @@ public class HomeController {
         return "redirect:/customer_list";
     }
 
+    @PostMapping("/login")
+    public ModelAndView login(@ModelAttribute AppCustomer customer){
+        Iterable<AppCustomer> customers = customerService.findAll();
+        for (AppCustomer customer1 : customers){
+            if (customer.getUsername().equals(customer1.getUsername()) && customer.getPassword().equals(customer1.getPassword())){
+                ModelAndView modelAndView = new ModelAndView("bill");
+               AppCustomer customer2 = customerService.getCustomerByName(customer.getUsername());
+               customer.setId(customer2.getId());
+               customer.setUsername(customer2.getUsername());
+               customer.setPassword(customer2.getPassword());
+               customer.setPhone(customer2.getPhone());
+               customer.setAddress(customer2.getAddress());
+                modelAndView.addObject("customer", customer);
+                return modelAndView;
+            }
+        }
+        ModelAndView modelAndView = new ModelAndView("login");
+        return modelAndView;
+    }
 }
