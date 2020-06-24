@@ -381,28 +381,57 @@
 <!-- content page -->
 <section class="bgwhite p-t-66 p-b-60">
     <div class="container">
-        <div class="row">
-            <div class="col-md-12 p-b-30">
-                <form class="leave-comment" method="post" th:action="@{/product/buy}" th:object="${customer}">
+        <div class="">
+            <div class="p-b-30" style="width: 800px">
+                <form class="leave-comment" method="post" th:action="@{/cart-buy}" th:object="${customer}">
                     <h4 class="m-text26 p-b-36 p-t-15">
                         Thông tin khách hàng :
                     </h4>
-<!--                    username-->
+                    <!--                    username-->
                     <div>
                         <p>User Name:</p>
                         <p th:text="${customer.getUsername()}"></p>
                     </div>
-<!--                    so dien thoai-->
+                    <!--                    so dien thoai-->
                     <div>
                         <p>Phone Number:</p>
                         <p th:text="${customer.getPhone()}"></p>
                     </div>
-<!--                    dia chi-->
+                    <!--                    dia chi-->
                     <div>
                         <p>Address:</p>
                         <p th:text="${customer.getAddress()}"></p>
                     </div>
+                    <div class="header-icons" style="position: relative; top: 20px; left: 220px">
+                        <div class="header-wrapicon2">
+                            <img src="images/icons/icon-header-02.png" class="header-icon1 js-show-header-dropdown" alt="ICON">
+                            <span class="header-icons-noti" id="quantity" th:text="${cart.getTotalQuantity()}"></span>
+                            <!-- Header cart noti -->
+                            <div class="header-cart header-dropdown">
+                                <ul class="header-cart-wrapitem" id="cart-dropdown">
+                                    <li class="header-cart-item" th:each="cartProduct : ${cart.getProduct()}">
+                                        <div class="header-cart-item-img">
+                                            <img th:src="@{/images/{img}(img=${cartProduct.getImage()})}" alt="IMG">
+                                        </div>
+                                        <div class="header-cart-item-txt">
+                                            <a href="#" class="header-cart-item-name" th:text="${cartProduct.getName()}">
 
+                                            </a>
+
+                                            <span class="header-cart-item-info">
+                                        <span th:text="${cartProduct.getQuantity()}"></span> x $<span th:text="${cartProduct.getPrice()}"></span>
+										</span>
+                                        </div>
+                                    </li>
+                                </ul>
+
+                                <div class="header-cart-total">
+                                    Total: $<span id="totalPrice" th:text="${cart.getTotalPrice()}"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <h4 class="m-text26 p-b-36 p-t-15">Thông tin giao hàng</h4>
                     <div class="bo4 of-hidden size15 m-b-20">
                         <input class="sizefull s-text7 p-l-22 p-r-22" type="text" th:field="*{username}" placeholder="User Name">
                     </div>
@@ -415,11 +444,11 @@
                         <input class="sizefull s-text7 p-l-22 p-r-22" type="text" th:field="*{address}" placeholder="Address">
                     </div>
 
-<!--                    <textarea class="dis-block s-text7 size20 bo4 p-l-22 p-r-22 p-t-13 m-b-20" name="message" placeholder="Message"></textarea>-->
+                    <!--                    <textarea class="dis-block s-text7 size20 bo4 p-l-22 p-r-22 p-t-13 m-b-20" name="message" placeholder="Message"></textarea>-->
 
                     <div class="w-size25">
                         <!-- Button -->
-                        <button class="flex-c-m size2 bg1 bo-rad-23 hov1 m-text3 trans-0-4">
+                        <button type="submit" class="flex-c-m size2 bg1 bo-rad-23 hov1 m-text3 trans-0-4">
                             Send
                         </button>
                     </div>
@@ -641,4 +670,4 @@
 
 </body>
 </html>
->>>>>>> 9ff40b52464e7f74e1abcbe07f11e4cb91d3fb6c
+
