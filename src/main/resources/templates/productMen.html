@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Contact</title>
+    <title>Product</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!--===============================================================================================-->
@@ -27,9 +27,12 @@
     <!--===============================================================================================-->
     <link rel="stylesheet" type="text/css" href="vendor/slick/slick.css">
     <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="vendor/noui/nouislider.min.css">
+    <!--===============================================================================================-->
     <link rel="stylesheet" type="text/css" href="css/util.css">
     <link rel="stylesheet" type="text/css" href="css/main.css">
     <!--===============================================================================================-->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 </head>
 <body class="animsition">
 
@@ -119,64 +122,32 @@
 
                     <!-- Header cart noti -->
                     <div class="header-cart header-dropdown">
-                        <ul class="header-cart-wrapitem">
-                            <li class="header-cart-item">
+                        <ul class="header-cart-wrapitem" id="cart-dropdown">
+                            <li class="header-cart-item" th:each="cartProduct : ${cart.getProduct()}">
                                 <div class="header-cart-item-img">
-                                    <img src="images/item-cart-01.jpg" alt="IMG">
+                                    <img th:src="@{/images/{img}(img=${cartProduct.getImage()})}" alt="IMG">
                                 </div>
 
                                 <div class="header-cart-item-txt">
-                                    <a href="#" class="header-cart-item-name">
-                                        White Shirt With Pleat Detail Back
+                                    <a href="#" class="header-cart-item-name" th:text="${cartProduct.getName()}">
+
                                     </a>
 
                                     <span class="header-cart-item-info">
-											1 x $19.00
-										</span>
-                                </div>
-                            </li>
-
-                            <li class="header-cart-item">
-                                <div class="header-cart-item-img">
-                                    <img src="images/item-cart-02.jpg" alt="IMG">
-                                </div>
-
-                                <div class="header-cart-item-txt">
-                                    <a href="#" class="header-cart-item-name">
-                                        Converse All Star Hi Black Canvas
-                                    </a>
-
-                                    <span class="header-cart-item-info">
-											1 x $39.00
-										</span>
-                                </div>
-                            </li>
-
-                            <li class="header-cart-item">
-                                <div class="header-cart-item-img">
-                                    <img src="images/item-cart-03.jpg" alt="IMG">
-                                </div>
-
-                                <div class="header-cart-item-txt">
-                                    <a href="#" class="header-cart-item-name">
-                                        Nixon Porter Leather Watch In Tan
-                                    </a>
-
-                                    <span class="header-cart-item-info">
-											1 x $17.00
+                                        <span th:text="${cartProduct.getQuantity()}"></span> x $<span th:text="${cartProduct.getPrice()}"></span>
 										</span>
                                 </div>
                             </li>
                         </ul>
 
                         <div class="header-cart-total">
-                            Total: $75.00
+                            Total: $<span id="totalPrice" th:text="${cart.getTotalPrice()}"></span>
                         </div>
 
                         <div class="header-cart-buttons">
                             <div class="header-cart-wrapbtn">
                                 <!-- Button -->
-                                <a href="cart.html" class="flex-c-m size1 bg1 bo-rad-20 hov1 s-text1 trans-0-4">
+                                <a href="/carts" class="flex-c-m size1 bg1 bo-rad-20 hov1 s-text1 trans-0-4">
                                     View Cart
                                 </a>
                             </div>
@@ -372,62 +343,240 @@
 </header>
 
 <!-- Title Page -->
-<section class="bg-title-page p-t-40 p-b-50 flex-col-c-m" style="background-image: url(images/heading-pages-06.jpg);">
+<section class="bg-title-page p-t-50 p-b-40 flex-col-c-m" style="background-image: url(images/heading-pages-02.jpg);">
     <h2 class="l-text2 t-center">
-        Contact
+        Women
     </h2>
+    <p class="m-text13 t-center">
+        New Arrivals Women Collection 2018
+    </p>
 </section>
 
-<!-- content page -->
-<section class="bgwhite p-t-66 p-b-60">
+
+<!-- Content page -->
+<section class="bgwhite p-t-55 p-b-65">
     <div class="container">
         <div class="row">
-            <div class="col-md-12 p-b-30">
-                <form class="leave-comment" method="post" th:action="@{/product/buy}" th:object="${customer}">
-                    <h4 class="m-text26 p-b-36 p-t-15">
-                        Thông tin khách hàng :
+            <div class="col-sm-6 col-md-4 col-lg-3 p-b-50">
+                <div class="leftbar p-r-20 p-r-0-sm">
+                    <!--  -->
+                    <h4 class="m-text14 p-b-7">
+                        Categories
                     </h4>
-<!--                    username-->
+
+                    <ul class="p-b-54">
+                        <li class="p-t-4">
+                            <a th:href="@{/products}" class="s-text13 active1">
+                                All
+                            </a>
+                        </li>
+
+                        <li class="p-t-4">
+                            <a th:href="@{/products-women}" class="s-text13">
+                                Women
+                            </a>
+                        </li>
+
+                        <li class="p-t-4">
+                            <a th:href="@{/products-men}" class="s-text13">
+                                Men
+                            </a>
+                        </li>
+
+                        <li class="p-t-4">
+                            <a th:href="@{/products-kid}" class="s-text13">
+                                Kids
+                            </a>
+                        </li>
+
+                        <li class="p-t-4">
+                            <a th:href="@{/products-accesory}" class="s-text13">
+                                Accesories
+                            </a>
+                        </li>
+                    </ul>
+
+                    <!--  -->
+                    <h4 class="m-text14 p-b-32">
+                        Filters
+                    </h4>
+
+                    <div class="filter-price p-t-22 p-b-50 bo3">
+                        <div class="m-text15 p-b-17">
+                            Price
+                        </div>
+
+                        <div class="wra-filter-bar">
+                            <div id="filter-bar"></div>
+                        </div>
+
+                        <div class="flex-sb-m flex-w p-t-16">
+                            <div class="w-size11">
+                                <!-- Button -->
+                                <button class="flex-c-m size4 bg7 bo-rad-15 hov1 s-text14 trans-0-4">
+                                    Filter
+                                </button>
+                            </div>
+
+                            <div class="s-text3 p-t-10 p-b-10">
+                                Range: $<span id="value-lower">610</span> - $<span id="value-upper">980</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="filter-color p-t-22 p-b-50 bo3">
+                        <div class="m-text15 p-b-12">
+                            Color
+                        </div>
+
+                        <ul class="flex-w">
+                            <li class="m-r-10">
+                                <input class="checkbox-color-filter" id="color-filter1" type="checkbox" name="color-filter1">
+                                <label class="color-filter color-filter1" for="color-filter1"></label>
+                            </li>
+
+                            <li class="m-r-10">
+                                <input class="checkbox-color-filter" id="color-filter2" type="checkbox" name="color-filter2">
+                                <label class="color-filter color-filter2" for="color-filter2"></label>
+                            </li>
+
+                            <li class="m-r-10">
+                                <input class="checkbox-color-filter" id="color-filter3" type="checkbox" name="color-filter3">
+                                <label class="color-filter color-filter3" for="color-filter3"></label>
+                            </li>
+
+                            <li class="m-r-10">
+                                <input class="checkbox-color-filter" id="color-filter4" type="checkbox" name="color-filter4">
+                                <label class="color-filter color-filter4" for="color-filter4"></label>
+                            </li>
+
+                            <li class="m-r-10">
+                                <input class="checkbox-color-filter" id="color-filter5" type="checkbox" name="color-filter5">
+                                <label class="color-filter color-filter5" for="color-filter5"></label>
+                            </li>
+
+                            <li class="m-r-10">
+                                <input class="checkbox-color-filter" id="color-filter6" type="checkbox" name="color-filter6">
+                                <label class="color-filter color-filter6" for="color-filter6"></label>
+                            </li>
+
+                            <li class="m-r-10">
+                                <input class="checkbox-color-filter" id="color-filter7" type="checkbox" name="color-filter7">
+                                <label class="color-filter color-filter7" for="color-filter7"></label>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="search-product pos-relative bo4 of-hidden">
+                        <form class="form-inline my-2 my-lg-0">
+                            <input class="form-control mr-sm-1" name="s" type="search" placeholder="Search" aria-label="Search">
+                            <br>
+                            <button class="btn btn-outline-success my-2 my-sm-0" value="Search" type="submit">Search</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-6 col-md-8 col-lg-9 p-b-50">
+                <!--  -->
+                <div class="flex-sb-m flex-w p-b-35">
+                    <div class="flex-w">
+                        <div class="rs2-select2 bo4 of-hidden w-size12 m-t-5 m-b-5 m-r-10">
+                            <select class="selection-2" name="sorting">
+                                <option>Default Sorting</option>
+                                <option>Popularity</option>
+                                <option>Price: low to high</option>
+                                <option>Price: high to low</option>
+                            </select>
+                        </div>
+
+                        <div class="rs2-select2 bo4 of-hidden w-size12 m-t-5 m-b-5 m-r-10">
+                            <select class="selection-2" name="sorting">
+                                <option>Price</option>
+                                <option>$0.00 - $50.00</option>
+                                <option>$50.00 - $100.00</option>
+                                <option>$100.00 - $150.00</option>
+                                <option>$150.00 - $200.00</option>
+                                <option>$200.00+</option>
+
+                            </select>
+                        </div>
+                    </div>
+
+                    <span class="s-text8 p-t-5 p-b-5">
+							Showing 1–12 of 16 results
+						</span>
+                </div>
+
+                <!-- Product -->
+                <!--Men-->
+
+                <div>
+                    <div class="row" id="men">
+                        <div class="col-sm-12 col-md-6 col-lg-4 p-b-50" th:each="pro : ${productMen}">
+                            <!-- Block2 -->
+                            <div class="block2">
+                                <div class="block2-img wrap-pic-w of-hidden pos-relative block2-labelnew">
+                                    <img th:src="@{/images/{img}(img=${pro.getImage()})}" alt="IMG-PRODUCT">
+                                    <div class="block2-overlay trans-0-4">
+                                        <a href="#" class="block2-btn-addwishlist hov-pointer trans-0-4">
+                                            <i class="icon-wishlist icon_heart_alt" aria-hidden="true"></i>
+                                            <i class="icon-wishlist icon_heart dis-none" aria-hidden="true"></i>
+                                        </a>
+                                        <a class="add-to-cart block2-btn-addcart w-size1 trans-0-4" th:href="@{/api/carts/{id}(id=${pro.getId()})}">
+                                            <!-- Button -->
+                                            <button class=" flex-c-m size1 bg4 bo-rad-23 hov1 s-text1 trans-0-4">
+                                                Add to Cart
+                                            </button>
+                                        </a>
+                                    </div>
+                                </div>
+
+                                <div class="block2-txt p-t-20">
+                                    <a th:text="${pro.productName}" href="product-detail.html" class="block2-name dis-block s-text3 p-b-5">
+                                    </a>
+                                    <span th:text="${pro.price}" class="block2-price m-text6 p-r-5">
+								</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <div>
-                        <p>User Name:</p>
-                        <p th:text="${customer.getUsername()}"></p>
+                        <a th:href="@{'/products/men'(page=${productMen.number - 1})}" th:if="${productMen.hasPrevious()}">Previous</a>
+                        <span th:text="${productMen.number + 1}"></span>/<span th:text="${productMen.totalPages}"></span>
+                        <a th:href="@{'/products/men'(page=${productMen.number + 1})}" th:if="${productMen.hasNext()}">Next</a>
                     </div>
-<!--                    so dien thoai-->
-                    <div>
-                        <p>Phone Number:</p>
-                        <p th:text="${customer.getPhone()}"></p>
-                    </div>
-<!--                    dia chi-->
-                    <div>
-                        <p>Address:</p>
-                        <p th:text="${customer.getAddress()}"></p>
-                    </div>
+                </div>
 
-                    <div class="bo4 of-hidden size15 m-b-20">
-                        <input class="sizefull s-text7 p-l-22 p-r-22" type="text" th:field="*{username}" placeholder="User Name">
-                    </div>
+                <!--					 Pagination -->
+                <!--					<div>-->
+                <!--						<a th:href="@{'/products'(page=${products.number - 1})}" th:if="${products.hasPrevious()}">Previous</a>-->
+                <!--						<span th:text="${products.number + 1}"></span>/<span th:text="${products.totalPages}"></span>-->
+                <!--						<a th:href="@{'/products'(page=${products.number + 1})}" th:if="${products.hasNext()}">Next</a>-->
+                <!--					</div>-->
+                <!--					 Pagination -->
 
-                    <div class="bo4 of-hidden size15 m-b-20">
-                        <input class="sizefull s-text7 p-l-22 p-r-22" type="text" th:field="*{phone}" placeholder="Phone Number">
-                    </div>
-
-                    <div class="bo4 of-hidden size15 m-b-20">
-                        <input class="sizefull s-text7 p-l-22 p-r-22" type="text" th:field="*{address}" placeholder="Address">
-                    </div>
-
-<!--                    <textarea class="dis-block s-text7 size20 bo4 p-l-22 p-r-22 p-t-13 m-b-20" name="message" placeholder="Message"></textarea>-->
-
-                    <div class="w-size25">
-                        <!-- Button -->
-                        <button class="flex-c-m size2 bg1 bo-rad-23 hov1 m-text3 trans-0-4">
-                            Send
-                        </button>
-                    </div>
-                </form>
+                <!--					<div class="pagination flex-m flex-w p-t-26">-->
+                <!--						<a href="#" class="item-pagination flex-c-m trans-0-4 active-pagination">1</a>-->
+                <!--						<a href="#" class="item-pagination flex-c-m trans-0-4">2</a>-->
+                <!--					</div>-->
             </div>
         </div>
     </div>
 </section>
+
+
+<!-- Pagination -->
+<div class="pagination flex-m flex-w p-t-26">
+    <a href="#" class="item-pagination flex-c-m trans-0-4 active-pagination">1</a>
+    <a href="#" class="item-pagination flex-c-m trans-0-4">2</a>
+</div>
+</div>
+</div>
+
+</div>
+</section>
+
 
 
 <!-- Footer -->
@@ -634,11 +783,107 @@
     });
 </script>
 <!--===============================================================================================-->
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAKFWBqlKAGCeS1rMVoaNlwyayu0e0YRes"></script>
-<script src="js/map-custom.js"></script>
+<script type="text/javascript" src="vendor/daterangepicker/moment.min.js"></script>
+<script type="text/javascript" src="vendor/daterangepicker/daterangepicker.js"></script>
 <!--===============================================================================================-->
-<script src="js/main.js"></script>
+<script type="text/javascript" src="vendor/slick/slick.min.js"></script>
+<script type="text/javascript" src="js/slick-custom.js"></script>
+<!--===============================================================================================-->
+<script type="text/javascript" src="vendor/sweetalert/sweetalert.min.js"></script>
+<script type="text/javascript">
+    $('.block2-btn-addcart').each(function(){
+        var nameProduct = $(this).parent().parent().parent().find('.block2-name').html();
+        $(this).on('click', function(){
+            swal(nameProduct, "is added to cart !", "success");
+        });
+    });
+
+    $('.block2-btn-addwishlist').each(function(){
+        var nameProduct = $(this).parent().parent().parent().find('.block2-name').html();
+        $(this).on('click', function(){
+            swal(nameProduct, "is added to wishlist !", "success");
+        });
+    });
+</script>
+
+<!--===============================================================================================-->
+<script type="text/javascript" src="vendor/noui/nouislider.min.js"></script>
+<script type="text/javascript">
+    /*[ No ui ]
+    ===========================================================*/
+    var filterBar = document.getElementById('filter-bar');
+
+    noUiSlider.create(filterBar, {
+        start: [ 50, 200 ],
+        connect: true,
+        range: {
+            'min': 50,
+            'max': 200
+        }
+    });
+
+    var skipValues = [
+        document.getElementById('value-lower'),
+        document.getElementById('value-upper')
+    ];
+
+    filterBar.noUiSlider.on('update', function( values, handle ) {
+        skipValues[handle].innerHTML = Math.round(values[handle]) ;
+    });
+
+    $(document).ready(function () {
+        $('.add-to-cart').click(function (event) {
+            let a = $(this);
+            let url = a.attr("href");
+            $.ajax({
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                url: url,
+                type: "GET",
+                success: function (cart) {
+                    let totalQuantity = "";
+                    let totalPrice = "";
+                    totalQuantity += "<span class='success'>" + cart.totalQuantity + "</span>";
+                    totalPrice += "<span class='success'>" + cart.totalPrice + "</span>";
+                    $("#quantity").html(totalQuantity);
+                    $('#totalPrice').html(totalPrice);
+
+                    let result = "";
+                    for(let i = 0; i < cart.product.length; i++){
+                        result += "<span class='success'>";
+                        result += "<li class=\"header-cart-item\">";
+                        result += "<div class=\"header-cart-item-img\">";
+                        result += "<img src=images/" + cart.product[i].image +" alt=IMG>";
+                        result += "</div>";
+                        result += "<div class=\"header-cart-item-txt\">";
+                        result += "<a href=\"#\" class=\"header-cart-item-name\">";
+                        result += cart.product[i].name;
+                        result += "</a>";
+                        result += "<span class=\"header-cart-item-info\">";
+                        result += "<span>";
+                        result += cart.product[i].quantity;
+                        result += " </span>";
+                        result += "x $";
+                        result += "<span>";
+                        result += cart.product[i].price;
+                        result += " </span>";
+                        result += " </span>";
+                        result += "</div>";
+                        result += "</li>";
+                        result +=  "</span>";
+                    }
+                    $('#cart-dropdown').html(result);
+                }
+            });
+            event.preventDefault();
+        });
+    });
+</script>
+<script src="js/main.js">
+</script>
 
 </body>
+
 </html>
->>>>>>> 9ff40b52464e7f74e1abcbe07f11e4cb91d3fb6c

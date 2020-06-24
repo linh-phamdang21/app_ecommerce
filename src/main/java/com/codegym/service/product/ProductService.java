@@ -41,8 +41,6 @@ public class ProductService implements IProduceService {
         productRepository.deleteById(id);
     }
 
-
-
     @Override
     public Page<Product> findAll(Pageable pageable) {
         return productRepository.findAll(pageable);
@@ -53,4 +51,8 @@ public class ProductService implements IProduceService {
         return productRepository.findAllByProductNameContaining(productName,pageable);
     }
 
+    @Override
+    public Page<Product> findAllByType_Name(String typeName, Pageable pageable) {
+        return productRepository.findAllByType_Name(typeName, pageable);
+    }
 }

@@ -74,6 +74,7 @@ public class ProductController {
     public ModelAndView showCreateProduct() {
         ModelAndView modelAndView = new ModelAndView("/product/createProduct");
         modelAndView.addObject("product", new Product());
+        modelAndView.addObject("types", types());
         return modelAndView;
     }
 

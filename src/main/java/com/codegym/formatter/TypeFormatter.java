@@ -1,5 +1,7 @@
 package com.codegym.formatter;
 
+import com.codegym.model.Category;
+
 import com.codegym.model.ProductType;
 import com.codegym.service.type.IProductTypeService;
 import com.codegym.service.type.ProductTypeServiceImpl;
@@ -12,16 +14,20 @@ import java.util.Locale;
 
 @Component
 public class TypeFormatter implements Formatter<ProductType> {
-    @Autowired
-    private IProductTypeService productTypeService;
+
 
     @Autowired
-    public TypeFormatter (ProductTypeServiceImpl productTypeService){
-        this.productTypeService=productTypeService;
+    private IProductTypeService typeService;
+
+    @Autowired
+    private TypeFormatter(ProductTypeServiceImpl typeService){
+        this.typeService = typeService;
     }
+
     @Override
     public ProductType parse(String text, Locale locale) throws ParseException {
-        return productTypeService.getById(Long.parseLong(text)).get();
+        return typeService.getById(Long.parseLong(text)).get();
+
     }
 
     @Override
