@@ -1,10 +1,9 @@
 package com.codegym.controller;
 
 
-import com.codegym.model.Cart;
-import com.codegym.model.CartProduct;
-import com.codegym.model.Product;
+import com.codegym.model.*;
 import com.codegym.service.cart.ICartService;
+import com.codegym.service.category.ICategoryService;
 import com.codegym.service.product.IProduceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -19,8 +18,6 @@ import org.springframework.web.servlet.ModelAndView;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.codegym.model.AppCustomer;
-import com.codegym.model.AppRole;
 import com.codegym.service.approle.AppRoleService;
 import com.codegym.service.customer.ICustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,6 +37,8 @@ public class HomeController {
 
     @Autowired
     private IProduceService produceService;
+    @Autowired
+    private ICategoryService categoryService;
 
     @ModelAttribute("cart")
     public Cart setUpCart() {
@@ -153,9 +152,16 @@ public class HomeController {
         return modelAndView;
     }
 
-    @GetMapping("/product-detail")
-    public ModelAndView productDetailsPage() {
+    @GetMapping("/product-detail-{id}")
+    public ModelAndView productDetailsPage(@PathVariable Long id) {
         ModelAndView modelAndView = new ModelAndView("product-detail");
+        Optional<Product> product = produceService.getById(id);
+        if (product.isPresent()){
+            Product product1 = product.get();
+            modelAndView.addObject("product",product1);
+        }else {
+            modelAndView.addObject("product",new Product());
+        }
         return modelAndView;
     }
 
