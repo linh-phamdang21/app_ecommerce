@@ -10,11 +10,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.sql.Timestamp;
+import java.util.Date;
+
 @Controller
-@SessionAttributes({"cart", "customer"})
+@SessionAttributes({"cart", "sessionCustomer"})
 public class CartController {
 
-    @ModelAttribute("customer")
+    @ModelAttribute("sessionCustomer")
     public AppCustomer setUpCustomer(){
         return new AppCustomer();
     }
@@ -25,7 +28,8 @@ public class CartController {
     }
 
     @GetMapping("/cart-buy")
-    public ModelAndView billPage(@ModelAttribute AppCustomer customer) {
+    public ModelAndView billPage(@ModelAttribute("sessionCustomer") AppCustomer customer) {
+
         if (customer.getId() == null){
             ModelAndView modelAndView = new ModelAndView("login");
             return modelAndView;
@@ -35,5 +39,19 @@ public class CartController {
             return modelAndView;
         }
     }
+    @PostMapping("/cart-buy")
+    public ModelAndView buyProduct(@ModelAttribute("sessionCustomer") AppCustomer customer, @ModelAttribute("cart") Cart cart) {
+       ModelAndView modelAndView = new ModelAndView("bill");
+        System.out.println(customer.getId());
+        System.out.println(cart.getTotalPrice());
+        System.out.println("-------------------------");
+        System.out.println(java.time.LocalDate.now());
+        System.out.println("-------------------------");
+        Long ti = System.currentTimeMillis();
 
+        Timestamp timestamp = new Timestamp(ti);
+        System.out.println("time tamp : "+ timestamp);
+        return modelAndView;
+
+    }
 }
