@@ -123,9 +123,11 @@ Language: <a href="?lang=en">English</a> |  <a href="?lang=vn">Vietnamese</a>
                     <option th:each="br : ${brand}"
                             th:value="${br.id}"
                             th:text="${br.name}"></option>
+
                 </select>
             </td>
             <label><b>Type</b></label>
+
             <td>
                 <select th:field="*{type}">
                     <option th:each="t : ${types}"

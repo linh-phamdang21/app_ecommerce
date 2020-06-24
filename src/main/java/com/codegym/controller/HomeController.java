@@ -108,6 +108,51 @@ public class HomeController {
         return modelAndView;
     }
 
+    @GetMapping("/products-women")
+    public ModelAndView listProductWomen(@RequestParam(defaultValue = "0") int page,
+                                        @RequestParam(defaultValue = "5") int size){
+        Pageable pageable= PageRequest.of(page,size);
+        Page<Product> productWomen ;
+            productWomen = produceService.findAllByType_Name("Women",pageable);
+        ModelAndView modelAndView = new ModelAndView("productWomen");
+        modelAndView.addObject("productWomen", productWomen);
+        return modelAndView;
+    }
+
+    @GetMapping("/products-men")
+    public ModelAndView listProductMen(@RequestParam(defaultValue = "0") int page,
+                                         @RequestParam(defaultValue = "5") int size){
+        Pageable pageable= PageRequest.of(page,size);
+        Page<Product> productMen ;
+        productMen = produceService.findAllByType_Name("Men",pageable);
+        ModelAndView modelAndView = new ModelAndView("productMen");
+        modelAndView.addObject("productMen",productMen);
+        return modelAndView;
+    }
+
+    @GetMapping("/products-kid")
+    public ModelAndView listProductKid(@RequestParam(defaultValue = "0") int page,
+                                         @RequestParam(defaultValue = "5") int size){
+        Pageable pageable= PageRequest.of(page,size);
+        Page<Product> productKid ;
+        productKid = produceService.findAllByType_Name("Kid",pageable);
+        ModelAndView modelAndView = new ModelAndView("productKid");
+        modelAndView.addObject("productKid",productKid);
+        return modelAndView;
+    }
+
+    @GetMapping("/products-accesory")
+    public ModelAndView listProductAccesory(@RequestParam(defaultValue = "0") int page,
+                                         @RequestParam(defaultValue = "5") int size){
+
+        Pageable pageable= PageRequest.of(page,size);
+        Page<Product> productAccesory ;
+        productAccesory = produceService.findAllByType_Name("Accessory",pageable);
+        ModelAndView modelAndView = new ModelAndView("productAccesory");
+        modelAndView.addObject("productAccesory",productAccesory);
+        return modelAndView;
+    }
+
     @GetMapping("/product-detail")
     public ModelAndView productDetailsPage() {
         ModelAndView modelAndView = new ModelAndView("product-detail");
