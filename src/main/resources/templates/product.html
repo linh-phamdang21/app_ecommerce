@@ -413,7 +413,7 @@
 							<div class="flex-sb-m flex-w p-t-16">
 								<div class="w-size11">
 									<!-- Button -->
-									<button class="flex-c-m size4 bg7 bo-rad-15 hov1 s-text14 trans-0-4">
+									<button class="flex-c-m size4 bg7 bo-rad-15 hov1 s-text14 trans-0-4" id="fillteByPrice">
 										Filter
 									</button>
 								</div>
@@ -489,18 +489,19 @@
 									<option>Price: high to low</option>
 								</select>
 							</div>
-
-							<div class="rs2-select2 bo4 of-hidden w-size12 m-t-5 m-b-5 m-r-10">
-								<select class="selection-2" name="sorting">
-									<option>Price</option>
-									<option>$0.00 - $50.00</option>
-									<option>$50.00 - $100.00</option>
-									<option>$100.00 - $150.00</option>
-									<option>$150.00 - $200.00</option>
-									<option>$200.00+</option>
-
-								</select>
-							</div>
+							<form th:action="@{/products-price}" method="post" th:object="${price}">
+								<div class="rs2-select2 bo4 of-hidden w-size12 m-t-5 m-b-5 m-r-10" >
+									<select th:field="*{price}" class="selection-2" name="sorting">
+										<option th:value="${'Price'}">Price</option>
+										<option th:value="${'0.00-50.00'}">$0.00 - $50.00</option>
+										<option th:value="${'50.00-100.00'}">$50.00 - $100.00</option>
+										<option th:value="${'100.00-150.00'}">$100.00 - $150.00</option>
+										<option th:value="${'150.00-200.00'}">$150.00 - $200.00</option>
+										<option th:value="${'200.00+'}">$200.00+</option>
+									</select>
+								</div>
+								<input type="submit" class="btn" value="Search">
+							</form>
 						</div>
 
 						<span class="s-text8 p-t-5 p-b-5">
@@ -831,54 +832,75 @@
 	    });
 
 		$(document).ready(function () {
-			$('.add-to-cart').click(function (event) {
-				let a = $(this);
-				let url = a.attr("href");
-				$.ajax({
-					headers: {
-						'Accept': 'application/json',
-						'Content-Type': 'application/json'
-					},
-					url: url,
-					type: "GET",
-					success: function (cart) {
-						let totalQuantity = "";
-						let totalPrice = "";
-						totalQuantity += "<span class='success'>" + cart.totalQuantity + "</span>";
-						totalPrice += "<span class='success'>" + cart.totalPrice + "</span>";
-						$("#quantity").html(totalQuantity);
-						$('#totalPrice').html(totalPrice);
 
-						let result = "";
-						for(let i = 0; i < cart.product.length; i++){
-							result += "<span class='success'>";
-							result += "<li class=\"header-cart-item\">";
-							result += "<div class=\"header-cart-item-img\">";
-							result += "<img src=images/" + cart.product[i].image +" alt=IMG>";
-							result += "</div>";
-							result += "<div class=\"header-cart-item-txt\">";
-							result += "<a href=\"#\" class=\"header-cart-item-name\">";
-							result += cart.product[i].name;
-							result += "</a>";
-							result += "<span class=\"header-cart-item-info\">";
-							result += "<span>";
-							result += cart.product[i].quantity;
-							result += " </span>";
-							result += "x $";
-							result += "<span>";
-							result += cart.product[i].price;
-							result += " </span>";
-							result += " </span>";
-							result += "</div>";
-							result += "</li>";
-							result +=  "</span>";
+			// $('#fillteByPrice').click(function (event) {
+			// 	let lowPrice = $('#value-lower').html();
+			// 	let highPrice = $('#value-upper').html();
+			//
+			// 	let json = {"lowPrice": lowPrice, "highPrice": highPrice};
+			//
+			// 	$.ajax({
+			// 		headers: {
+			// 			'Accept': 'application/json',
+			// 			'Content-Type': 'application/json'
+			// 		},
+			//
+			// 		type: "GET",
+			// 		data: JSON.stringify(json),
+			//
+			// 		// ten api
+			// 		url: "/getValue"
+			// 	});
+
+				$('.add-to-cart').click(function (event) {
+					let a = $(this);
+					let url = a.attr("href");
+					$.ajax({
+						headers: {
+							'Accept': 'application/json',
+							'Content-Type': 'application/json'
+						},
+						url: url,
+						type: "GET",
+						success: function (cart) {
+							let totalQuantity = "";
+							let totalPrice = "";
+							totalQuantity += "<span class='success'>" + cart.totalQuantity + "</span>";
+							totalPrice += "<span class='success'>" + cart.totalPrice + "</span>";
+							$("#quantity").html(totalQuantity);
+							$('#totalPrice').html(totalPrice);
+
+							let result = "";
+							for (let i = 0; i < cart.product.length; i++) {
+								result += "<span class='success'>";
+								result += "<li class=\"header-cart-item\">";
+								result += "<div class=\"header-cart-item-img\">";
+								result += "<img src=images/" + cart.product[i].image + " alt=IMG>";
+								result += "</div>";
+								result += "<div class=\"header-cart-item-txt\">";
+								result += "<a href=\"#\" class=\"header-cart-item-name\">";
+								result += cart.product[i].name;
+								result += "</a>";
+								result += "<span class=\"header-cart-item-info\">";
+								result += "<span>";
+								result += cart.product[i].quantity;
+								result += " </span>";
+								result += "x $";
+								result += "<span>";
+								result += cart.product[i].price;
+								result += " </span>";
+								result += " </span>";
+								result += "</div>";
+								result += "</li>";
+								result += "</span>";
+							}
+							$('#cart-dropdown').html(result);
 						}
-						$('#cart-dropdown').html(result);
-					}
+					});
+					event.preventDefault();
 				});
-				event.preventDefault();
 			});
-		});
+
 	</script>
 	<script src="js/main.js">
 		function showAll() {

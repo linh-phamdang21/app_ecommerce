@@ -13,6 +13,6 @@ import java.util.List;
 public interface IProduceService extends IGenericService<Product> {
     Page<Product> findAll(Pageable pageable);
     Page<Product> findAllByProductNameContaining(String productName,Pageable pageable);
-//    Page<Product> findAllByTypeContaining(String productType, Pageable pageable);
     Page<Product> findAllByType_Name(String typeName, Pageable pageable);
+    Page<Product> findAllByType_NameAndPriceBetween(String typeName, float lowPrice, float highPrice, Pageable pageable);
 }
