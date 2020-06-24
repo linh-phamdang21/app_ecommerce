@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title th:text="#{listProduct.title}"></title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
           integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
@@ -20,13 +20,13 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item ">
-                <a class="nav-link" th:href="@{/admin/product/list}">List Product | </a>
+                <a class="nav-link" th:href="@{/admin/product/list}" th:text="#{listProduct.href}"> </a>
             </li>
             <li class="nav-item ">
-                <a class="nav-link" th:href="@{/admin/brand/list}">List Brand | </a>
+                <a class="nav-link" th:href="@{/admin/brand/list}" th:text="#{listProduct.href2}"> </a>
             </li>
             <li class="nav-item ">
-                <a class="nav-link" th:href="@{/admin/category/list}">List Category </a>
+                <a class="nav-link" th:href="@{/admin/category/list}" th:text="#{listProduct.href1}"> </a>
             </li>
 
         </ul>
@@ -39,7 +39,7 @@
 </nav>
 Language: <a href="?lang=en">English</a> | <a href="?lang=vn">Vietnamese</a>
 <br>
-<i><a class="nav-link" th:href="@{/admin/product/create-product}">Create Product</a></i>
+<i><a class="nav-link" th:href="@{/admin/product/create-product}" th:text="#{listProduct.creatProduct}"></a></i>
 <hr>
 <div class="container">
     <table class="table table-hover" style="border: 1px solid black">
