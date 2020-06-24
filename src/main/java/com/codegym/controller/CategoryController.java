@@ -16,7 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 import java.util.Optional;
 
 @Controller
-@RequestMapping("/category")
+@RequestMapping("/admin/category")
 public class CategoryController {
 
     @Autowired
@@ -57,6 +57,6 @@ public class CategoryController {
     @GetMapping("delete/{id}")
     public ModelAndView deleteProduct(@PathVariable Long id) {
         categoryService.remove(id);
-        return new ModelAndView("redirect:/category/list");
+        return new ModelAndView("redirect:/admin/category/list");
     }
 }

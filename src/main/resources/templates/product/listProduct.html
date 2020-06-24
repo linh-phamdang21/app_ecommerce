@@ -3,32 +3,44 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+          integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <a class="navbar-brand" href="#">Navbar</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <a class="navbar-brand" href="#">
+        <img src="/images/market-store-icon.jpg" alt="Avatar" class="avatar" style="border-radius: 50%; width: 50px;height: 50px">
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item ">
-                <a class="nav-link" th:href="@{/product/list}">List Product</a>
+                <a class="nav-link" th:href="@{/admin/product/list}">List Product | </a>
             </li>
             <li class="nav-item ">
-                <a class="nav-link" th:href="@{/product/create-product}">Create Product</a>
+                <a class="nav-link" th:href="@{/admin/brand/list}">List Brand | </a>
             </li>
+            <li class="nav-item ">
+                <a class="nav-link" th:href="@{/admin/category/list}">List Category </a>
+            </li>
+
         </ul>
+
         <form class="form-inline my-2 my-lg-0">
             <input class="form-control mr-sm-2" name="s" type="search" placeholder="Search" aria-label="Search">
             <button class="btn btn-outline-success my-2 my-sm-0" value="Search" type="submit">Search</button>
         </form>
     </div>
 </nav>
-Language: <a href="?lang=en">English</a> |  <a href="?lang=vn">Vietnamese</a>
+Language: <a href="?lang=en">English</a> | <a href="?lang=vn">Vietnamese</a>
+<br>
+<i><a class="nav-link" th:href="@{/admin/product/create-product}">Create Product</a></i>
+<hr>
 <div class="container">
     <table class="table table-hover" style="border: 1px solid black">
         <thead>
@@ -52,7 +64,7 @@ Language: <a href="?lang=en">English</a> |  <a href="?lang=vn">Vietnamese</a>
             <td th:text="${pro.id}"></td>
             <td style="width: 200px"><img class="card-img-top" th:src="@{/images/{img}(img=${pro.getImage()})}"
 
-                     width="90px" height="160px"/></td>
+                                          width="90px" height="160px"/></td>
 
             <td th:text="${pro.productName}"></td>
             <td th:text="${pro.price}"></td>
@@ -61,16 +73,17 @@ Language: <a href="?lang=en">English</a> |  <a href="?lang=vn">Vietnamese</a>
             <td th:text="${pro.brand.name}"></td>
             <td th:text="${pro.type.name}"></td>
             <td>
-                <a th:href="@{/product/edit-product/{id}(id=${pro.id})}">Edit</a>
-                <a th:href="@{/product/delete-product/{id}(id=${pro.id})}">Delete</a>
+                <a th:href="@{/admin/product/edit-product/{id}(id=${pro.id})}">Edit</a>
+                <a th:href="@{/admin/product/delete-product/{id}(id=${pro.id})}">Delete</a>
             </td>
         </tr>
         </tbody>
     </table>
     <div>
-        <a th:href="@{'/product/list'(page=${products.number - 1})}" th:if="${products.hasPrevious()}">Previous</a>
+        <a th:href="@{'/admin/product/list'(page=${products.number - 1})}"
+           th:if="${products.hasPrevious()}">Previous</a>
         <span th:text="${products.number + 1}"></span>/<span th:text="${products.totalPages}"></span>
-        <a th:href="@{'/product/list'(page=${products.number + 1})}" th:if="${products.hasNext()}">Next</a>
+        <a th:href="@{'/admin/product/list'(page=${products.number + 1})}" th:if="${products.hasNext()}">Next</a>
     </div>
 </div>
 

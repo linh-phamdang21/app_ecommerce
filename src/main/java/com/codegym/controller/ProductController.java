@@ -25,7 +25,7 @@ import java.awt.*;
 import java.util.Optional;
 
 @Controller
-@RequestMapping("/product")
+@RequestMapping("/admin/product")
 public class ProductController {
 
     @Autowired
@@ -104,8 +104,7 @@ public class ProductController {
     @PostMapping("edit-product")
     public ModelAndView editProduct(@ModelAttribute Product products) {
         ModelAndView modelAndView = new ModelAndView("/product/editProduct");
-        Product product = produceService.save(products);
-        if (product != null) {
+        if (products.getId() != null) {
             modelAndView.addObject("edit", "Edit success");
         } else {
             modelAndView.addObject("edit", "Edit no success");
@@ -117,6 +116,6 @@ public class ProductController {
     @GetMapping("delete-product/{id}")
     public ModelAndView deleteProduct(@PathVariable Long id) {
         produceService.remove(id);
-        return new ModelAndView("redirect:/product/list");
+        return new ModelAndView("redirect:/admin/product/list");
     }
 }
