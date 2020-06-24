@@ -14,7 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 import java.util.Optional;
 
 @Controller
-@RequestMapping("brand")
+@RequestMapping("/admin/brand")
 public class BrandController {
     @Autowired
     private IBrandService brandService;
@@ -50,6 +50,11 @@ public class BrandController {
     @PostMapping("create")
     public ModelAndView createBrand(@ModelAttribute Brand brand){
         brandService.save(brand);
-        return new ModelAndView("redirect:/brand/list");
+        return new ModelAndView("redirect:/admin/brand/list");
+    }
+    @GetMapping("delete/{id}")
+    public ModelAndView deleteBrand(@PathVariable Long id){
+        brandService.remove(id);
+        return new ModelAndView("redirect:/admin/brand/list");
     }
 }

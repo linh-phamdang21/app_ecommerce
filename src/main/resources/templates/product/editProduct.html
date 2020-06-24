@@ -72,7 +72,9 @@
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <a class="navbar-brand" href="#">Navbar</a>
+    <a class="navbar-brand" href="#">
+        <img src="/images/market-store-icon.jpg" alt="Avatar" class="avatar" style="border-radius: 50%; width: 50px;height: 50px">
+    </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
@@ -80,17 +82,17 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item ">
-                <a class="nav-link" th:href="@{/product/list}">List Product</a>
+                <a class="nav-link" th:href="@{/admin/product/list}">List Product</a>
             </li>
             <li class="nav-item ">
-                <a class="nav-link" th:href="@{/product/create-product}">Create Product</a>
+                <a class="nav-link" th:href="@{/admin/product/create-product}">Create Product</a>
             </li>
         </ul>
     </div>
 </nav>
 Language: <a href="?lang=en">English</a> |  <a href="?lang=vn">Vietnamese</a>
 <div class="container">
-    <form method="post" th:action="@{/product/edit-product}"  th:object="${product}">
+    <form method="post" th:action="@{/admin/product/edit-product}"  th:object="${product}">
         <div class="container" style="width: 600px; margin-left: 300px; border: 1px solid black">
         <div style="text-align: center">
             <h1>Edit Product</h1>
@@ -124,9 +126,9 @@ Language: <a href="?lang=en">English</a> |  <a href="?lang=vn">Vietnamese</a>
                         th:selected="(${b.id} == *{brand.id})">
                 </option>
             </select>
-            <br>
+
             <label ><b>Type</b></label>
-            <select name="Brand">
+            <select name="Type">
                 <option th:each="t : ${types}"
                         th:value="${t.id}"
                         th:text="${t.name}"
@@ -135,6 +137,7 @@ Language: <a href="?lang=en">English</a> |  <a href="?lang=vn">Vietnamese</a>
             </select>
             <br>
             <label ><b>Describes</b></label>
+            <br>
             <textarea style="width: 300px ;height: 150px" type="text" th:field="*{describes}" placeholder="Enter Describes"  required></textarea>
             <button type="submit" class="registerbtn">Edit Product</button>
         </div>

@@ -9,7 +9,9 @@
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <a class="navbar-brand" href="#">Navbar</a>
+    <a class="navbar-brand" href="#">
+        <img src="/images/market-store-icon.jpg" alt="Avatar" class="avatar" style="border-radius: 50%; width: 50px;height: 50px">
+    </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -18,10 +20,13 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item ">
-                <a class="nav-link" th:href="@{/brand/list}">List Brand</a>
+                <a class="nav-link" th:href="@{/admin/product/list}">List Product | </a>
             </li>
             <li class="nav-item ">
-                <a class="nav-link" th:href="@{/brand/create}">Create Brand</a>
+                <a class="nav-link" th:href="@{/admin/brand/list}">List Brand | </a>
+            </li>
+            <li class="nav-item ">
+                <a class="nav-link" th:href="@{/admin/category/list}">List Category </a>
             </li>
         </ul>
         <form class="form-inline my-2 my-lg-0">
@@ -30,7 +35,10 @@
         </form>
     </div>
 </nav>
-
+Language: <a href="?lang=en">English</a> | <a href="?lang=vn">Vietnamese</a>
+<br>
+<i> <a class="nav-link" th:href="@{/admin/brand/create}">Create Brand  </a></i>
+<hr>
 <div class="container">
     <table class="table table-hover" style="border: 1px solid black">
         <thead>
@@ -45,15 +53,15 @@
             <td th:text="${b.id}"></td>
             <td th:text="${b.name}"></td>
             <td>
-                <a th:href="@{/brand/delete/{id}(id=${b.id})}">Delete</a>
+                <a th:href="@{/admin/brand/delete/{id}(id=${b.id})}">Delete</a>
             </td>
         </tr>
         </tbody>
     </table>
     <div>
-        <a th:href="@{'/brand/list'(page=${brands.number - 1})}" th:if="${brands.hasPrevious()}">Previous</a>
+        <a th:href="@{'/admin/brand/list'(page=${brands.number - 1})}" th:if="${brands.hasPrevious()}">Previous</a>
         <span th:text="${brands.number + 1}"></span>/<span th:text="${brands.totalPages}"></span>
-        <a th:href="@{'/brand/list'(page=${brands.number + 1})}" th:if="${brands.hasNext()}">Next</a>
+        <a th:href="@{'/admin/brand/list'(page=${brands.number + 1})}" th:if="${brands.hasNext()}">Next</a>
     </div>
 </div>
 
