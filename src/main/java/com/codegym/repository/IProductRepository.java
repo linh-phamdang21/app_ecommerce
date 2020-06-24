@@ -9,4 +9,5 @@ public interface IProductRepository  extends PagingAndSortingRepository<Product 
 
     Page<Product> findAllByProductNameContaining(String productName, Pageable pageable);
 
+    Page<Product> findAllByType_Name(String productType, Pageable pageable);
 }
