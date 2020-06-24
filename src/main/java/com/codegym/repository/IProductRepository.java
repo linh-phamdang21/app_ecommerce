@@ -11,4 +11,6 @@ public interface IProductRepository  extends PagingAndSortingRepository<Product 
 
     Page<Product> findAllByType_Name(String productType, Pageable pageable);
 
+    Page<Product> findAllByType_NameAndPriceBetween(String type, float lowPrice, float highPrice, Pageable pageable);
+
 }

@@ -286,6 +286,7 @@
 								fashe@example.com
 							</span>
 
+<<<<<<< HEAD
                         <div class="topbar-language rs1-select2">
                             <select class="selection-1" name="time">
                                 <option>USD</option>
@@ -352,168 +353,158 @@
         New Arrivals Women Collection 2018
     </p>
 </section>
+	<!-- Content page -->
+	<section class="bgwhite p-t-55 p-b-65">
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-6 col-md-4 col-lg-3 p-b-50">
+					<div class="leftbar p-r-20 p-r-0-sm">
+						<!--  -->
+						<h4 class="m-text14 p-b-7">
+							Categories
+						</h4>
 
+						<ul class="p-b-54">
+							<li class="p-t-4">
+								<a th:href="@{/products}" class="s-text13 active1">
+									All
+								</a>
+							</li>
 
-<!-- Content page -->
-<section class="bgwhite p-t-55 p-b-65">
-    <div class="container">
-        <div class="row">
-            <div class="col-sm-6 col-md-4 col-lg-3 p-b-50">
-                <div class="leftbar p-r-20 p-r-0-sm">
-                    <!--  -->
-                    <h4 class="m-text14 p-b-7">
-                        Categories
-                    </h4>
+							<li class="p-t-4">
+								<a th:href="@{/products-women}" class="s-text13">
+									Women
+								</a>
+							</li>
 
-                    <ul class="p-b-54">
-                        <li class="p-t-4">
-                            <a th:href="@{/products}" class="s-text13 active1">
-                                All
-                            </a>
-                        </li>
+							<li class="p-t-4">
+								<a th:href="@{/products-men}" class="s-text13">
+									Men
+								</a>
+							</li>
 
-                        <li class="p-t-4">
-                            <a th:href="@{/products-women}" class="s-text13">
-                                Women
-                            </a>
-                        </li>
+							<li class="p-t-4">
+								<a th:href="@{/products-kid}" class="s-text13">
+									Kids
+								</a>
+							</li>
 
-                        <li class="p-t-4">
-                            <a th:href="@{/products-men}" class="s-text13">
-                                Men
-                            </a>
-                        </li>
+							<li class="p-t-4">
+								<a th:href="@{/products-accesory}" class="s-text13">
+									Accesories
+								</a>
+							</li>
+						</ul>
 
-                        <li class="p-t-4">
-                            <a th:href="@{/products-kid}" class="s-text13">
-                                Kids
-                            </a>
-                        </li>
+						<!--  -->
+						<h4 class="m-text14 p-b-32">
+							Filters
+						</h4>
 
-                        <li class="p-t-4">
-                            <a th:href="@{/products-accesory}" class="s-text13">
-                                Accesories
-                            </a>
-                        </li>
-                    </ul>
+						<div class="filter-price p-t-22 p-b-50 bo3">
+							<div class="m-text15 p-b-17">
+								Price
+							</div>
 
-                    <!--  -->
-                    <h4 class="m-text14 p-b-32">
-                        Filters
-                    </h4>
+							<div class="wra-filter-bar">
+								<div id="filter-bar"></div>
+							</div>
 
-                    <div class="filter-price p-t-22 p-b-50 bo3">
-                        <div class="m-text15 p-b-17">
-                            Price
-                        </div>
+							<div class="flex-sb-m flex-w p-t-16">
+								<div class="w-size11">
+									<!-- Button -->
+									<button class="flex-c-m size4 bg7 bo-rad-15 hov1 s-text14 trans-0-4" id="fillteByPrice">
+										Filter
+									</button>
+								</div>
 
-                        <div class="wra-filter-bar">
-                            <div id="filter-bar"></div>
-                        </div>
+								<div class="s-text3 p-t-10 p-b-10">
+									Range: $<span id="value-lower">610</span> - $<span id="value-upper">980</span>
+								</div>
+							</div>
+						</div>
 
-                        <div class="flex-sb-m flex-w p-t-16">
-                            <div class="w-size11">
-                                <!-- Button -->
-                                <button class="flex-c-m size4 bg7 bo-rad-15 hov1 s-text14 trans-0-4">
-                                    Filter
-                                </button>
-                            </div>
+						<div class="filter-color p-t-22 p-b-50 bo3">
+							<div class="m-text15 p-b-12">
+								Color
+							</div>
 
-                            <div class="s-text3 p-t-10 p-b-10">
-                                Range: $<span id="value-lower">610</span> - $<span id="value-upper">980</span>
-                            </div>
-                        </div>
-                    </div>
+							<ul class="flex-w">
+								<li class="m-r-10">
+									<input class="checkbox-color-filter" id="color-filter1" type="checkbox" name="color-filter1">
+									<label class="color-filter color-filter1" for="color-filter1"></label>
+								</li>
 
-                    <div class="filter-color p-t-22 p-b-50 bo3">
-                        <div class="m-text15 p-b-12">
-                            Color
-                        </div>
+								<li class="m-r-10">
+									<input class="checkbox-color-filter" id="color-filter2" type="checkbox" name="color-filter2">
+									<label class="color-filter color-filter2" for="color-filter2"></label>
+								</li>
 
-                        <ul class="flex-w">
-                            <li class="m-r-10">
-                                <input class="checkbox-color-filter" id="color-filter1" type="checkbox"
-                                       name="color-filter1">
-                                <label class="color-filter color-filter1" for="color-filter1"></label>
-                            </li>
+								<li class="m-r-10">
+									<input class="checkbox-color-filter" id="color-filter3" type="checkbox" name="color-filter3">
+									<label class="color-filter color-filter3" for="color-filter3"></label>
+								</li>
 
-                            <li class="m-r-10">
-                                <input class="checkbox-color-filter" id="color-filter2" type="checkbox"
-                                       name="color-filter2">
-                                <label class="color-filter color-filter2" for="color-filter2"></label>
-                            </li>
+								<li class="m-r-10">
+									<input class="checkbox-color-filter" id="color-filter4" type="checkbox" name="color-filter4">
+									<label class="color-filter color-filter4" for="color-filter4"></label>
+								</li>
 
-                            <li class="m-r-10">
-                                <input class="checkbox-color-filter" id="color-filter3" type="checkbox"
-                                       name="color-filter3">
-                                <label class="color-filter color-filter3" for="color-filter3"></label>
-                            </li>
+								<li class="m-r-10">
+									<input class="checkbox-color-filter" id="color-filter5" type="checkbox" name="color-filter5">
+									<label class="color-filter color-filter5" for="color-filter5"></label>
+								</li>
 
-                            <li class="m-r-10">
-                                <input class="checkbox-color-filter" id="color-filter4" type="checkbox"
-                                       name="color-filter4">
-                                <label class="color-filter color-filter4" for="color-filter4"></label>
-                            </li>
+								<li class="m-r-10">
+									<input class="checkbox-color-filter" id="color-filter6" type="checkbox" name="color-filter6">
+									<label class="color-filter color-filter6" for="color-filter6"></label>
+								</li>
 
-                            <li class="m-r-10">
-                                <input class="checkbox-color-filter" id="color-filter5" type="checkbox"
-                                       name="color-filter5">
-                                <label class="color-filter color-filter5" for="color-filter5"></label>
-                            </li>
+								<li class="m-r-10">
+									<input class="checkbox-color-filter" id="color-filter7" type="checkbox" name="color-filter7">
+									<label class="color-filter color-filter7" for="color-filter7"></label>
+								</li>
+							</ul>
+						</div>
 
-                            <li class="m-r-10">
-                                <input class="checkbox-color-filter" id="color-filter6" type="checkbox"
-                                       name="color-filter6">
-                                <label class="color-filter color-filter6" for="color-filter6"></label>
-                            </li>
+						<div class="search-product pos-relative bo4 of-hidden">
+							<form class="form-inline my-2 my-lg-0">
+								<input class="form-control mr-sm-1" name="s" type="search" placeholder="Search" aria-label="Search">
+								<br>
+								<button class="btn btn-outline-success my-2 my-sm-0" value="Search" type="submit">Search</button>
+							</form>
+						</div>
+					</div>
+				</div>
 
-                            <li class="m-r-10">
-                                <input class="checkbox-color-filter" id="color-filter7" type="checkbox"
-                                       name="color-filter7">
-                                <label class="color-filter color-filter7" for="color-filter7"></label>
-                            </li>
-                        </ul>
-                    </div>
+				<div class="col-sm-6 col-md-8 col-lg-9 p-b-50">
+					<!--  -->
+					<div class="flex-sb-m flex-w p-b-35">
+						<div class="flex-w">
+							<div class="rs2-select2 bo4 of-hidden w-size12 m-t-5 m-b-5 m-r-10">
+								<select class="selection-2" name="sorting">
+									<option>Default Sorting</option>
+									<option>Popularity</option>
+									<option>Price: low to high</option>
+									<option>Price: high to low</option>
+								</select>
+							</div>
+							<form th:action="@{/products-price}" method="post" th:object="${price}">
+								<div class="rs2-select2 bo4 of-hidden w-size12 m-t-5 m-b-5 m-r-10" >
+									<select th:field="*{price}" class="selection-2" name="sorting">
+										<option th:value="${'Price'}">Price</option>
+										<option th:value="${'0.00-50.00'}">$0.00 - $50.00</option>
+										<option th:value="${'50.00-100.00'}">$50.00 - $100.00</option>
+										<option th:value="${'100.00-150.00'}">$100.00 - $150.00</option>
+										<option th:value="${'150.00-200.00'}">$150.00 - $200.00</option>
+										<option th:value="${'200.00+'}">$200.00+</option>
+									</select>
+								</div>
+								<input type="submit" class="btn" value="Search">
+							</form>
+						</div>
 
-                    <div class="search-product pos-relative bo4 of-hidden">
-                        <form class="form-inline my-2 my-lg-0">
-                            <input class="form-control mr-sm-1" name="s" type="search" placeholder="Search"
-                                   aria-label="Search">
-                            <br>
-                            <button class="btn btn-outline-success my-2 my-sm-0" value="Search" type="submit">Search
-                            </button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-sm-6 col-md-8 col-lg-9 p-b-50">
-                <!--  -->
-                <div class="flex-sb-m flex-w p-b-35">
-                    <div class="flex-w">
-                        <div class="rs2-select2 bo4 of-hidden w-size12 m-t-5 m-b-5 m-r-10">
-                            <select class="selection-2" name="sorting">
-                                <option>Default Sorting</option>
-                                <option>Popularity</option>
-                                <option>Price: low to high</option>
-                                <option>Price: high to low</option>
-                            </select>
-                        </div>
-
-                        <div class="rs2-select2 bo4 of-hidden w-size12 m-t-5 m-b-5 m-r-10">
-                            <select class="selection-2" name="sorting">
-                                <option>Price</option>
-                                <option>$0.00 - $50.00</option>
-                                <option>$50.00 - $100.00</option>
-                                <option>$100.00 - $150.00</option>
-                                <option>$150.00 - $200.00</option>
-                                <option>$200.00+</option>
-
-                            </select>
-                        </div>
-                    </div>
-
-                    <span class="s-text8 p-t-5 p-b-5">
+						<span class="s-text8 p-t-5 p-b-5">
 							Showing 1–12 of 16 results
 						</span>
                 </div>
@@ -805,6 +796,7 @@
 </script>
 
 <!--===============================================================================================-->
+<<<<<<< HEAD
 <script type="text/javascript" src="vendor/noui/nouislider.min.js"></script>
 <script type="text/javascript">
     /*[ No ui ]
@@ -922,6 +914,146 @@
 
 
 </script>
+=======
+	<script type="text/javascript" src="vendor/noui/nouislider.min.js"></script>
+	<script type="text/javascript">
+		/*[ No ui ]
+	    ===========================================================*/
+	    var filterBar = document.getElementById('filter-bar');
+
+	    noUiSlider.create(filterBar, {
+	        start: [ 50, 200 ],
+	        connect: true,
+	        range: {
+	            'min': 50,
+	            'max': 200
+	        }
+	    });
+
+	    var skipValues = [
+	    document.getElementById('value-lower'),
+	    document.getElementById('value-upper')
+	    ];
+
+	    filterBar.noUiSlider.on('update', function( values, handle ) {
+	        skipValues[handle].innerHTML = Math.round(values[handle]) ;
+	    });
+
+		$(document).ready(function () {
+
+			// $('#fillteByPrice').click(function (event) {
+			// 	let lowPrice = $('#value-lower').html();
+			// 	let highPrice = $('#value-upper').html();
+			//
+			// 	let json = {"lowPrice": lowPrice, "highPrice": highPrice};
+			//
+			// 	$.ajax({
+			// 		headers: {
+			// 			'Accept': 'application/json',
+			// 			'Content-Type': 'application/json'
+			// 		},
+			//
+			// 		type: "GET",
+			// 		data: JSON.stringify(json),
+			//
+			// 		// ten api
+			// 		url: "/getValue"
+			// 	});
+
+				$('.add-to-cart').click(function (event) {
+					let a = $(this);
+					let url = a.attr("href");
+					$.ajax({
+						headers: {
+							'Accept': 'application/json',
+							'Content-Type': 'application/json'
+						},
+						url: url,
+						type: "GET",
+						success: function (cart) {
+							let totalQuantity = "";
+							let totalPrice = "";
+							totalQuantity += "<span class='success'>" + cart.totalQuantity + "</span>";
+							totalPrice += "<span class='success'>" + cart.totalPrice + "</span>";
+							$("#quantity").html(totalQuantity);
+							$('#totalPrice').html(totalPrice);
+
+							let result = "";
+							for (let i = 0; i < cart.product.length; i++) {
+								result += "<span class='success'>";
+								result += "<li class=\"header-cart-item\">";
+								result += "<div class=\"header-cart-item-img\">";
+								result += "<img src=images/" + cart.product[i].image + " alt=IMG>";
+								result += "</div>";
+								result += "<div class=\"header-cart-item-txt\">";
+								result += "<a href=\"#\" class=\"header-cart-item-name\">";
+								result += cart.product[i].name;
+								result += "</a>";
+								result += "<span class=\"header-cart-item-info\">";
+								result += "<span>";
+								result += cart.product[i].quantity;
+								result += " </span>";
+								result += "x $";
+								result += "<span>";
+								result += cart.product[i].price;
+								result += " </span>";
+								result += " </span>";
+								result += "</div>";
+								result += "</li>";
+								result += "</span>";
+							}
+							$('#cart-dropdown').html(result);
+						}
+					});
+					event.preventDefault();
+				});
+			});
+
+	</script>
+	<script src="js/main.js">
+		function showAll() {
+			document.getElementById("all").style.display = 'block';
+			document.getElementById("women").style.display = 'none';
+			document.getElementById("men").style.display = 'none';
+			document.getElementById("kid").style.display = 'none';
+			document.getElementById("accesory").style.display = 'none';
+		}
+
+		function showWomen() {
+			document.getElementById("all").style.display = 'none';
+			document.getElementById("women").style.display = 'block';
+			document.getElementById("men").style.display = 'none';
+			document.getElementById("kid").style.display = 'none';
+			document.getElementById("accesory").style.display = 'none';
+		}
+
+		function showMen() {
+			document.getElementById("all").style.display = 'none';
+			document.getElementById("women").style.display = 'none';
+			document.getElementById("men").style.display = 'block';
+			document.getElementById("kid").style.display = 'none';
+			document.getElementById("accesory").style.display = 'none';
+		}
+
+		function showKid() {
+			document.getElementById("all").style.display = 'none';
+			document.getElementById("women").style.display = 'none';
+			document.getElementById("men").style.display = 'none';
+			document.getElementById("kid").style.display = 'block';
+			document.getElementById("accesory").style.display = 'none';
+		}
+
+		function showAccesory() {
+			document.getElementById("all").style.display = 'none';
+			document.getElementById("women").style.display = 'none';
+			document.getElementById("men").style.display = 'none';
+			document.getElementById("kid").style.display = 'none';
+			document.getElementById("accesory").style.display = 'block';
+		}
+
+
+	</script>
+>>>>>>> 5ca9106e165259c4938bb9f4d6c0b4c45a2bae3b
 
 </body>
 
