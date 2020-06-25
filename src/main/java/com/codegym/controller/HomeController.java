@@ -120,7 +120,7 @@ public class HomeController {
         Page<Product> productWomen ;
             productWomen = productService.findAllByType_NameOrderByPriceAsc("Women", pageable);
 
-                                         @RequestParam(defaultValue = "5") int size) {
+
      
         ModelAndView modelAndView = new ModelAndView("productWomen");
         Price price = new Price();
@@ -137,7 +137,7 @@ public class HomeController {
         Page<Product> productMen ;
         productMen = productService.findAllByType_NameOrderByPriceAsc("Men",pageable);
 
-                                       @RequestParam(defaultValue = "5") int size) {
+
        
         ModelAndView modelAndView = new ModelAndView("productMen");
 
@@ -155,7 +155,7 @@ public class HomeController {
         Page<Product> productKid ;
         productKid = productService.findAllByType_NameOrderByPriceAsc("Kid",pageable);
 
-                                       @RequestParam(defaultValue = "5") int size) {
+
      
 
         ModelAndView modelAndView = new ModelAndView("productKid");
@@ -174,7 +174,6 @@ public class HomeController {
         Page<Product> productAccesory ;
         productAccesory = productService.findAllByType_NameOrderByPriceAsc("Accessory",pageable);
 
-                                            @RequestParam(defaultValue = "5") int size) {
 
         ModelAndView modelAndView = new ModelAndView("productAccesory");
         Price price = new Price();
@@ -186,7 +185,7 @@ public class HomeController {
     @GetMapping("/product-detail-{id}")
     public ModelAndView productDetailsPage(@PathVariable Long id) {
         ModelAndView modelAndView = new ModelAndView("product-detail");
-        Optional<Product> product = produceService.getById(id);
+        Optional<Product> product = productService.getById(id);
         if (product.isPresent()){
             Product product1 = product.get();
             modelAndView.addObject("product",product1);
@@ -240,14 +239,29 @@ public class HomeController {
         return modelAndView;
     }
 
+//    @GetMapping("/admin/customer_list")
+//    public ModelAndView showCustomerList() {
+//        Iterable<AppCustomer> customers = customerService.findAll();
+//        ModelAndView modelAndView = new ModelAndView("customer/customerList");
+//        modelAndView.addObject("customers", customers);
+//        return modelAndView;
+//    }
+
     @GetMapping("/admin/customer_list")
-    public ModelAndView showCustomerList() {
-        Iterable<AppCustomer> customers = customerService.findAll();
+    public ModelAndView showListCustomer(@RequestParam ("s") Optional<String> s,
+                                         @RequestParam (defaultValue = "0") int page,
+                                         @RequestParam(defaultValue = "5") int size){
+        Pageable pageable = PageRequest.of(page,size);
+        Page<AppCustomer> customers;
+        if (s.isPresent()){
+            customers = customerService.findAllByUserNameContaining(s.get(),pageable);
+        }else {
+            customers = customerService.findAllCustomer(pageable);
+        }
         ModelAndView modelAndView = new ModelAndView("customer/customerList");
-        modelAndView.addObject("customers", customers);
+        modelAndView.addObject("customers",customers);
         return modelAndView;
     }
-
     @GetMapping("/admin/customer_edit/{id}")
     public ModelAndView showEditForm(@PathVariable("id") Long id) {
         ModelAndView modelAndView = new ModelAndView("customer/customerEdit");
