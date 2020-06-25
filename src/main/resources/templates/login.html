@@ -146,10 +146,6 @@
                             <a href="/products">Shop</a>
                         </li>
 
-                        <li class="sale-noti">
-                            <a href="/products">Sale</a>
-                        </li>
-
                         <li>
                             <a href="/carts">Cart</a>
                         </li>
@@ -412,10 +408,6 @@
                 </li>
 
                 <li class="item-menu-mobile">
-                    <a href="product.html">Sale</a>
-                </li>
-
-                <li class="item-menu-mobile">
                     <a href="cart.html">Features</a>
                 </li>
 
@@ -438,33 +430,33 @@
 
 
 <!--style="background-image: url(/images/Test.jpg); background-size: cover; background-repeat: no-repeat"-->
-<h2 style="text-align: center"> Nhập tài khoản để đăng nhập</h2>
+<h5 style="text-align: center; margin-top: 20px"> Login for more information</h5>
 
 <form th:action="@{/login}" method="post" th:object="${customer}">
-    <div class="imgcontainer">
-        <img src="/images/dog.jpg" alt="Avatar" class="avatar">
-    </div>
+<!--    <div class="imgcontainer">-->
+<!--        <img src="/images/dog.jpg" alt="Avatar" class="avatar">-->
+<!--    </div>-->
 
     <div class="container">
-        <label for="username"><b>Tài khoản</b></label>
-        <input style="border-radius: 5px" type="text" th:field="*{username}" placeholder="Nhập tài khoản..." name="username" id="username" required>
+        <label for="username">Username</label>
+        <input style="border-radius: 5px" type="text" th:field="*{username}" placeholder="Enter username..." name="username" id="username" required>
 
-        <label for="password"><b>Mật khẩu</b></label>
-        <input style="border-radius: 5px" type="password" th:field="*{password}" placeholder="Nhập mật khẩu..." name="password" id="password" required>
+        <label for="password"><b>Password</b></label>
+        <input style="border-radius: 5px" type="password" th:field="*{password}" placeholder="Enter password..." name="password" id="password" required>
 
-        <button type="submit">Đăng nhập</button>
+        <button type="submit">Login</button>
         <label>
-            <input type="checkbox" name="remember"> Ghi nhớ tài khoản
+            <input type="checkbox" name="remember"> Remember
         </label>
     </div>
 
     <table>
         <tr>
-            <td style="width: 180px">
-                <span class="psw" style="margin-left: 30px"> <a href="/">Quay lại</a></span>
+            <td style="width: 180px; text-align: center">
+                <span> <a href="/">Back</a></span>
             </td>
-            <td style="width: 150px">
-                <span class="psw" style="margin-left: 20px"><a th:href="@{/do_register}">Đăng kí</a></span>
+            <td style="width: 180px; text-align: center">
+                <span><a th:href="@{/do_register}">Register</a></span>
             </td>
         </tr>
     </table>
@@ -501,26 +493,26 @@
 
             <ul>
                 <li class="p-b-9">
-                    <a href="#" class="s-text7">
+                    <a href="/products-men" class="s-text7">
                         Men
                     </a>
                 </li>
 
                 <li class="p-b-9">
-                    <a href="#" class="s-text7">
+                    <a href="/products-women" class="s-text7">
                         Women
                     </a>
                 </li>
 
                 <li class="p-b-9">
-                    <a href="#" class="s-text7">
-                        Dresses
+                    <a href="/products-laptop" class="s-text7">
+                        Laptops
                     </a>
                 </li>
 
                 <li class="p-b-9">
-                    <a href="#" class="s-text7">
-                        Sunglasses
+                    <a href="/products-watch" class="s-text7">
+                        Watches
                     </a>
                 </li>
             </ul>
