@@ -40,7 +40,6 @@ public class CartRestController {
 
     @GetMapping("/carts/{id}")
     public ResponseEntity<Cart> addToCart(@PathVariable Long id, @ModelAttribute("cart") Cart cart){
-        System.out.println(id);
         List<CartProduct> products = cart.getProduct();
         boolean isProductExist = cartService.isExists(id, products);
         if (isProductExist) {
@@ -55,7 +54,6 @@ public class CartRestController {
         cart.setTotalQuantity(totalQuantity);
         float totalPrice = cartService.getTotalPrice(products);
         cart.setTotalPrice(totalPrice);
-//        System.out.println(totalQuantity);
         return new ResponseEntity<>(cart, HttpStatus.OK);
     }
 

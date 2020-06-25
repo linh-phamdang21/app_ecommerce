@@ -146,10 +146,6 @@
                             <a href="/products">Shop</a>
                         </li>
 
-                        <li class="sale-noti">
-                            <a href="/products">Sale</a>
-                        </li>
-
                         <li>
                             <a href="/carts">Cart</a>
                         </li>
@@ -171,9 +167,10 @@
 
             <!-- Header Icon -->
             <div class="header-icons">
-                <a href="#" class="header-wrapicon1 dis-block">
-                    <img src="images/icons/icon-header-01.png" class="header-icon1" alt="ICON">
-                </a>
+                <a href="/login">Login</a>
+<!--                <a href="#" class="header-wrapicon1 dis-block">-->
+<!--                    <img src="images/icons/icon-header-01.png" class="header-icon1" alt="ICON">-->
+<!--                </a>-->
 
                 <span class="linedivide1"></span>
 
@@ -440,17 +437,17 @@
 <!--style="background-image: url(/images/Test.jpg); background-size: cover; background-repeat: no-repeat"-->
 <h2 style="text-align: center"> Nhập tài khoản để đăng nhập</h2>
 
-<form th:action="@{/login}" method="post" th:object="${customer}">
+<form name="f" action="do_login" method="post">
     <div class="imgcontainer">
         <img src="/images/dog.jpg" alt="Avatar" class="avatar">
     </div>
 
     <div class="container">
         <label for="username"><b>Tài khoản</b></label>
-        <input style="border-radius: 5px" type="text" th:field="*{username}" placeholder="Nhập tài khoản..." name="username" id="username" required>
+        <input style="border-radius: 5px" type="text" placeholder="Nhập tài khoản..." name="username" id="username" required>
 
         <label for="password"><b>Mật khẩu</b></label>
-        <input style="border-radius: 5px" type="password" th:field="*{password}" placeholder="Nhập mật khẩu..." name="password" id="password" required>
+        <input style="border-radius: 5px" type="password" placeholder="Nhập mật khẩu..." name="password" id="password" required>
 
         <button type="submit">Đăng nhập</button>
         <label>

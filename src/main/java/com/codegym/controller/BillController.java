@@ -11,11 +11,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.Optional;
 
 @Controller
+@RequestMapping("/admin")
 public class BillController {
 
     @Autowired
@@ -57,7 +59,6 @@ public class BillController {
 
     @PostMapping("/bills-update")
     public ModelAndView updateDetailBill(@ModelAttribute("bill") Bill bill) {
-        System.out.println(bill.getStatus());
         ModelAndView modelAndView = new ModelAndView("bill/bill-detail");
         if (bill.getId() != null){
             System.out.println(bill.getId());
@@ -65,13 +66,11 @@ public class BillController {
         }else {
             modelAndView.addObject("message", "Edit no success");
         }
-
         Optional<Bill> bill1 = billService.getById(bill.getId());
         Bill bill2 = bill1.get();
         bill2.setStatus(bill.getStatus());
         billService.save(bill2);
         modelAndView.addObject("bill", bill2);
-        System.out.println("=======ok=======");
         return modelAndView;
     }
 
