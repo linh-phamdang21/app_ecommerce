@@ -439,10 +439,12 @@
 
     <div class="container">
         <label for="username">Username</label>
-        <input style="border-radius: 5px" type="text" th:field="*{username}" placeholder="Enter username..." name="username" id="username" required>
+        <input style="border-radius: 5px" type="text" th:field="*{username}" placeholder="Enter username..." name="username" id="username"
+               required minlength="4" maxlength="100">
 
         <label for="password"><b>Password</b></label>
-        <input style="border-radius: 5px" type="password" th:field="*{password}" placeholder="Enter password..." name="password" id="password" required>
+        <input style="border-radius: 5px" type="password" th:field="*{password}" placeholder="Enter password..." name="password" id="password"
+               required minlength="4" maxlength="100">
 
         <button type="submit">Login</button>
         <label>
