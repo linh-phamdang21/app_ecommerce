@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title th:text="#{Category.title}"></title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
           integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
@@ -20,32 +20,39 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item ">
-                <a class="nav-link" th:href="@{/admin/product/list}">List Product | </a>
+                <a class="nav-link" th:href="@{/admin/product/list}" th:text="#{listProduct.href}"> </a>
             </li>
             <li class="nav-item ">
-                <a class="nav-link" th:href="@{/admin/brand/list}">List Brand | </a>
+                <a class="nav-link" th:href="@{/admin/brand/list}" th:text="#{listProduct.href2}"> </a>
             </li>
             <li class="nav-item ">
-                <a class="nav-link" th:href="@{/admin/category/list}">List Category </a>
+                <a class="nav-link" th:href="@{/admin/category/list}" th:text="#{listProduct.href1}"> </a>
             </li>
+            <li class="nav-item ">
+                <a class="nav-link" th:href="@{/type/list}" th:text="#{listProductType}"></a>
+            </li>
+            <li class="nav-item ">
+                <a class="nav-link" th:href="@{/admin/customer_list}" th:text="#{ListCustomer}"></a>
+            </li>
+
         </ul>
         <form class="form-inline my-2 my-lg-0">
             <input class="form-control mr-sm-2" name="s" type="search" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-success my-2 my-sm-0" value="Search" type="submit">Search</button>
+            <button class="btn btn-outline-success my-2 my-sm-0" value="Search" type="submit" th:text="#{listProduct.search}"></button>
         </form>
     </div>
 </nav>
-Language: <a href="?lang=en">English</a> | <a href="?lang=vn">Vietnamese</a>
+<span th:text="#{listProduct.language}"></span> <a href="?lang=en">English</a> | <a href="?lang=vn">Vietnamese</a>
 <br>
-<i>  <a class="nav-link" th:href="@{/admin/category/create}">Create Category </a></i>
+<i>  <a class="nav-link" th:href="@{/admin/category/create}" th:text="#{createCategory}"> </a></i>
 <hr>
 <div class="container">
     <table class="table table-hover" style="border: 1px solid black">
         <thead>
         <tr>
-            <th scope="col">ID</th>
-            <th scope="col">Name</th>
-            <th scope="col">Delete</th>
+            <th scope="col" th:text="#{IdBrand.id}"></th>
+            <th scope="col" th:text="#{nameCategory}">Name</th>
+            <th scope="col" th:text="#{listProduct.Action}">Delete</th>
         </tr>
         </thead>
         <tbody>
@@ -53,7 +60,7 @@ Language: <a href="?lang=en">English</a> | <a href="?lang=vn">Vietnamese</a>
             <td th:text="${cate.id}"></td>
             <td th:text="${cate.name}"></td>
             <td>
-                <a th:href="@{/admin/category/delete/{id}(id=${cate.id})}">Delete</a>
+                <a th:href="@{/admin/category/delete/{id}(id=${cate.id})}" th:text="#{deleteBrand}"></a>
             </td>
         </tr>
         </tbody>
@@ -64,6 +71,7 @@ Language: <a href="?lang=en">English</a> | <a href="?lang=vn">Vietnamese</a>
             <a th:href="@{'/admin/category/list'(page=${categories.number + 1})}" th:if="${categories.hasNext()}">Next</a>
         </div>
 </div>
-
+<br>
+<a th:href="@{/logout}" style="margin-left: 100px" th:text="#{logout}"></a>
 </body>
 </html>

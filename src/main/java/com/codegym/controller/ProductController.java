@@ -13,15 +13,20 @@ import com.codegym.service.category.ICategoryService;
 import com.codegym.service.product.IProduceService;
 import com.codegym.service.type.IProductTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.awt.*;
+import java.io.File;
+import java.io.IOException;
 import java.util.Optional;
 
 @Controller
@@ -33,11 +38,15 @@ public class ProductController {
 
     @Autowired
     private ICategoryService categoryService;
+
     @Autowired
     private IBrandService brandService;
 
+    @Autowired
+    Environment env;
+
     @ModelAttribute("brand")
-    public Iterable<Brand> brands(){
+    public Iterable<Brand> brands() {
         return brandService.findAll();
     }
 
@@ -50,7 +59,7 @@ public class ProductController {
     }
 
     @ModelAttribute("types")
-    public Iterable<ProductType> types(){
+    public Iterable<ProductType> types() {
         return typeService.findAll();
     }
 
@@ -70,31 +79,56 @@ public class ProductController {
         return modelAndView;
     }
 
-    @GetMapping("/create-product")
+        @GetMapping("/create-product")
     public ModelAndView showCreateProduct() {
         ModelAndView modelAndView = new ModelAndView("/product/createProduct");
         modelAndView.addObject("product", new Product());
-        modelAndView.addObject("types", types());
+        modelAndView.addObject("types",  types());
         return modelAndView;
     }
-
+//
+//    @PostMapping("/create-product")
+//    public ModelAndView createProduct(@ModelAttribute Product product) {
+//        ModelAndView modelAndView = new ModelAndView("/product/createProduct");
+//        produceService.save(product);
+//        modelAndView.addObject("message", "create success");
+//        return modelAndView;
+//    }
     @PostMapping("/create-product")
-    public ModelAndView createProduct(@ModelAttribute Product product) {
-        ModelAndView modelAndView = new ModelAndView("/product/createProduct");
-        produceService.save(product);
-        modelAndView.addObject("message", "create success");
+    public ModelAndView saveFile(@ModelAttribute Product product) throws Exception {
+        ModelAndView modelAndView = new ModelAndView("product/createProduct");
+        Product product1 = new Product(null,product.getProductName(),product.getPrice(),product.getDescribes(),
+                product.getCategory(),product.getBrand(),product.getType());
+        MultipartFile multipartFile = product.getImages();
+        String fileName= multipartFile.getOriginalFilename();
+        String fileUpLoad= env.getProperty("file_upload").toString();
+        try {
+            FileCopyUtils.copy(product.getImages().getBytes(), new File(fileUpLoad + fileName));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        product1.setImage(fileName);
+        Product product2 = produceService.save(product1);
+        if (product2 == null) {
+            modelAndView.addObject("message", "errors");
+        } else {
+            modelAndView.addObject("message", "ok");
+        }
+        modelAndView.addObject("product", new Product());
+
         return modelAndView;
+
     }
 
     @GetMapping("edit-product/{id}")
     public ModelAndView showEditProduct(@PathVariable Long id) {
         ModelAndView modelAndView = new ModelAndView("/product/editProduct");
         Optional<Product> product = produceService.getById(id);
-        if (product.isPresent()){
+        if (product.isPresent()) {
             Product product1 = new Product();
             product1 = product.get();
             modelAndView.addObject("product", product1);
-        }else {
+        } else {
             modelAndView.addObject("product", new Product());
         }
 

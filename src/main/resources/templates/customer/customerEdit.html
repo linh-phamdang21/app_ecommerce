@@ -4,58 +4,94 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Product</title>
+    <title th:text="#{EditCustomer}"></title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
           integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
 </head>
 <body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="#">
+        <img src="/images/market-store-icon.jpg" alt="Avatar" class="avatar" style="border-radius: 50%; width: 50px;height: 50px">
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
 
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item ">
+                <a class="nav-link" th:href="@{/admin/product/list}" th:text="#{listProduct.href}"> </a>
+            </li>
+            <li class="nav-item ">
+                <a class="nav-link" th:href="@{/admin/brand/list}" th:text="#{listProduct.href2}"> </a>
+            </li>
+            <li class="nav-item ">
+                <a class="nav-link" th:href="@{/admin/category/list}" th:text="#{listProduct.href1}"> </a>
+            </li>
+            <li class="nav-item ">
+                <a class="nav-link" th:href="@{/type/list}" th:text="#{listProductType}"></a>
+            </li>
+            <li class="nav-item ">
+                <a class="nav-link" th:href="@{/admin/customer_list}" th:text="#{ListCustomer}"></a>
+            </li>
+
+        </ul>
+
+        <form class="form-inline my-2 my-lg-0">
+            <input class="form-control mr-sm-2" name="s" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-success my-2 my-sm-0" value="Search" type="submit" th:text="#{listProduct.search}"></button>
+        </form>
+    </div>
+</nav>
+<span th:text="#{listProduct.language}"></span> <a href="?lang=en">English</a> | <a href="?lang=vn">Vietnamese</a>
+<br>
 <div style="margin: auto; width: 800px">
-    <h1 style="margin: auto"> Customer List </h1>
     <br>
-    <form th:action="@{/customer_edit}" th:object="${customer}" method="post">
+    <form th:action="@{/admin/customer_edit}" th:object="${customer}" method="post">
         <input th:type="hidden" name="id" th:field="*{id}">
         <table class="table table-striped row" style="margin: auto">
             <tr>
-                <td th:text="Username" style="width: 200px"></td>
+                <td th:text="#{nameCustomer}" style="width: 200px"></td>
                 <td>
                     <input type="text" th:field="*{username}">
                 </td>
             </tr>
 
             <tr>
-                <td th:text="Password" style="width: 200px"></td>
+                <td th:text="#{passCustomer}" style="width: 200px"></td>
                 <td>
                     <input type="text" th:field="*{password}">
                 </td>
             </tr>
 
             <tr>
-                <td th:text="Phone" style="width: 150px"></td>
+                <td th:text="#{PhoneCustomer}" style="width: 150px"></td>
                 <td>
                     <input type="text" th:field="*{phone}">
                 </td>
             </tr>
 
             <tr>
-                <td th:text="Address" style="width: 200px"></td>
+                <td th:text="#{AddressCustomer}" style="width: 200px"></td>
                 <td>
                     <input type="text" th:field="*{address}">
                 </td>
             </tr>
             <tr>
                 <td colspan="2">
-                    <input type="submit" value="Edit">
+                    <input type="submit"  th:text="#{listProduct.Edit}">
                 </td>
             </tr>
 
         </table>
         <div style="margin-left: 40px">
-            <a th:href="@{/customer_list}"> Back to list </a>
+            <a th:href="@{admin/customer_list}" th:text="#{backToList}"> Back to list </a>
         </div>
     </form>
 
 </div>
-
+<br>
+<a th:href="@{/logout}" style="margin-left: 100px" th:text="#{logout}"></a>
 </body>
 </html>
