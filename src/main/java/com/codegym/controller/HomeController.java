@@ -2,6 +2,9 @@ package com.codegym.controller;
 
 
 import com.codegym.model.*;
+
+import com.codegym.service.category.ICategoryService;
+
 import com.codegym.service.product.IProduceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -24,8 +27,13 @@ import java.util.Optional;
 
 
 @Controller
-@SessionAttributes("cart")
+@SessionAttributes({"cart", "sessionCustomer"})
 public class HomeController {
+
+    @ModelAttribute("sessionCustomer")
+    public AppCustomer setUpCustomer(){
+        return new AppCustomer();
+    }
 
     @Autowired
     private IProduceService productService;
@@ -35,6 +43,11 @@ public class HomeController {
 
     @Autowired
     private AppRoleService appRoleService;
+
+ 
+    @Autowired
+    private ICategoryService categoryService;
+
 
     @ModelAttribute("cart")
     public Cart setUpCart() {
@@ -67,8 +80,9 @@ public class HomeController {
     }
 
     @GetMapping("/carts")
-    public ModelAndView cartPage() {
+    public ModelAndView cartPage(@ModelAttribute("sessionCustomer") AppCustomer customer) {
         ModelAndView modelAndView = new ModelAndView("cart");
+        System.out.println(customer.getId());
         return modelAndView;
     }
 
@@ -100,10 +114,14 @@ public class HomeController {
 
     @GetMapping("/products-women")
     public ModelAndView listProductWomen(@RequestParam(defaultValue = "0") int page,
+
                                         @RequestParam(defaultValue = "6") int size){
         Pageable pageable= PageRequest.of(page,size);
         Page<Product> productWomen ;
             productWomen = productService.findAllByType_NameOrderByPriceAsc("Women", pageable);
+
+                                         @RequestParam(defaultValue = "5") int size) {
+     
         ModelAndView modelAndView = new ModelAndView("productWomen");
         Price price = new Price();
         modelAndView.addObject("price", price);
@@ -113,11 +131,16 @@ public class HomeController {
 
     @GetMapping("/products-men")
     public ModelAndView listProductMen(@RequestParam(defaultValue = "0") int page,
+
                                          @RequestParam(defaultValue = "6") int size){
         Pageable pageable= PageRequest.of(page,size);
         Page<Product> productMen ;
         productMen = productService.findAllByType_NameOrderByPriceAsc("Men",pageable);
+
+                                       @RequestParam(defaultValue = "5") int size) {
+       
         ModelAndView modelAndView = new ModelAndView("productMen");
+
         Price price = new Price();
         modelAndView.addObject("price", price);
         modelAndView.addObject("productMen",productMen);
@@ -126,10 +149,15 @@ public class HomeController {
 
     @GetMapping("/products-kid")
     public ModelAndView listProductKid(@RequestParam(defaultValue = "0") int page,
+
                                          @RequestParam(defaultValue = "6") int size){
         Pageable pageable= PageRequest.of(page,size);
         Page<Product> productKid ;
         productKid = productService.findAllByType_NameOrderByPriceAsc("Kid",pageable);
+
+                                       @RequestParam(defaultValue = "5") int size) {
+     
+
         ModelAndView modelAndView = new ModelAndView("productKid");
         Price price = new Price();
         modelAndView.addObject("price", price);
@@ -139,11 +167,15 @@ public class HomeController {
 
     @GetMapping("/products-accesory")
     public ModelAndView listProductAccesory(@RequestParam(defaultValue = "0") int page,
+
                                          @RequestParam(defaultValue = "6") int size){
 
         Pageable pageable= PageRequest.of(page,size);
         Page<Product> productAccesory ;
         productAccesory = productService.findAllByType_NameOrderByPriceAsc("Accessory",pageable);
+
+                                            @RequestParam(defaultValue = "5") int size) {
+
         ModelAndView modelAndView = new ModelAndView("productAccesory");
         Price price = new Price();
         modelAndView.addObject("price", price);
@@ -151,9 +183,16 @@ public class HomeController {
         return modelAndView;
     }
 
-    @GetMapping("/product-detail")
-    public ModelAndView productDetailsPage() {
+    @GetMapping("/product-detail-{id}")
+    public ModelAndView productDetailsPage(@PathVariable Long id) {
         ModelAndView modelAndView = new ModelAndView("product-detail");
+        Optional<Product> product = produceService.getById(id);
+        if (product.isPresent()){
+            Product product1 = product.get();
+            modelAndView.addObject("product",product1);
+        }else {
+            modelAndView.addObject("product",new Product());
+        }
         return modelAndView;
     }
 
@@ -235,23 +274,35 @@ public class HomeController {
         return "redirect:/customer_list";
     }
 
+    @GetMapping("/login")
+    public ModelAndView loginPage() {
+        ModelAndView modelAndView = new ModelAndView("login");
+        modelAndView.addObject("customer", new AppCustomer());
+        return modelAndView;
+    }
+
     @PostMapping("/login")
-    public ModelAndView login(@ModelAttribute AppCustomer customer){
+    public ModelAndView login(@ModelAttribute("sessionCustomer") AppCustomer sessionCustomer, @ModelAttribute("customer") AppCustomer customer) {
         Iterable<AppCustomer> customers = customerService.findAll();
-        for (AppCustomer customer1 : customers){
-            if (customer.getUsername().equals(customer1.getUsername()) && customer.getPassword().equals(customer1.getPassword())){
-                ModelAndView modelAndView = new ModelAndView("bill");
-               AppCustomer customer2 = customerService.getCustomerByName(customer.getUsername());
-               customer.setId(customer2.getId());
-               customer.setUsername(customer2.getUsername());
-               customer.setPassword(customer2.getPassword());
-               customer.setPhone(customer2.getPhone());
-               customer.setAddress(customer2.getAddress());
-                modelAndView.addObject("customer", customer);
+        for (AppCustomer customer1 : customers) {
+            if (customer.getUsername().equals(customer1.getUsername()) && customer.getPassword().equals(customer1.getPassword())) {
+                ModelAndView modelAndView = new ModelAndView("login");
+                AppCustomer customer2 = customerService.getCustomerByName(customer.getUsername());
+                sessionCustomer.setId(customer2.getId());
+                sessionCustomer.setUsername(customer2.getUsername());
+                sessionCustomer.setPassword(customer2.getPassword());
+                sessionCustomer.setPhone(customer2.getPhone());
+                sessionCustomer.setAddress(customer2.getAddress());
+                modelAndView.addObject("customer", new AppCustomer());
+                modelAndView.addObject("message", "Login Successfully !!");
+                System.out.println(sessionCustomer.getId());
+                System.out.println(customer.getId());
                 return modelAndView;
+
             }
         }
         ModelAndView modelAndView = new ModelAndView("login");
+        modelAndView.addObject("message", "Login Fail !!");
         return modelAndView;
     }
 

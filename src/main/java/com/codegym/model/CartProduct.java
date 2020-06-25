@@ -8,7 +8,9 @@ public class CartProduct {
     private float price;
     private String describes;
     private Category category;
+
     private Brand brand;
+    private ProductType type;
     private int quantity;
 
     public CartProduct() {
@@ -23,6 +25,14 @@ public class CartProduct {
         this.category = category;
         this.brand = brand;
         this.quantity = quantity;
+    }
+
+    public ProductType getType() {
+        return type;
+    }
+
+    public void setType(ProductType type) {
+        this.type = type;
     }
 
     public Long getId() {

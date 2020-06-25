@@ -398,75 +398,63 @@
 		<div class="flex-w flex-sb">
 			<div class="w-size13 p-t-30 respon5">
 				<div class="wrap-slick3 flex-sb flex-w">
-					<div class="wrap-slick3-dots"></div>
+					<form th:action="@{/addToCart}" th:object="${product}" method="post" class="col-xl-3" th:each="pro : ${product}">
+						<div class="card" style="width: 18rem;">
+							<td><img class="card-img-top" th:src="@{/images/{img}(img=${pro.image})}"
 
-					<div class="slick3">
-						<div class="item-slick3" data-thumb="images/thumb-item-01.jpg">
-							<div class="wrap-pic-w">
-								<img src="images/product-detail-01.jpg" alt="IMG-PRODUCT">
-							</div>
+									 style="width: 400px;height: 450px"/></td>
 						</div>
-
-						<div class="item-slick3" data-thumb="images/thumb-item-02.jpg">
-							<div class="wrap-pic-w">
-								<img src="images/product-detail-02.jpg" alt="IMG-PRODUCT">
-							</div>
-						</div>
-
-						<div class="item-slick3" data-thumb="images/thumb-item-03.jpg">
-							<div class="wrap-pic-w">
-								<img src="images/product-detail-03.jpg" alt="IMG-PRODUCT">
-							</div>
-						</div>
-					</div>
+					</form>
 				</div>
 			</div>
 
-			<div class="w-size14 p-t-30 respon5">
+			<div class="w-size14 p-t-30 respon5" th:each="p :${product}">
 				<h4 class="product-detail-name m-text16 p-b-13">
-					Boxy T-Shirt with Roll Sleeve Detail
+					<h2>Name Product:</h2>
+					<p class="card-title" th:text="${p.getProductName()}"></p>
 				</h4>
 
 				<span class="m-text17">
-					$22
+					<h2>Price: </h2>
+					<p class="card-text" th:text="${p.getPrice()}"></p>
 				</span>
 
-				<p class="s-text8 p-t-10">
-					Nulla eget sem vitae eros pharetra viverra. Nam vitae luctus ligula. Mauris consequat ornare feugiat.
-				</p>
+				<h3 class="s-text8 p-t-10">
+				<h2>Describes: </h2>
+				<p class="card-text" th:text="${p.describes}"></p>
+				</h3>
 
 				<!--  -->
-				<div class="p-t-33 p-b-60">
+				<div class="p-t-33 p-b-60" th:object="${product}" th:each="p:${product}">
 					<div class="flex-m flex-w p-b-10">
 						<div class="s-text15 w-size15 t-center">
-							Size
+							<h3 style="font-weight: bold">Category: </h3>	<b style="font-weight: bold" th:text="${p.category.name}"></b>
 						</div>
 
-						<div class="rs2-select2 rs3-select2 bo4 of-hidden w-size16">
-							<select class="selection-2" name="size">
-								<option>Choose an option</option>
-								<option>Size S</option>
-								<option>Size M</option>
-								<option>Size L</option>
-								<option>Size XL</option>
-							</select>
-						</div>
+<!--						<div class="rs2-select2 rs3-select2 bo4 of-hidden w-size16">-->
+<!--							<select class="selection-2" name="size" th:field="*{}">-->
+<!--								<option>Choose an option</option>-->
+<!--								<option>Size S</option>-->
+<!--								<option>Size M</option>-->
+<!--								<option>Size L</option>-->
+<!--								<option>Size XL</option>-->
+<!--							</select>-->
+<!--						</div>-->
 					</div>
 
 					<div class="flex-m flex-w">
-						<div class="s-text15 w-size15 t-center">
-							Color
+						<div class="s-text15 w-size15 t-center" >
+						<h3 style="font-weight: bold">Brand:</h3> 	<b style="font-weight: bold" th:text="${p.brand.name}"></b>
 						</div>
-
-						<div class="rs2-select2 rs3-select2 bo4 of-hidden w-size16">
-							<select class="selection-2" name="color">
-								<option>Choose an option</option>
-								<option>Gray</option>
-								<option>Red</option>
-								<option>Black</option>
-								<option>Blue</option>
-							</select>
-						</div>
+<!--						<div class="rs2-select2 rs3-select2 bo4 of-hidden w-size16">-->
+<!--							<select class="selection-2" name="color">-->
+<!--								<option>Choose an option</option>-->
+<!--								<option>Gray</option>-->
+<!--								<option>Red</option>-->
+<!--								<option>Black</option>-->
+<!--								<option>Blue</option>-->
+<!--							</select>-->
+<!--						</div>-->
 					</div>
 
 					<div class="flex-r-m flex-w p-t-10">

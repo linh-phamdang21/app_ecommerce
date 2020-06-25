@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>List Bills</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+          integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="#">
+        <img src="/images/market-store-icon.jpg" alt="Avatar" class="avatar"
+             style="border-radius: 50%; width: 50px;height: 50px">
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item ">
+                <a class="nav-link" th:href="@{/admin/product/list}">List Product | </a>
+            </li>
+            <li class="nav-item ">
+                <a class="nav-link" th:href="@{/admin/brand/list}">List Brand | </a>
+            </li>
+            <li class="nav-item ">
+                <a class="nav-link" th:href="@{/admin/category/list}">List Category </a>
+            </li>
+
+        </ul>
+
+        <form class="form-inline my-2 my-lg-0">
+            <input class="form-control mr-sm-2" name="s" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-success my-2 my-sm-0" value="Search" type="submit">Search</button>
+        </form>
+    </div>
+</nav>
+Language: <a href="?lang=en">English</a> | <a href="?lang=vn">Vietnamese</a>
+<br>
+<hr>
+<section class="cart bgwhite p-t-70 p-b-100">
+    <div class="container">
+        <!-- Cart item -->
+        <form action="" th:object="${bill}">
+            <div class="container-table-cart pos-relative">
+                <div class="wrap-table-shopping-cart bgwhite">
+                    <div>
+                        <h1>Thông tin người đặt </h1>
+                    </div>
+                    <div>
+                        <span>Mã đơn hàng:</span>
+                        <span th:text="${bill.getId()}"></span>
+                    </div>
+                    <div>
+                        <span>Người mua:</span>
+                        <span th:text="${bill.getCustomer().getUsername()}"></span>
+                    </div>
+                    <div>
+                        <span>Số điện thoại:</span>
+                        <span th:text="${bill.getCustomer().getPhone()}"></span>
+                    </div>
+                    <div>
+                        <span>Địa chỉ:</span>
+                        <span th:text="${bill.getCustomer().getAddress()}"></span>
+                    </div>
+                    <div>
+                        <span>Ngày đặt hàng:</span>
+                        <span th:text="${bill.getOrderDate()}"></span>
+                    </div>
+
+                    <table class="table-shopping-cart">
+                        <tr class="table-head">
+                            <th class="column-1">Id</th>
+                            <th class="column-2">Product</th>
+                            <th class="column-3">Price</th>
+                            <th class="column-4 p-l-70">Quantity</th>
+                            <th class="column-5">Total</th>
+                        </tr>
+                        <tr class="table-row" th:each="product : ${bill.getBillDetail().getProducts()}">
+                            <td class="column-1" th:text="${product.getId()}"></td>
+                            <td class="column-2" th:text="${product.getProductName()}"></td>
+                            <td class="column-3">$ <span th:text="${product.getPrice()}"></span></td>
+                            <td class="column-4" th:text="${product.getQuantity()}"></td>
+                            <td class="column-5">$ <span th:text="${product.getQuantity() * product.getPrice()}"></span>
+                            </td>
+                        </tr>
+                    </table>
+                    <div>
+                        <h1>Thông tin người nhận </h1>
+                    </div>
+                    <div>
+                        <span>Người nhận:</span>
+                        <span th:text="${bill.getCustomer().getUsername()}"></span>
+                    </div>
+
+                    <div>
+                        <span>Số điện thoại:</span>
+                        <span th:text="${bill.getCustomer().getPhone()}"></span>
+                    </div>
+                    <div>
+                        <span>Địa chỉ:</span>
+                        <span th:text="${bill.getCustomer().getAddress()}"></span>
+                    </div>
+                    <div>
+                        <p><span>Trạng thái: </span>
+                            <span th:text="${bill.getStatus().getBillStatus()}"></span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</section>
+<!--<div>-->
+<!--    <a th:href="@{'/admin/product/list'(page=${products.number - 1})}"-->
+<!--       th:if="${products.hasPrevious()}">Previous</a>-->
+<!--    <span th:text="${products.number + 1}"></span>/<span th:text="${products.totalPages}"></span>-->
+<!--    <a th:href="@{'/admin/product/list'(page=${products.number + 1})}" th:if="${products.hasNext()}">Next</a>-->
+<!--</div>-->
+</body>
+</html>

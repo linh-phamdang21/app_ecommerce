@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Contact</title>
+    <title>Wait Confirm Product</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!--===============================================================================================-->
@@ -115,7 +115,7 @@
 
                 <div class="header-wrapicon2">
                     <img src="images/icons/icon-header-02.png" class="header-icon1 js-show-header-dropdown" alt="ICON">
-                    <span class="header-icons-noti" id="quantity" th:text="${cart.getTotalQuantity()}"></span>
+                    <span class="header-icons-noti" id="totalQuantity" th:text="${cart.getTotalQuantity()}"></span>
 
                     <!-- Header cart noti -->
                     <div class="header-cart header-dropdown">
@@ -242,7 +242,7 @@
                         <div class="header-cart-buttons">
                             <div class="header-cart-wrapbtn">
                                 <!-- Button -->
-                                <a href="cart.html" class="flex-c-m size1 bg1 bo-rad-20 hov1 s-text1 trans-0-4">
+                                <a href="/carts" class="flex-c-m size1 bg1 bo-rad-20 hov1 s-text1 trans-0-4">
                                     View Cart
                                 </a>
                             </div>
@@ -339,6 +339,7 @@
     </div>
 </header>
 
+<!-- Title Page -->
 
 <!-- status-->
 
@@ -346,111 +347,86 @@
     <nav class="menu">
         <ul class="main_menu">
             <li>
-                <a href="/wait-confirm">Chờ xác nhận</a>
+                <a href="/">Chờ xác nhận</a>
             </li>
             <span class="linedivide1"></span>
 
             <li>
-                <a href="/wait-delivery">Chờ lấy hàng</a>
+                <a href="/products">Chờ lấy hàng</a>
             </li>
             <span class="linedivide1"></span>
 
             <li class="sale-noti">
-                <a href="/delivering">Đang giao</a>
+                <a href="/products">Đang giao</a>
             </li>
             <span class="linedivide1"></span>
 
             <li>
-                <a href="/delivered">Đã giao hàng</a>
+                <a href="/carts">Đã giao hàng</a>
             </li>
             <span class="linedivide1"></span>
 
             <li>
-                <a href="/cancelOrder">Đơn hàng đã hủy</a>
+                <a href="/blogs">Đơn hàng đã hủy</a>
             </li>
 
         </ul>
     </nav>
 </div>
 
-<!-- content page -->
-<section class="bgwhite p-t-66 p-b-60">
+<!-- Cart -->
+<section class="cart bgwhite p-t-70 p-b-100">
     <div class="container">
-        <div class="">
-            <div class="p-b-30" style="width: 800px">
-                <form class="leave-comment" method="post" th:action="@{/cart-buy}" th:object="${customer}">
-                    <h4 class="m-text26 p-b-36 p-t-15">
-                        Thông tin khách hàng :
-                    </h4>
-                    <!--                    username-->
-                    <div>
-                        <p>User Name:</p>
-                        <p th:text="${customer.getUsername()}"></p>
-                    </div>
-                    <!--                    so dien thoai-->
-                    <div>
-                        <p>Phone Number:</p>
-                        <p th:text="${customer.getPhone()}"></p>
-                    </div>
-                    <!--                    dia chi-->
-                    <div>
-                        <p>Address:</p>
-                        <p th:text="${customer.getAddress()}"></p>
-                    </div>
-                    <div class="header-icons" style="position: relative; top: 20px; left: 220px">
-                        <div class="header-wrapicon2">
-                            <img src="images/icons/icon-header-02.png" class="header-icon1 js-show-header-dropdown" alt="ICON">
-                            <span class="header-icons-noti" id="quantity" th:text="${cart.getTotalQuantity()}"></span>
-                            <!-- Header cart noti -->
-                            <div class="header-cart header-dropdown">
-                                <ul class="header-cart-wrapitem" id="cart-dropdown">
-                                    <li class="header-cart-item" th:each="cartProduct : ${cart.getProduct()}">
-                                        <div class="header-cart-item-img">
-                                            <img th:src="@{/images/{img}(img=${cartProduct.getImage()})}" alt="IMG">
-                                        </div>
-                                        <div class="header-cart-item-txt">
-                                            <a href="#" class="header-cart-item-name" th:text="${cartProduct.getName()}">
+        <!-- Cart item -->
+        <div class="container-table-cart pos-relative" th:each="bill : ${bills}">
+            <div class="wrap-table-shopping-cart bgwhite">
+                <div>
+                    <span>Mã đơn hàng:</span>
+                    <span th:text="${bill.getId()}"></span>
+                </div>
 
-                                            </a>
+                <table class="table-shopping-cart">
+                    <tr class="table-head">
+                        <th class="column-1"></th>
+                        <th class="column-2">Product</th>
+                        <th class="column-3">Price</th>
+                        <th class="column-4 p-l-70">Quantity</th>
+                        <th class="column-5">Total</th>
+                    </tr>
 
-                                            <span class="header-cart-item-info">
-                                        <span th:text="${cartProduct.getQuantity()}"></span> x $<span th:text="${cartProduct.getPrice()}"></span>
-										</span>
-                                        </div>
-                                    </li>
-                                </ul>
-
-                                <div class="header-cart-total">
-                                    Total: $<span id="totalPrice" th:text="${cart.getTotalPrice()}"></span>
-                                </div>
+                    <tr class="table-row" th:each="product : ${bill.getBillDetail().getProducts()}">
+                        <td class="column-1">
+                            <div class="cart-img-product b-rad-4 o-f-hidden">
+                                <img th:src="@{/images/{img}(img=${product.getImage()})}" alt="IMG-PRODUCT">
                             </div>
-                        </div>
-                    </div>
-                    <h4 class="m-text26 p-b-36 p-t-15">Thông tin giao hàng</h4>
-                    <div class="bo4 of-hidden size15 m-b-20">
-                        <input class="sizefull s-text7 p-l-22 p-r-22" type="text" th:field="*{username}" placeholder="User Name">
-                    </div>
+                        </td>
+                        <td class="column-2" th:text="${product.getProductName()}"></td>
+                        <td class="column-3">$ <span th:text="${product.getPrice()}"></span></td>
+                        <td class="column-4">
+                            <div class="flex-w bo5 of-hidden w-size17">
+                                <input class="size8 m-text18 t-center num-product" type="number" name="num-product1" th:value="${product.getQuantity()}">
 
-                    <div class="bo4 of-hidden size15 m-b-20">
-                        <input class="sizefull s-text7 p-l-22 p-r-22" type="text" th:field="*{phone}" placeholder="Phone Number">
-                    </div>
+                            </div>
+                        </td>
+                        <td class="column-5">$ <span th:text="${product.getQuantity() * product.getPrice()}"></span></td>
+                    </tr>
+                    <tr>
+                        <td colspan="3"><span>Ngày đặt hàng: </span>
+                            <span th:text="${bill.getOrderDate()}"></span>
+                        </td>
+                        <td colspan="2"><span>Trạng thái: </span>
+                            <span th:text="${bill.getStatus().getBillStatus()}" ></span>
 
-                    <div class="bo4 of-hidden size15 m-b-20">
-                        <input class="sizefull s-text7 p-l-22 p-r-22" type="text" th:field="*{address}" placeholder="Address">
-                    </div>
-
-                    <div class="w-size25">
-                        <!-- Button -->
-                        <button type="submit" class="flex-c-m size2 bg1 bo-rad-23 hov1 m-text3 trans-0-4">
-                            Send
-                        </button>
-                    </div>
-                </form>
-                <p th:text="${message}"></p>
+                        </td>
+                    </tr>
+                </table>
             </div>
         </div>
+
+
     </div>
 </section>
+
 
 
 <!-- Footer -->
@@ -655,13 +631,181 @@
         minimumResultsForSearch: 20,
         dropdownParent: $('#dropDownSelect2')
     });
+
+    $(document).ready(function () {
+        $('.deleteProduct').click(function (event) {
+            let a = $(this);
+            let url = a.attr("href");
+            $.ajax({
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                url: url,
+                type: "DELETE",
+                success: function (cart) {
+                    a.parent().parent().parent().parent().remove();
+                    let totalQuantity = "";
+                    totalQuantity += "<span class='success'>";
+                    totalQuantity += cart.totalQuantity + "</span>";
+
+                    let totalPrice = "";
+                    totalPrice += "<span class='success'>";
+                    totalPrice += cart.totalPrice + "</span>";
+
+                    let result = "";
+                    for(let i = 0; i < cart.product.length; i++){
+                        result += "<span class='success'>";
+                        result += "<li class=\"header-cart-item\">";
+                        result += "<div class=\"header-cart-item-img\">";
+                        result += "<img src=images/" + cart.product[i].image +" alt=IMG>";
+                        result += "</div>";
+                        result += "<div class=\"header-cart-item-txt\">";
+                        result += "<a href=\"#\" class=\"header-cart-item-name\">";
+                        result += cart.product[i].name;
+                        result += "</a>";
+                        result += "<span class=\"header-cart-item-info\">";
+                        result += "<span>";
+                        result += cart.product[i].quantity;
+                        result += " </span>";
+                        result += "x $";
+                        result += "<span>";
+                        result += cart.product[i].price;
+                        result += " </span>";
+                        result += " </span>";
+                        result += "</div>";
+                        result += "</li>";
+                        result +=  "</span>";
+                    }
+                    $('#cart-dropdown').html(result);
+
+                    $('#totalQuantity').html(totalQuantity);
+                    $('#totalPrice').html(totalPrice);
+                    $('#totalQuantity1').html(totalQuantity);
+                    $('#totalPrice1').html(totalPrice);
+                }
+            });
+            event.preventDefault();
+        });
+        $('.plusOneProduct').click(function (event) {
+            let a = $(this);
+            let id = a.attr("id");
+            let url = a.attr("href");
+            $.ajax({
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                url: url,
+                type: "GET",
+                success: function (cart) {
+                    let totalQuantity = "";
+                    let totalPrice = "";
+                    totalQuantity += "<span class='success'>" + cart.totalQuantity + "</span>";
+                    totalPrice += "<span class='success'>" + cart.totalPrice + "</span>";
+                    $("#totalQuantity").html(totalQuantity);
+                    $('#totalPrice').html(totalPrice);
+
+                    let result = "";
+                    for(let i = 0; i < cart.product.length; i++){
+                        result += "<span class='success'>";
+                        result += "<li class=\"header-cart-item\">";
+                        result += "<div class=\"header-cart-item-img\">";
+                        result += "<img src=images/" + cart.product[i].image +" alt=IMG>";
+                        result += "</div>";
+                        result += "<div class=\"header-cart-item-txt\">";
+                        result += "<a href=\"#\" class=\"header-cart-item-name\">";
+                        result += cart.product[i].name;
+                        result += "</a>";
+                        result += "<span class=\"header-cart-item-info\">";
+                        result += "<span>";
+                        result += cart.product[i].quantity;
+                        result += " </span>";
+                        result += "x $";
+                        result += "<span>";
+                        result += cart.product[i].price;
+                        result += " </span>";
+                        result += " </span>";
+                        result += "</div>";
+                        result += "</li>";
+                        result +=  "</span>";
+                    }
+                    $('#cart-dropdown').html(result);
+                    $('#totalQuantity1').html(totalQuantity);
+                    $('#totalPrice1').html(totalPrice);
+                    for(let j = 0; j < cart.product.length; j++){
+                        if (id == cart.product[j].id){
+                            $('#totalPriceOneProduct'+id).html(cart.product[j].price * cart.product[j].quantity);
+                            $('#quantityOneProduct'+id).val(cart.product[j].quantity);
+                            break;
+                        }
+                    }
+                }
+            });
+            event.preventDefault();
+        });
+
+        $('.minusOneProduct').click(function (event) {
+            let a = $(this);
+            let id = a.attr("id");
+            let url = a.attr("href");
+            $.ajax({
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                url: url,
+                type: "DELETE",
+                success: function (cart) {
+                    let totalQuantity = "";
+                    let totalPrice = "";
+                    totalQuantity += "<span class='success'>" + cart.totalQuantity + "</span>";
+                    totalPrice += "<span class='success'>" + cart.totalPrice + "</span>";
+                    $("#totalQuantity").html(totalQuantity);
+                    $('#totalPrice').html(totalPrice);
+
+                    let result = "";
+                    for(let i = 0; i < cart.product.length; i++){
+                        result += "<span class='success'>";
+                        result += "<li class=\"header-cart-item\">";
+                        result += "<div class=\"header-cart-item-img\">";
+                        result += "<img src=images/" + cart.product[i].image +" alt=IMG>";
+                        result += "</div>";
+                        result += "<div class=\"header-cart-item-txt\">";
+                        result += "<a href=\"#\" class=\"header-cart-item-name\">";
+                        result += cart.product[i].name;
+                        result += "</a>";
+                        result += "<span class=\"header-cart-item-info\">";
+                        result += "<span>";
+                        result += cart.product[i].quantity;
+                        result += " </span>";
+                        result += "x $";
+                        result += "<span>";
+                        result += cart.product[i].price;
+                        result += " </span>";
+                        result += " </span>";
+                        result += "</div>";
+                        result += "</li>";
+                        result +=  "</span>";
+                    }
+                    $('#cart-dropdown').html(result);
+                    $('#totalQuantity1').html(totalQuantity);
+                    $('#totalPrice1').html(totalPrice);
+                    for(let j = 0; j < cart.product.length; j++){
+                        if (id == cart.product[j].id){
+                            $('#totalPriceOneProduct'+id).html(cart.product[j].price * cart.product[j].quantity);
+                            $('#quantityOneProduct'+id).val(cart.product[j].quantity);
+                            break;
+                        }
+                    }
+                }
+            });
+            event.preventDefault();
+        });
+    });
 </script>
-<!--===============================================================================================-->
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAKFWBqlKAGCeS1rMVoaNlwyayu0e0YRes"></script>
-<script src="js/map-custom.js"></script>
 <!--===============================================================================================-->
 <script src="js/main.js"></script>
 
 </body>
 </html>
-
