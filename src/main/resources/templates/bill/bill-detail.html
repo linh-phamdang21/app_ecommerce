@@ -44,7 +44,8 @@ Language: <a href="?lang=en">English</a> | <a href="?lang=vn">Vietnamese</a>
 <section class="cart bgwhite p-t-70 p-b-100">
     <div class="container">
         <!-- Cart item -->
-        <form action="" th:object="${bill}">
+        <form th:action="@{/bills-update}" method="post" th:object="${bill}">
+            <input type="hidden" th:field="*{id}">
             <div class="container-table-cart pos-relative">
                 <div class="wrap-table-shopping-cart bgwhite">
                     <div>
@@ -105,13 +106,29 @@ Language: <a href="?lang=en">English</a> | <a href="?lang=vn">Vietnamese</a>
                         <span th:text="${bill.getCustomer().getAddress()}"></span>
                     </div>
                     <div>
-                        <p><span>Trạng thái: </span>
-                            <span th:text="${bill.getStatus().getBillStatus()}"></span>
-                        </p>
+                        <span>Trạng thái</span>
+                        <select name="status">
+                            <option th:each="s : ${billStatuses}"
+                                    th:value="${s.id}"
+                                    th:text="${s.name}"
+                                    th:selected="(${s.id} == *{status.id})">
+                            </option>
+                        </select>
                     </div>
+<!--                    <div>-->
+<!--                        <select name="province">-->
+<!--                            <option th:each="p : ${provinces}"-->
+<!--                                    th:value="${p.id}"-->
+<!--                                    th:text="${p.name}"-->
+<!--                                    th:selected="(${p.id} == *{province.id})">-->
+<!--                            </option>-->
+<!--                        </select>-->
+<!--                    </div>-->
                 </div>
             </div>
+            <button type="submit">Update</button>
         </form>
+        <p th:text="${message}"></p>
     </div>
 </section>
 <!--<div>-->

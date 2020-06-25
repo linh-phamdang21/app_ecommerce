@@ -14,7 +14,7 @@ public class BillStatus {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String billStatus;
+    private String name;
 
     @OneToMany(targetEntity = Bill.class)
     private List<Bill> bills;
@@ -32,7 +32,7 @@ public class BillStatus {
     }
     public BillStatus(Long id, String billStatus) {
         this.id = id;
-        this.billStatus = billStatus;
+        this.name = billStatus;
     }
 
     public Long getId() {
@@ -43,11 +43,11 @@ public class BillStatus {
         this.id = id;
     }
 
-    public String getBillStatus() {
-        return billStatus;
+    public String getName() {
+        return name;
     }
 
-    public void setBillStatus(String billStatus) {
-        this.billStatus = billStatus;
+    public void setName(String billStatus) {
+        this.name = billStatus;
     }
 }

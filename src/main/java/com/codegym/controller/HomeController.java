@@ -113,13 +113,11 @@ public class HomeController {
     }
 
     @GetMapping("/products-women")
-    public ModelAndView listProductWomen(@RequestParam(defaultValue = "0") int page,@RequestParam(defaultValue = "6") int size){
+    public ModelAndView listProductWomen(@RequestParam(defaultValue = "0") int page,  @RequestParam(defaultValue = "6") int size){
         Pageable pageable= PageRequest.of(page,size);
         Page<Product> productWomen ;
-
-      
-
         productWomen = productService.findAllByType_NameOrderByPriceAsc("Women", pageable);
+
         ModelAndView modelAndView = new ModelAndView("productWomen");
         Price price = new Price();
         modelAndView.addObject("price", price);
@@ -132,9 +130,7 @@ public class HomeController {
         Pageable pageable= PageRequest.of(page,size);
         Page<Product> productMen ;
         productMen = productService.findAllByType_NameOrderByPriceAsc("Men",pageable);
-
         ModelAndView modelAndView = new ModelAndView("productMen");
-
         Price price = new Price();
         modelAndView.addObject("price", price);
         modelAndView.addObject("productMen",productMen);
@@ -146,6 +142,7 @@ public class HomeController {
         Pageable pageable= PageRequest.of(page,size);
         Page<Product> productKid ;
         productKid = productService.findAllByType_NameOrderByPriceAsc("Kid",pageable);
+
         ModelAndView modelAndView = new ModelAndView("productKid");
         Price price = new Price();
         modelAndView.addObject("price", price);
@@ -159,7 +156,6 @@ public class HomeController {
         Pageable pageable= PageRequest.of(page,size);
         Page<Product> productAccesory ;
         productAccesory = productService.findAllByType_NameOrderByPriceAsc("Accessory",pageable);
-
         ModelAndView modelAndView = new ModelAndView("productAccesory");
         Price price = new Price();
         modelAndView.addObject("price", price);
@@ -332,7 +328,7 @@ public class HomeController {
             highPrice = (float) 100000;
         }
         Pageable pageable = PageRequest.of(page, size);
-        Page<Product> products;
+        Page<Product> products = null;
         products = productService.findAllByType_NameAndPriceBetween("All", lowPrice, highPrice, pageable );
         ModelAndView modelAndView = new ModelAndView("product");
         modelAndView.addObject("products",products);

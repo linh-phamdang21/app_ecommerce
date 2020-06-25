@@ -347,27 +347,27 @@
     <nav class="menu">
         <ul class="main_menu">
             <li>
-                <a href="/">Chờ xác nhận</a>
+                <a href="/wait-confirm">Chờ xác nhận</a>
             </li>
             <span class="linedivide1"></span>
 
             <li>
-                <a href="/products">Chờ lấy hàng</a>
+                <a href="/wait-delivery">Chờ lấy hàng</a>
             </li>
             <span class="linedivide1"></span>
 
             <li class="sale-noti">
-                <a href="/products">Đang giao</a>
+                <a href="/delivering">Đang giao</a>
             </li>
             <span class="linedivide1"></span>
 
             <li>
-                <a href="/carts">Đã giao hàng</a>
+                <a href="/delivered">Đã giao hàng</a>
             </li>
             <span class="linedivide1"></span>
 
             <li>
-                <a href="/blogs">Đơn hàng đã hủy</a>
+                <a href="/cancelOrder">Đơn hàng đã hủy</a>
             </li>
 
         </ul>
@@ -415,7 +415,7 @@
                             <span th:text="${bill.getOrderDate()}"></span>
                         </td>
                         <td colspan="2"><span>Trạng thái: </span>
-                            <span th:text="${bill.getStatus().getBillStatus()}" ></span>
+                            <span th:text="${bill.getStatus().getName()}" ></span>
 
                         </td>
                     </tr>
