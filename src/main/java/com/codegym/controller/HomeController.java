@@ -3,19 +3,13 @@ package com.codegym.controller;
 
 import com.codegym.model.*;
 
-
 import com.codegym.service.category.ICategoryService;
-
-
 
 import com.codegym.service.product.IProduceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -25,13 +19,9 @@ import java.util.List;
 
 import com.codegym.service.approle.AppRoleService;
 import com.codegym.service.customer.ICustomerService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-
-import org.springframework.web.servlet.ModelAndView;
 
 import java.util.Optional;
 
@@ -46,9 +36,18 @@ public class HomeController {
     }
 
     @Autowired
-    private IProduceService produceService;
+    private IProduceService productService;
+
+    @Autowired
+    private ICustomerService customerService;
+
+    @Autowired
+    private AppRoleService appRoleService;
+
+ 
     @Autowired
     private ICategoryService categoryService;
+
 
     @ModelAttribute("cart")
     public Cart setUpCart() {
@@ -57,14 +56,8 @@ public class HomeController {
 
     @ModelAttribute("product")
     public Iterable<Product> products() {
-        return produceService.findAll();
+        return productService.findAll();
     }
-
-    @Autowired
-    private ICustomerService customerService;
-
-    @Autowired
-    private AppRoleService appRoleService;
 
     @GetMapping("/loginForm")
     public ModelAndView showLoginForm() {
@@ -75,7 +68,7 @@ public class HomeController {
     @GetMapping("/")
     public ModelAndView homePage() {
         ModelAndView modelAndView = new ModelAndView("index");
-        List<Product> products = (List<Product>) produceService.findAll();
+        List<Product> products = (List<Product>) productService.findAll();
         //  System.out.println(products.size());
         List<Product> featuredProducts = new ArrayList<>();
         for (int i = 0; i < 8; i++) {
@@ -108,9 +101,9 @@ public class HomeController {
         Pageable pageable = PageRequest.of(page, size);
         Page<Product> products;
         if (s.isPresent()) {
-            products = produceService.findAllByProductNameContaining(s.get(), pageable);
+            products = productService.findAllByProductNameContaining(s.get(), pageable);
         } else {
-            products = produceService.findAll(pageable);
+            products = productService.findAllByType_NameOrderByPriceAsc("All", pageable);
         }
         ModelAndView modelAndView = new ModelAndView("product");
         Price price = new Price();
@@ -121,10 +114,14 @@ public class HomeController {
 
     @GetMapping("/products-women")
     public ModelAndView listProductWomen(@RequestParam(defaultValue = "0") int page,
+
+                                        @RequestParam(defaultValue = "6") int size){
+        Pageable pageable= PageRequest.of(page,size);
+        Page<Product> productWomen ;
+            productWomen = productService.findAllByType_NameOrderByPriceAsc("Women", pageable);
+
                                          @RequestParam(defaultValue = "5") int size) {
-        Pageable pageable = PageRequest.of(page, size);
-        Page<Product> productWomen;
-        productWomen = produceService.findAllByType_Name("Women", pageable);
+     
         ModelAndView modelAndView = new ModelAndView("productWomen");
         Price price = new Price();
         modelAndView.addObject("price", price);
@@ -134,10 +131,14 @@ public class HomeController {
 
     @GetMapping("/products-men")
     public ModelAndView listProductMen(@RequestParam(defaultValue = "0") int page,
+
+                                         @RequestParam(defaultValue = "6") int size){
+        Pageable pageable= PageRequest.of(page,size);
+        Page<Product> productMen ;
+        productMen = productService.findAllByType_NameOrderByPriceAsc("Men",pageable);
+
                                        @RequestParam(defaultValue = "5") int size) {
-        Pageable pageable = PageRequest.of(page, size);
-        Page<Product> productMen;
-        productMen = produceService.findAllByType_Name("Men", pageable);
+       
         ModelAndView modelAndView = new ModelAndView("productMen");
 
         Price price = new Price();
@@ -148,10 +149,15 @@ public class HomeController {
 
     @GetMapping("/products-kid")
     public ModelAndView listProductKid(@RequestParam(defaultValue = "0") int page,
+
+                                         @RequestParam(defaultValue = "6") int size){
+        Pageable pageable= PageRequest.of(page,size);
+        Page<Product> productKid ;
+        productKid = productService.findAllByType_NameOrderByPriceAsc("Kid",pageable);
+
                                        @RequestParam(defaultValue = "5") int size) {
-        Pageable pageable = PageRequest.of(page, size);
-        Page<Product> productKid;
-        productKid = produceService.findAllByType_Name("Kid", pageable);
+     
+
         ModelAndView modelAndView = new ModelAndView("productKid");
         Price price = new Price();
         modelAndView.addObject("price", price);
@@ -161,13 +167,16 @@ public class HomeController {
 
     @GetMapping("/products-accesory")
     public ModelAndView listProductAccesory(@RequestParam(defaultValue = "0") int page,
+
+                                         @RequestParam(defaultValue = "6") int size){
+
+        Pageable pageable= PageRequest.of(page,size);
+        Page<Product> productAccesory ;
+        productAccesory = productService.findAllByType_NameOrderByPriceAsc("Accessory",pageable);
+
                                             @RequestParam(defaultValue = "5") int size) {
 
-        Pageable pageable = PageRequest.of(page, size);
-        Page<Product> productAccesory;
-        productAccesory = produceService.findAllByType_Name("Accessory", pageable);
         ModelAndView modelAndView = new ModelAndView("productAccesory");
-
         Price price = new Price();
         modelAndView.addObject("price", price);
         modelAndView.addObject("productAccesory",productAccesory);
@@ -212,29 +221,6 @@ public class HomeController {
         ModelAndView modelAndView = new ModelAndView("blog-detail");
         return modelAndView;
     }
-//    @Autowired
-//    private ICartService cartService;
-
-//    @PostMapping("/api/carts")
-//    public ResponseEntity<String> addToCart1(@RequestBody Product product, @ModelAttribute("cart") Cart cart){
-//        List<CartProduct> product3 = cart.getProduct();
-//        boolean isProductExist = cartService.isExists(product.getId(), product3);
-//        if (isProductExist) {
-//            CartProduct product1 = cartService.findOne(product.getId(), product3);
-//            product1.setQuantity(product1.getQuantity() + 1);
-//        } else {
-//            CartProduct product1 = new CartProduct(product.getId(), product.getProductName(), product.getImage(), product.getPrice(), product.getDescribes(), product.getCategory(), product.getBrand(), 1);
-//            product3.add(product1);
-//            System.out.println("id : " + product3.get(0).getId());
-//        }
-//        int totalQuantity = cartService.getTotalQuantity(product3);
-//        cart.setTotalQuantity(totalQuantity);
-//        float totalPrice = cartService.getTotalPrice(product3);
-//        cart.setTotalPrice(totalPrice);
-//        System.out.println(totalQuantity);
-//        return new ResponseEntity<>(String.valueOf(totalQuantity), HttpStatus.OK);
-//    }
-
 
     @GetMapping("/do_register")
     public ModelAndView showRegisterForm() {
@@ -321,8 +307,10 @@ public class HomeController {
     }
 
     @PostMapping("/products-price")
-    public ModelAndView showAllPrice(@ModelAttribute("price") Price price, @RequestParam(defaultValue = "0") int page,
-                        @RequestParam(defaultValue = "6") int size){
+    public ModelAndView showAllPrice(@ModelAttribute("price") Price price,
+                                     @ModelAttribute()
+                                     @RequestParam(defaultValue = "0") int page,
+                                     @RequestParam(defaultValue = "6") int size){
         float lowPrice = 0;
         float highPrice = 0;
         if (price.getPrice().equals("Price")){
@@ -346,8 +334,16 @@ public class HomeController {
         }
 
         Pageable pageable = PageRequest.of(page, size);
-        Page<Product> products;
-        products = produceService.findAllByType_NameAndPriceBetween("All", lowPrice, highPrice, pageable );
+        Page<Product> products = null;
+
+        if (price.getSort().equals("Default Sorting")){
+            products = productService.findAllByType_NameAndPriceBetween("All",lowPrice,highPrice, pageable);
+        } else if (price.getSort().equals("Price: low to high")){
+            products = productService.findAllByType_NameAndPriceBetweenOrderByPrice("All", lowPrice, highPrice, pageable);
+        } else if (price.getSort().equals("Price: high to low")){
+            products = productService.findAllByType_NameAndPriceBetweenOrderByPriceDesc("All", highPrice, lowPrice, pageable);
+        }
+//        products = produceService.findAllByType_NameAndPriceBetween("All", lowPrice, highPrice, pageable );
         ModelAndView modelAndView = new ModelAndView("product");
         modelAndView.addObject("products",products);
         return modelAndView;
@@ -380,7 +376,7 @@ public class HomeController {
 
         Pageable pageable = PageRequest.of(page, size);
         Page<Product> productWomen;
-        productWomen = produceService.findAllByType_NameAndPriceBetween("Women", lowPrice, highPrice, pageable );
+        productWomen = productService.findAllByType_NameAndPriceBetween("Women", lowPrice, highPrice, pageable );
         ModelAndView modelAndView = new ModelAndView("productWomen");
         modelAndView.addObject("productWomen",productWomen);
         return modelAndView;
@@ -413,7 +409,7 @@ public class HomeController {
 
         Pageable pageable = PageRequest.of(page, size);
         Page<Product> productMen;
-        productMen = produceService.findAllByType_NameAndPriceBetween("Men", lowPrice, highPrice, pageable );
+        productMen = productService.findAllByType_NameAndPriceBetween("Men", lowPrice, highPrice, pageable );
         ModelAndView modelAndView = new ModelAndView("productMen");
         modelAndView.addObject("productMen",productMen);
         return modelAndView;
@@ -446,7 +442,7 @@ public class HomeController {
 
         Pageable pageable = PageRequest.of(page, size);
         Page<Product> productKid;
-        productKid = produceService.findAllByType_NameAndPriceBetween("Kid", lowPrice, highPrice, pageable );
+        productKid = productService.findAllByType_NameAndPriceBetween("Kid", lowPrice, highPrice, pageable );
         ModelAndView modelAndView = new ModelAndView("productKid");
         modelAndView.addObject("productKid",productKid);
         return modelAndView;
@@ -479,7 +475,7 @@ public class HomeController {
 
         Pageable pageable = PageRequest.of(page, size);
         Page<Product> productAccesory;
-        productAccesory = produceService.findAllByType_NameAndPriceBetween("Accesory", lowPrice, highPrice, pageable );
+        productAccesory = productService.findAllByType_NameAndPriceBetween("Accesory", lowPrice, highPrice, pageable );
         ModelAndView modelAndView = new ModelAndView("productAccesory");
         modelAndView.addObject("productAccesory",productAccesory);
         return modelAndView;

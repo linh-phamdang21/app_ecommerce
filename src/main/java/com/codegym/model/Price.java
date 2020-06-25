@@ -12,6 +12,8 @@ public class Price {
 
     private String price;
 
+    private String sort;
+
     public Price(){
 
     }
@@ -35,5 +37,13 @@ public class Price {
 
     public void setPrice(String price) {
         this.price = price;
+    }
+
+    public String getSort() {
+        return sort;
+    }
+
+    public void setSort(String sort) {
+        this.sort = sort;
     }
 }

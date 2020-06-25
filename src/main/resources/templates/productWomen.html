@@ -481,15 +481,6 @@
                 <!--  -->
                 <div class="flex-sb-m flex-w p-b-35">
                     <div class="flex-w">
-                        <div class="rs2-select2 bo4 of-hidden w-size12 m-t-5 m-b-5 m-r-10">
-                            <select class="selection-2" name="sorting">
-                                <option>Default Sorting</option>
-                                <option>Popularity</option>
-                                <option>Price: low to high</option>
-                                <option>Price: high to low</option>
-                            </select>
-                        </div>
-
                         <form th:action="@{/products-women-price}" method="post" th:object="${price}">
                             <div class="rs2-select2 bo4 of-hidden w-size12 m-t-5 m-b-5 m-r-10" >
                                 <select th:field="*{price}" class="selection-2" name="sorting">
@@ -544,9 +535,9 @@
                         </div>
                     </div>
                     <div>
-                        <a th:href="@{'/products/women'(page=${productWomen.number - 1})}" th:if="${productWomen.hasPrevious()}">Previous</a>
+                        <a th:href="@{'/products-women'(page=${productWomen.number - 1})}" th:if="${productWomen.hasPrevious()}">Previous</a>
                         <span th:text="${productWomen.number + 1}"></span>/<span th:text="${productWomen.totalPages}"></span>
-                        <a th:href="@{'/products/women'(page=${productWomen.number + 1})}" th:if="${productWomen.hasNext()}">Next</a>
+                        <a th:href="@{'/products-women'(page=${productWomen.number + 1})}" th:if="${productWomen.hasNext()}">Next</a>
                     </div>
                 </div>
 
