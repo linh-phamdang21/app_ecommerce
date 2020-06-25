@@ -366,6 +366,42 @@
 
                     <ul class="p-b-54">
                         <li class="p-t-4">
+                            <a th:href="@{/products-laptop}" class="s-text13 active1">
+                                Laptop
+                            </a>
+                        </li>
+
+                        <li class="p-t-4">
+                            <a th:href="@{/products-cloth}" class="s-text13">
+                                Cloth
+                            </a>
+                        </li>
+
+                        <li class="p-t-4">
+                            <a th:href="@{/products-watch}" class="s-text13">
+                                Watch
+                            </a>
+                        </li>
+
+                        <li class="p-t-4">
+                            <a th:href="@{/products-smartphone}" class="s-text13">
+                                SmartPhone
+                            </a>
+                        </li>
+
+                        <li class="p-t-4">
+                            <a th:href="@{/products-perfume}" class="s-text13">
+                                Perfume
+                            </a>
+                        </li>
+                    </ul>
+
+                    <h4 class="m-text14 p-b-7">
+                        Type
+                    </h4>
+
+                    <ul class="p-b-54">
+                        <li class="p-t-4">
                             <a th:href="@{/products}" class="s-text13 active1">
                                 All
                             </a>
@@ -481,15 +517,7 @@
                 <!--  -->
                 <div class="flex-sb-m flex-w p-b-35">
                     <div class="flex-w">
-                        <div class="rs2-select2 bo4 of-hidden w-size12 m-t-5 m-b-5 m-r-10">
-                            <select class="selection-2" name="sorting">
-                                <option>Default Sorting</option>
-                                <option>Popularity</option>
-                                <option>Price: low to high</option>
-                                <option>Price: high to low</option>
-                            </select>
-                        </div>
-                        <form th:action="@{/products-price}" method="post" th:object="${price}">
+                        <form th:action="@{/products-watch-price}" method="post" th:object="${price}">
                             <div class="rs2-select2 bo4 of-hidden w-size12 m-t-5 m-b-5 m-r-10" >
                                 <select th:field="*{price}" class="selection-2" name="sorting">
                                     <option th:value="${'Price'}">Price</option>
@@ -514,7 +542,7 @@
 
                 <div>
                     <div class="row" id="all">
-                        <div class="col-sm-12 col-md-6 col-lg-4 p-b-50" th:each="pro : ${products}">
+                        <div class="col-sm-12 col-md-6 col-lg-4 p-b-50" th:each="pro : ${productWatch}">
                             <!-- Block2 -->
                             <div class="block2">
                                 <div class="block2-img wrap-pic-w of-hidden pos-relative block2-labelnew">
@@ -544,9 +572,9 @@
                         </div>
                     </div>
                     <div>
-                        <a th:href="@{'/products'(page=${products.number - 1})}" th:if="${products.hasPrevious()}">Previous</a>
-                        <span th:text="${products.number + 1}"></span>/<span th:text="${products.totalPages}"></span>
-                        <a th:href="@{'/products'(page=${products.number + 1})}" th:if="${products.hasNext()}">Next</a>
+                        <a th:href="@{'/products-watch'(page=${productWatch.number - 1})}" th:if="${productWatch.hasPrevious()}">Previous</a>
+                        <span th:text="${productWatch.number + 1}"></span>/<span th:text="${productWatch.totalPages}"></span>
+                        <a th:href="@{'/products-watch'(page=${productWatch.number + 1})}" th:if="${productWatch.hasNext()}">Next</a>
                     </div>
                 </div>
             </div>
@@ -871,49 +899,7 @@
         });
     });
 </script>
-<script src="js/main.js">
-    function showAll() {
-        document.getElementById("all").style.display = 'block';
-        document.getElementById("women").style.display = 'none';
-        document.getElementById("men").style.display = 'none';
-        document.getElementById("kid").style.display = 'none';
-        document.getElementById("accesory").style.display = 'none';
-    }
-
-    function showWomen() {
-        document.getElementById("all").style.display = 'none';
-        document.getElementById("women").style.display = 'block';
-        document.getElementById("men").style.display = 'none';
-        document.getElementById("kid").style.display = 'none';
-        document.getElementById("accesory").style.display = 'none';
-    }
-
-    function showMen() {
-        document.getElementById("all").style.display = 'none';
-        document.getElementById("women").style.display = 'none';
-        document.getElementById("men").style.display = 'block';
-        document.getElementById("kid").style.display = 'none';
-        document.getElementById("accesory").style.display = 'none';
-    }
-
-    function showKid() {
-        document.getElementById("all").style.display = 'none';
-        document.getElementById("women").style.display = 'none';
-        document.getElementById("men").style.display = 'none';
-        document.getElementById("kid").style.display = 'block';
-        document.getElementById("accesory").style.display = 'none';
-    }
-
-    function showAccesory() {
-        document.getElementById("all").style.display = 'none';
-        document.getElementById("women").style.display = 'none';
-        document.getElementById("men").style.display = 'none';
-        document.getElementById("kid").style.display = 'none';
-        document.getElementById("accesory").style.display = 'block';
-    }
-
-
-</script>
+<script src="js/main.js"></script>
 =======
 <script type="text/javascript" src="vendor/noui/nouislider.min.js"></script>
 <script type="text/javascript">
@@ -940,26 +926,6 @@
     });
 
     $(document).ready(function () {
-
-        // $('#fillteByPrice').click(function (event) {
-        // 	let lowPrice = $('#value-lower').html();
-        // 	let highPrice = $('#value-upper').html();
-        //
-        // 	let json = {"lowPrice": lowPrice, "highPrice": highPrice};
-        //
-        // 	$.ajax({
-        // 		headers: {
-        // 			'Accept': 'application/json',
-        // 			'Content-Type': 'application/json'
-        // 		},
-        //
-        // 		type: "GET",
-        // 		data: JSON.stringify(json),
-        //
-        // 		// ten api
-        // 		url: "/getValue"
-        // 	});
-
         $('.add-to-cart').click(function (event) {
             let a = $(this);
             let url = a.attr("href");
@@ -1010,49 +976,7 @@
     });
 
 </script>
-<script src="js/main.js">
-    function showAll() {
-        document.getElementById("all").style.display = 'block';
-        document.getElementById("women").style.display = 'none';
-        document.getElementById("men").style.display = 'none';
-        document.getElementById("kid").style.display = 'none';
-        document.getElementById("accesory").style.display = 'none';
-    }
-
-    function showWomen() {
-        document.getElementById("all").style.display = 'none';
-        document.getElementById("women").style.display = 'block';
-        document.getElementById("men").style.display = 'none';
-        document.getElementById("kid").style.display = 'none';
-        document.getElementById("accesory").style.display = 'none';
-    }
-
-    function showMen() {
-        document.getElementById("all").style.display = 'none';
-        document.getElementById("women").style.display = 'none';
-        document.getElementById("men").style.display = 'block';
-        document.getElementById("kid").style.display = 'none';
-        document.getElementById("accesory").style.display = 'none';
-    }
-
-    function showKid() {
-        document.getElementById("all").style.display = 'none';
-        document.getElementById("women").style.display = 'none';
-        document.getElementById("men").style.display = 'none';
-        document.getElementById("kid").style.display = 'block';
-        document.getElementById("accesory").style.display = 'none';
-    }
-
-    function showAccesory() {
-        document.getElementById("all").style.display = 'none';
-        document.getElementById("women").style.display = 'none';
-        document.getElementById("men").style.display = 'none';
-        document.getElementById("kid").style.display = 'none';
-        document.getElementById("accesory").style.display = 'block';
-    }
-
-
-</script>
+<script src="js/main.js"></script>
 
 
 </body>

@@ -81,7 +81,12 @@
     <br>
     <a th:href="@{/logout}" style="margin-left: 100px" th:text="#{logout}"></a>
 </div>
-
+<div>
+    <a th:href="@{'/admin/customer_list'(page=${customers.number - 1})}"
+       th:if="${customers.hasPrevious()}">Previous</a>
+    <span th:text="${customers.number + 1}"></span>/<span th:text="${customers.totalPages}"></span>
+    <a th:href="@{'/admin/customer_list'(page=${customers.number + 1})}" th:if="${customers.hasNext()}">Next</a>
+</div>
 <!--<div sec:authorize="isAuthenticated()">-->
 <!--    <div sec:authoriza="hasRole('ADMIN')">-->
 <!--        <div style="margin-left: 40px">-->
