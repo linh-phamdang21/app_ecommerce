@@ -5,6 +5,7 @@ import com.codegym.repository.IBillRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 @Service
 public class BillService implements IBillService {
@@ -31,5 +32,10 @@ public class BillService implements IBillService {
     @Override
     public void remove(Long id) {
         billRepository.deleteById(id);
+    }
+
+    @Override
+    public List<Bill> getAllBillByCustomerIdAndStatus(Long customerId, Long statusId) {
+        return billRepository.findByCustomer_IdAndBillStatus_Id(customerId, statusId);
     }
 }

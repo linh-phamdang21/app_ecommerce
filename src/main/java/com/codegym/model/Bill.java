@@ -15,20 +15,29 @@ public class Bill {
     private Long id;
 
     private Timestamp orderDate;
-    private String status;
+    @ManyToOne
+    private BillStatus billStatus;
+
     @ManyToOne
     private AppCustomer customer;
+
     @OneToOne
     private BillDetail billDetail;
 
     public Bill() {
     }
 
-    public Bill(Long id, AppCustomer customer, BillDetail billDetail,   String status,Timestamp orderDate) {
+    public Bill(Long id, AppCustomer customer, BillDetail billDetail,   BillStatus billStatus,Timestamp orderDate) {
         this.id = id;
         this.customer = customer;
         this.billDetail = billDetail;
-        this.status = status;
+        this.billStatus = billStatus;
+        this.orderDate = orderDate;
+    }
+    public Bill( AppCustomer customer, BillDetail billDetail,   BillStatus billStatus,Timestamp orderDate) {
+        this.customer = customer;
+        this.billDetail = billDetail;
+        this.billStatus = billStatus;
         this.orderDate = orderDate;
     }
 
@@ -48,12 +57,12 @@ public class Bill {
         this.orderDate = orderDate;
     }
 
-    public String getStatus() {
-        return status;
+    public BillStatus getStatus() {
+        return billStatus;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    public void setStatus(BillStatus billStatus) {
+        this.billStatus = billStatus;
     }
 
     public AppCustomer getCustomer() {

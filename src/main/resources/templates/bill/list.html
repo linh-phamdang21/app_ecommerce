@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>List Bills</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+          integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="#">
+        <img src="/images/market-store-icon.jpg" alt="Avatar" class="avatar"
+             style="border-radius: 50%; width: 50px;height: 50px">
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item ">
+                <a class="nav-link" th:href="@{/admin/product/list}">List Product | </a>
+            </li>
+            <li class="nav-item ">
+                <a class="nav-link" th:href="@{/admin/brand/list}">List Brand | </a>
+            </li>
+            <li class="nav-item ">
+                <a class="nav-link" th:href="@{/admin/category/list}">List Category </a>
+            </li>
+
+        </ul>
+
+        <form class="form-inline my-2 my-lg-0">
+            <input class="form-control mr-sm-2" name="s" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-success my-2 my-sm-0" value="Search" type="submit">Search</button>
+        </form>
+    </div>
+</nav>
+Language: <a href="?lang=en">English</a> | <a href="?lang=vn">Vietnamese</a>
+<br>
+<hr>
+<section class="cart bgwhite p-t-70 p-b-100">
+    <div class="container">
+
+        <table class="table table-hover" >
+            <thead>
+            <tr>
+                <th scope="col">Mã hóa đơn</th>
+                <th scope="col">Mã giỏ hàng</th>
+                <th scope="col">Mã khách hàng</th>
+                <th scope="col">Ngày đặt hàng</th>
+                <th class="column-5">Trạng thái</th>
+                <th class="column-6">Chi tiết</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="bill : ${bills}" >
+                <th scope="row" th:text="${bill.getId()}"></th>
+                <td th:text="${bill.getBillDetail().getId()}"></td>
+                <td th:text="${bill.getCustomer().getId()}"></td>
+                <td th:text="${bill.getOrderDate()}"></td>
+                <td th:text="${bill.getStatus().getBillStatus()}"></td>
+                <td><a th:href="@{/bills/{id}(id=${bill.getId()})}">Chi tiết</a></td>
+            </tr>
+<!--            <tr>-->
+<!--                <th scope="row">2</th>-->
+<!--                <td>Jacob</td>-->
+<!--                <td>Thornton</td>-->
+<!--                <td>@fat</td>-->
+<!--            </tr>-->
+<!--            <tr>-->
+<!--                <th scope="row">3</th>-->
+<!--                <td colspan="2">Larry the Bird</td>-->
+<!--                <td>@twitter</td>-->
+<!--            </tr>-->
+            </tbody>
+        </table>
+        <!-- Cart item -->
+<!--        <div class="container-table-cart pos-relative" th:each="bill : ${bills}">-->
+<!--            <div class="wrap-table-shopping-cart bgwhite">-->
+<!--                <table class="table-shopping-cart">-->
+<!--                    <tr class="table-head">-->
+<!--                        <th class="column-1"></th>-->
+<!--                        <th class="column-2"></th>-->
+<!--                        <th class="column-3"></th>-->
+
+<!--                    </tr>-->
+<!--                    <tr>-->
+<!--                        <td class="column-1" th:text="${bill.getId()}"></td>-->
+<!--                        <td class="column-2" th:text="${bill.getBillDetail().getId()}"></td>-->
+<!--                        <td class="column-3" th:text="${bill.getCustomer().getUsername()}"></td>-->
+<!--                        <td class="column-4" th:text="${bill.getOrderDate()}"></td>-->
+<!--                        <td class="column-5" th:text="${bill.getStatus().getBillStatus()}">-->
+<!--                        <td><a th:href="@{/bills/{id}(id=${bill.getId()})}">Chi tiết</a></td>-->
+<!--                    </tr>-->
+<!--                </table>-->
+<!--            </div>-->
+<!--        </div>-->
+    </div>
+</section>
+<!--<div>-->
+<!--    <a th:href="@{'/admin/product/list'(page=${products.number - 1})}"-->
+<!--       th:if="${products.hasPrevious()}">Previous</a>-->
+<!--    <span th:text="${products.number + 1}"></span>/<span th:text="${products.totalPages}"></span>-->
+<!--    <a th:href="@{'/admin/product/list'(page=${products.number + 1})}" th:if="${products.hasNext()}">Next</a>-->
+<!--</div>-->
+</body>
+</html>

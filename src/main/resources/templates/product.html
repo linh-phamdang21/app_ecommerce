@@ -286,7 +286,7 @@
 								fashe@example.com
 							</span>
 
-<<<<<<< HEAD
+
                         <div class="topbar-language rs1-select2">
                             <select class="selection-1" name="time">
                                 <option>USD</option>
@@ -507,8 +507,7 @@
 						<span class="s-text8 p-t-5 p-b-5">
 							Showing 1–12 of 16 results
 						</span>
-                </div>
-
+					</div>
                 <!-- Product -->
                 <!-- All -->
 
@@ -795,126 +794,6 @@
     });
 </script>
 
-<!--===============================================================================================-->
-<<<<<<< HEAD
-<script type="text/javascript" src="vendor/noui/nouislider.min.js"></script>
-<script type="text/javascript">
-    /*[ No ui ]
-    ===========================================================*/
-    var filterBar = document.getElementById('filter-bar');
-
-    noUiSlider.create(filterBar, {
-        start: [50, 200],
-        connect: true,
-        range: {
-            'min': 50,
-            'max': 200
-        }
-    });
-
-    var skipValues = [
-        document.getElementById('value-lower'),
-        document.getElementById('value-upper')
-    ];
-
-    filterBar.noUiSlider.on('update', function (values, handle) {
-        skipValues[handle].innerHTML = Math.round(values[handle]);
-    });
-
-    $(document).ready(function () {
-        $('.add-to-cart').click(function (event) {
-            let a = $(this);
-            let url = a.attr("href");
-            $.ajax({
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
-                },
-                url: url,
-                type: "GET",
-                success: function (cart) {
-                    let totalQuantity = "";
-                    let totalPrice = "";
-                    totalQuantity += "<span class='success'>" + cart.totalQuantity + "</span>";
-                    totalPrice += "<span class='success'>" + cart.totalPrice + "</span>";
-                    $("#quantity").html(totalQuantity);
-                    $('#totalPrice').html(totalPrice);
-
-                    let result = "";
-                    for (let i = 0; i < cart.product.length; i++) {
-                        result += "<span class='success'>";
-                        result += "<li class=\"header-cart-item\">";
-                        result += "<div class=\"header-cart-item-img\">";
-                        result += "<img src=images/" + cart.product[i].image + " alt=IMG>";
-                        result += "</div>";
-                        result += "<div class=\"header-cart-item-txt\">";
-                        result += "<a href=\"#\" class=\"header-cart-item-name\">";
-                        result += cart.product[i].name;
-                        result += "</a>";
-                        result += "<span class=\"header-cart-item-info\">";
-                        result += "<span>";
-                        result += cart.product[i].quantity;
-                        result += " </span>";
-                        result += "x $";
-                        result += "<span>";
-                        result += cart.product[i].price;
-                        result += " </span>";
-                        result += " </span>";
-                        result += "</div>";
-                        result += "</li>";
-                        result += "</span>";
-                    }
-                    $('#cart-dropdown').html(result);
-                }
-            });
-            event.preventDefault();
-        });
-    });
-</script>
-<script src="js/main.js">
-    function showAll() {
-        document.getElementById("all").style.display = 'block';
-        document.getElementById("women").style.display = 'none';
-        document.getElementById("men").style.display = 'none';
-        document.getElementById("kid").style.display = 'none';
-        document.getElementById("accesory").style.display = 'none';
-    }
-
-    function showWomen() {
-        document.getElementById("all").style.display = 'none';
-        document.getElementById("women").style.display = 'block';
-        document.getElementById("men").style.display = 'none';
-        document.getElementById("kid").style.display = 'none';
-        document.getElementById("accesory").style.display = 'none';
-    }
-
-    function showMen() {
-        document.getElementById("all").style.display = 'none';
-        document.getElementById("women").style.display = 'none';
-        document.getElementById("men").style.display = 'block';
-        document.getElementById("kid").style.display = 'none';
-        document.getElementById("accesory").style.display = 'none';
-    }
-
-    function showKid() {
-        document.getElementById("all").style.display = 'none';
-        document.getElementById("women").style.display = 'none';
-        document.getElementById("men").style.display = 'none';
-        document.getElementById("kid").style.display = 'block';
-        document.getElementById("accesory").style.display = 'none';
-    }
-
-    function showAccesory() {
-        document.getElementById("all").style.display = 'none';
-        document.getElementById("women").style.display = 'none';
-        document.getElementById("men").style.display = 'none';
-        document.getElementById("kid").style.display = 'none';
-        document.getElementById("accesory").style.display = 'block';
-    }
-
-
-</script>
-=======
 	<script type="text/javascript" src="vendor/noui/nouislider.min.js"></script>
 	<script type="text/javascript">
 		/*[ No ui ]
@@ -1051,10 +930,7 @@
 			document.getElementById("accesory").style.display = 'block';
 		}
 
-
 	</script>
->>>>>>> 5ca9106e165259c4938bb9f4d6c0b4c45a2bae3b
-
 </body>
 
 </html>
