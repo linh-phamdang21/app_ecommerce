@@ -41,7 +41,28 @@ public class Product {
     @ManyToOne
     private ProductType type;
 
+    private int quantity;
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
+
     public Product() {
+    }
+    public Product(Long id, String productName, String image, float price, String describes, Category category, Brand brand, ProductType productType, int quantity) {
+        this.id = id;
+        this.productName = productName;
+        this.image = image;
+        this.price = price;
+        this.describes = describes;
+        this.category = category;
+        this.brand = brand;
+        this.type = productType;
+        this.quantity = quantity;
     }
 
     public Long getId() {
