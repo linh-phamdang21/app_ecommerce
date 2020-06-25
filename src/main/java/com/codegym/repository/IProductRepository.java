@@ -19,11 +19,9 @@ public interface IProductRepository  extends PagingAndSortingRepository<Product 
 
     Page<Product> findAllByType_NameOrderByPriceAsc(String productType, Pageable pageable);
 
-    Page<Product> findAllByType_NameAndPriceBetweenOrderByPrice(String productType, Float lowPrice,
-                                                                Float highPrice, Pageable pageable);
-
-    Page<Product> findAllByType_NameAndPriceBetweenOrderByPriceDesc(String productType, Float lowPrice,
-                                                                         Float highPrice, Pageable pageable);
-
     Page<Product> findAllByType_NameOrderByPriceDesc(String type, Pageable pageble);
+
+    Page<Product> findAllByCategory_NameAndPriceBetween(String category, float lowPrice, float highPrice, Pageable pageable);
+
+    Page<Product> findAllByCategory_NameOrderByPriceAsc(String category, Pageable pageable);
 }
