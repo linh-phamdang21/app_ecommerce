@@ -9,7 +9,7 @@
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <a class="navbar-brand" href="#">
+    <a class="navbar-brand" href="/">
         <img src="/images/market-store-icon.jpg" alt="Avatar" class="avatar" style="border-radius: 50%; width: 50px;height: 50px">
     </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
@@ -46,22 +46,18 @@
 <br>
 <i> <a class="nav-link" th:href="@{/admin/brand/create}" th:text="#{createBrand.create}"> </a></i>
 <hr>
-<div class="container">
+<div class="container" style="width: 30%">
     <table class="table table-hover" style="border: 1px solid black">
         <thead>
         <tr>
             <th scope="col" th:text="#{IdBrand.id}"></th>
             <th scope="col" th:text="#{nameBrand}"></th>
-            <th scope="col" th:text="#{listProduct.Action}"></th>
         </tr>
         </thead>
         <tbody>
         <tr th:each="b : ${brands}">
             <td th:text="${b.id}"></td>
             <td th:text="${b.name}"></td>
-            <td>
-                <a th:href="@{/admin/brand/delete/{id}(id=${b.id})}" th:text="#{deleteBrand}"></a>
-            </td>
         </tr>
         </tbody>
     </table>

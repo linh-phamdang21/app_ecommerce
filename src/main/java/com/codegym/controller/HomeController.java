@@ -116,6 +116,9 @@ public class HomeController {
     public ModelAndView listProductWomen(@RequestParam(defaultValue = "0") int page,@RequestParam(defaultValue = "6") int size){
         Pageable pageable= PageRequest.of(page,size);
         Page<Product> productWomen ;
+
+      
+
         productWomen = productService.findAllByType_NameOrderByPriceAsc("Women", pageable);
         ModelAndView modelAndView = new ModelAndView("productWomen");
         Price price = new Price();
@@ -129,6 +132,7 @@ public class HomeController {
         Pageable pageable= PageRequest.of(page,size);
         Page<Product> productMen ;
         productMen = productService.findAllByType_NameOrderByPriceAsc("Men",pageable);
+
         ModelAndView modelAndView = new ModelAndView("productMen");
 
         Price price = new Price();
@@ -155,6 +159,7 @@ public class HomeController {
         Pageable pageable= PageRequest.of(page,size);
         Page<Product> productAccesory ;
         productAccesory = productService.findAllByType_NameOrderByPriceAsc("Accessory",pageable);
+
         ModelAndView modelAndView = new ModelAndView("productAccesory");
         Price price = new Price();
         modelAndView.addObject("price", price);
@@ -219,14 +224,29 @@ public class HomeController {
         return modelAndView;
     }
 
+//    @GetMapping("/admin/customer_list")
+//    public ModelAndView showCustomerList() {
+//        Iterable<AppCustomer> customers = customerService.findAll();
+//        ModelAndView modelAndView = new ModelAndView("customer/customerList");
+//        modelAndView.addObject("customers", customers);
+//        return modelAndView;
+//    }
+
     @GetMapping("/admin/customer_list")
-    public ModelAndView showCustomerList() {
-        Iterable<AppCustomer> customers = customerService.findAll();
+    public ModelAndView showListCustomer(@RequestParam ("s") Optional<String> s,
+                                         @RequestParam (defaultValue = "0") int page,
+                                         @RequestParam(defaultValue = "5") int size){
+        Pageable pageable = PageRequest.of(page,size);
+        Page<AppCustomer> customers;
+        if (s.isPresent()){
+            customers = customerService.findAllByUserNameContaining(s.get(),pageable);
+        }else {
+            customers = customerService.findAllCustomer(pageable);
+        }
         ModelAndView modelAndView = new ModelAndView("customer/customerList");
-        modelAndView.addObject("customers", customers);
+        modelAndView.addObject("customers",customers);
         return modelAndView;
     }
-
     @GetMapping("/admin/customer_edit/{id}")
     public ModelAndView showEditForm(@PathVariable("id") Long id) {
         ModelAndView modelAndView = new ModelAndView("customer/customerEdit");
