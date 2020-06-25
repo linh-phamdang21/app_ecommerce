@@ -3,6 +3,7 @@ package com.codegym.model;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
 import javax.validation.constraints.Min;
@@ -43,6 +44,16 @@ public class Product {
 
     public Product() {
     }
+
+  public Product(String image,String productName,Float price,String describes,Category category,Brand band,ProductType productType){
+        this.image=image;
+        this.productName=productName;
+        this.price=price;
+        this.describes=describes;
+        this.category=category;
+        this.brand=band;
+        this.type=productType;
+  }
 
     public Long getId() {
         return id;
@@ -106,5 +117,16 @@ public class Product {
 
     public void setType(ProductType type){
         this.type = type;
+    }
+
+    @Transient
+    private MultipartFile images;
+
+    public void setImages(MultipartFile images) {
+        this.images = images;
+    }
+
+    public MultipartFile getImages() {
+        return images;
     }
 }

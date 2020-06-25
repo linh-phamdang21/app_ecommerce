@@ -254,7 +254,7 @@ public class HomeController {
         return modelAndView;
     }
 
-    @GetMapping("/customer_list")
+    @GetMapping("/admin/customer_list")
     public ModelAndView showCustomerList() {
         Iterable<AppCustomer> customers = customerService.findAll();
         ModelAndView modelAndView = new ModelAndView("customer/customerList");
@@ -262,30 +262,30 @@ public class HomeController {
         return modelAndView;
     }
 
-    @GetMapping("/customer_edit/{id}")
+    @GetMapping("/admin/customer_edit/{id}")
     public ModelAndView showEditForm(@PathVariable("id") Long id) {
         ModelAndView modelAndView = new ModelAndView("customer/customerEdit");
         modelAndView.addObject("customer", customerService.getById(id));
         return modelAndView;
     }
 
-    @PostMapping("/customer_edit")
+    @PostMapping("/admin/customer_edit")
     public String editCustomer(@ModelAttribute("customer") AppCustomer customer) {
         customerService.save(customer);
-        return "redirect:/customer_list";
+        return "redirect:/admin/customer_list";
     }
 
-    @GetMapping("/customer_delete/{id}")
+    @GetMapping("/admin/customer_delete/{id}")
     public ModelAndView showDeleteForm(@PathVariable("id") Long id) {
         ModelAndView modelAndView = new ModelAndView("customer/customerDelete");
         modelAndView.addObject("customer", customerService.getById(id));
         return modelAndView;
     }
 
-    @PostMapping("/customer_delete")
+    @PostMapping("/admin/customer_delete")
     public String deleteCustomer(@ModelAttribute("customer") AppCustomer customer) {
         customerService.remove(customer.getId());
-        return "redirect:/customer_list";
+        return "redirect:/admin/customer_list";
     }
 
     @GetMapping("/login")

@@ -2,6 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title th:text="#{listProduct.Edit}"></title>
     <style>
         body {
             font-family: Arial, Helvetica, sans-serif;
@@ -82,35 +83,48 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item ">
-                <a class="nav-link" th:href="@{/admin/product/list}">List Product</a>
+                <a class="nav-link" th:href="@{/admin/product/list}" th:text="#{listProduct.href}"> </a>
             </li>
             <li class="nav-item ">
-                <a class="nav-link" th:href="@{/admin/product/create-product}">Create Product</a>
+                <a class="nav-link" th:href="@{/admin/brand/list}" th:text="#{listProduct.href2}"> </a>
             </li>
+            <li class="nav-item ">
+                <a class="nav-link" th:href="@{/admin/category/list}" th:text="#{listProduct.href1}"> </a>
+            </li>
+            <li class="nav-item ">
+                <a class="nav-link" th:href="@{/type/list}" th:text="#{listProductType}"></a>
+            </li>
+            <li class="nav-item ">
+                <a class="nav-link" th:href="@{/admin/customer_list}" th:text="#{ListCustomer}"></a>
+            </li>
+
         </ul>
     </div>
 </nav>
-Language: <a href="?lang=en">English</a> |  <a href="?lang=vn">Vietnamese</a>
+<span th:text="#{listProduct.language}"></span> <a href="?lang=en">English</a> | <a href="?lang=vn">Vietnamese</a>
+<br>
+<i><a class="nav-link" th:href="@{/admin/product/create-product}" th:text="#{listProduct.creatProduct}"></a></i>
+<hr>
 <div class="container">
     <form method="post" th:action="@{/admin/product/edit-product}"  th:object="${product}">
         <div class="container" style="width: 600px; margin-left: 300px; border: 1px solid black">
         <div style="text-align: center">
-            <h1>Edit Product</h1>
+            <h1 th:text="#{editProduct.edit}"></h1>
             <span th:text="${edit}" ></span>
         </div>
             <hr>
             <input type="hidden" th:field="*{id}">
-            <label><b>Image</b></label>
+            <label><b th:text="#{listProduct.image}"></b></label>
             <input type="text" th:field="*{image}">
             <br>
             <br>
-            <label><b>Product Name</b></label>
+            <label><b th:text="#{listProduct.Name}"></b></label>
             <input type="text" placeholder="Enter Product Name" required th:field="*{productName}">
 
-            <label ><b>Price</b></label>
+            <label ><b th:text="#{listProduct.price}"></b></label>
             <input type="text" placeholder="Enter Price"  required th:field="*{price}">
             <br>
-            <label ><b>Category</b></label>
+            <label ><b th:text="#{listProduct.Category}"></b></label>
             <select name="category">
                 <option th:each="c : ${categories}"
                         th:value="${c.id}"
@@ -118,7 +132,7 @@ Language: <a href="?lang=en">English</a> |  <a href="?lang=vn">Vietnamese</a>
                         th:selected="(${c.id} == *{category.id})">
                 </option>
             </select>
-            <label ><b>Brand</b></label>
+            <label ><b th:text="#{listProduct.Brand}"></b></label>
             <select name="Brand">
                 <option th:each="b : ${brand}"
                         th:value="${b.id}"
@@ -127,7 +141,7 @@ Language: <a href="?lang=en">English</a> |  <a href="?lang=vn">Vietnamese</a>
                 </option>
             </select>
 
-            <label ><b>Type</b></label>
+            <label ><b th:text="#{listProduct.Type}"></b></label>
             <select name="Type">
                 <option th:each="t : ${types}"
                         th:value="${t.id}"
@@ -136,13 +150,15 @@ Language: <a href="?lang=en">English</a> |  <a href="?lang=vn">Vietnamese</a>
                 </option>
             </select>
             <br>
-            <label ><b>Describes</b></label>
+            <label ><b th:text="#{listProduct.describes}"></b></label>
             <br>
             <textarea style="width: 300px ;height: 150px" type="text" th:field="*{describes}" placeholder="Enter Describes"  required></textarea>
-            <button type="submit" class="registerbtn">Edit Product</button>
+            <button type="submit" class="registerbtn" th:text="#{editProduct.edit}"></button>
         </div>
 
     </form>
 </div>
+<br>
+<a th:href="@{/logout}" style="margin-left: 100px" th:text="#{logout}"></a>
 </body>
 </html>

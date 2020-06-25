@@ -28,16 +28,22 @@
             <li class="nav-item ">
                 <a class="nav-link" th:href="@{/admin/category/list}" th:text="#{listProduct.href1}"> </a>
             </li>
+            <li class="nav-item ">
+                <a class="nav-link" th:href="@{/type/list}" th:text="#{listProductType}"></a>
+            </li>
+            <li class="nav-item ">
+                <a class="nav-link" th:href="@{/admin/customer_list}" th:text="#{ListCustomer}"></a>
+            </li>
 
         </ul>
 
         <form class="form-inline my-2 my-lg-0">
             <input class="form-control mr-sm-2" name="s" type="search" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-success my-2 my-sm-0" value="Search" type="submit">Search</button>
+            <button class="btn btn-outline-success my-2 my-sm-0" value="Search" type="submit" th:text="#{listProduct.search}"></button>
         </form>
     </div>
 </nav>
-Language: <a href="?lang=en">English</a> | <a href="?lang=vn">Vietnamese</a>
+<span th:text="#{listProduct.language}"></span> <a href="?lang=en">English</a> | <a href="?lang=vn">Vietnamese</a>
 <br>
 <i><a class="nav-link" th:href="@{/admin/product/create-product}" th:text="#{listProduct.creatProduct}"></a></i>
 <hr>
@@ -45,18 +51,15 @@ Language: <a href="?lang=en">English</a> | <a href="?lang=vn">Vietnamese</a>
     <table class="table table-hover" style="border: 1px solid black">
         <thead>
         <tr>
-            <th scope="col">ID</th>
-            <th scope="col">Image</th>
-            <th scope="col">Product Name</th>
-            <th scope="col">Price</th>
-            <th scope="col">Describes</th>
-
-
-            <th scope="col">Category_Name</th>
-            <th scope="col">brand</th>
-
-            <th scope="col">Type</th>
-            <th scope="col">Action</th>
+            <th scope="col" th:text="#{listProduct.id}"></th>
+            <th scope="col" th:text="#{listProduct.image}"></th>
+            <th scope="col" th:text="#{listProduct.Name}"></th>
+            <th scope="col"th:text="#{listProduct.price}"></th>
+            <th scope="col" th:text="#{listProduct.describes}"></th>
+            <th scope="col" th:text="#{listProduct.Category}"></th>
+            <th scope="col" th:text="#{listProduct.Brand}"></th>
+            <th scope="col" th:text="#{listProduct.Type}"></th>
+            <th scope="col" th:text="#{listProduct.Action}"></th>
         </tr>
         </thead>
         <tbody>
@@ -73,8 +76,8 @@ Language: <a href="?lang=en">English</a> | <a href="?lang=vn">Vietnamese</a>
             <td th:text="${pro.brand.name}"></td>
             <td th:text="${pro.type.name}"></td>
             <td>
-                <a th:href="@{/admin/product/edit-product/{id}(id=${pro.id})}">Edit</a>
-                <a th:href="@{/admin/product/delete-product/{id}(id=${pro.id})}">Delete</a>
+                <a th:href="@{/admin/product/edit-product/{id}(id=${pro.id})}" th:text="#{listProduct.Edit}"></a>
+                <a th:href="@{/admin/product/delete-product/{id}(id=${pro.id})}" th:text="#{listProduct.Delete}"></a>
             </td>
         </tr>
         </tbody>
@@ -86,6 +89,8 @@ Language: <a href="?lang=en">English</a> | <a href="?lang=vn">Vietnamese</a>
         <a th:href="@{'/admin/product/list'(page=${products.number + 1})}" th:if="${products.hasNext()}">Next</a>
     </div>
 </div>
+<br>
+<a th:href="@{/logout}" style="margin-left: 100px" th:text="#{logout}"></a>
 
 </body>
 </html>

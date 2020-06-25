@@ -74,7 +74,7 @@ class AppConfig extends WebMvcConfigurerAdapter implements ApplicationContextAwa
     @Bean
     public LocaleResolver localeResolver() {
         SessionLocaleResolver localeResolver = new SessionLocaleResolver();
-        localeResolver.setDefaultLocale(new Locale("en"));
+        localeResolver.setDefaultLocale(new Locale("vn"));
         return localeResolver;
     }
 }

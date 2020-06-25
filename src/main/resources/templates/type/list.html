@@ -2,14 +2,16 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title th:text="#{TypeProduct.title}"></title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
           integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <a class="navbar-brand" href="#">Navbar</a>
+    <a class="navbar-brand" href="#">
+        <img src="/images/market-store-icon.jpg" alt="Avatar" class="avatar" style="border-radius: 50%; width: 50px;height: 50px">
+    </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -18,27 +20,40 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item ">
-                <a class="nav-link" th:href="@{/type/list}">List Product Type</a>
+                <a class="nav-link" th:href="@{/admin/product/list}" th:text="#{listProduct.href}"> </a>
             </li>
             <li class="nav-item ">
-                <a class="nav-link" th:href="@{/type/create}">Create Product Type</a>
+                <a class="nav-link" th:href="@{/admin/brand/list}" th:text="#{listProduct.href2}"> </a>
             </li>
+            <li class="nav-item ">
+                <a class="nav-link" th:href="@{/admin/category/list}" th:text="#{listProduct.href1}"> </a>
+            </li>
+            <li class="nav-item ">
+                <a class="nav-link" th:href="@{/type/list}" th:text="#{listProductType}"></a>
+            </li>
+            <li class="nav-item ">
+                <a class="nav-link" th:href="@{/admin/customer_list}" th:text="#{ListCustomer}"></a>
+            </li>
+
         </ul>
         <form class="form-inline my-2 my-lg-0">
             <input class="form-control mr-sm-2" name="s" type="search" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-success my-2 my-sm-0" value="Search" type="submit">Search</button>
+            <button class="btn btn-outline-success my-2 my-sm-0" value="Search" type="submit" th:text="#{listProduct.search}"></button>
         </form>
     </div>
 </nav>
+<span th:text="#{listProduct.language}"></span> <a href="?lang=en">English</a> | <a href="?lang=vn">Vietnamese</a>
+<br>
+<i>  <a class="nav-link" th:href="@{/type/create}" th:text="#{createProductType}"></a></i>
 
 <div class="container">
     <table class="table table-hover" style="border: 1px solid black">
         <thead>
         <tr>
-            <th scope="col">ID</th>
-            <th scope="col">Name</th>
-            <th scope="col">Edit</th>
-            <th scope="col">Delete</th>
+            <th scope="col" th:text="#{IdProductType}"></th>
+            <th scope="col" th:text="#{NameProductType}"></th>
+            <th scope="col" th:text="#{editProductType}"></th>
+            <th scope="col" th:text="#{deleteProductType}"></th>
         </tr>
         </thead>
         <tbody>
@@ -46,14 +61,16 @@
             <td th:text="${type.id}"></td>
             <td th:text="${type.name}"></td>
             <td>
-                <a th:href="@{/product/edit-product/{id}(id=${type.id})}">Edit</a>
+                <a th:href="@{/product/edit-product/{id}(id=${type.id})}" th:text="#{editProductType}"></a>
             </td>
             <td>
-                <a th:href="@{/product/delete-product/{id}(id=${type.id})}">Delete</a>
+                <a th:href="@{/product/delete-product/{id}(id=${type.id})}" th:text="#{deleteProductType}"></a>
             </td>
         </tr>
         </tbody>
     </table>
+    <br>
+    <a th:href="@{/logout}" style="margin-left: 100px" th:text="#{logout}"></a>
 </div>
 
 </body>
