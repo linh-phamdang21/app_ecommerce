@@ -82,10 +82,6 @@
 								<a href="/products">Shop</a>
 							</li>
 
-							<li class="sale-noti">
-								<a href="/products">Sale</a>
-							</li>
-
 							<li>
 								<a href="/carts">Cart</a>
 							</li>
@@ -348,10 +344,6 @@
 					</li>
 
 					<li class="item-menu-mobile">
-						<a href="product.html">Sale</a>
-					</li>
-
-					<li class="item-menu-mobile">
 						<a href="cart.html">Features</a>
 					</li>
 
@@ -373,24 +365,10 @@
 
 	<!-- breadcrumb -->
 	<div class="bread-crumb bgwhite flex-w p-l-52 p-r-15 p-t-30 p-l-15-sm">
-		<a href="index.html" class="s-text16">
+		<a href="/" class="s-text16">
 			Home
 			<i class="fa fa-angle-right m-l-8 m-r-9" aria-hidden="true"></i>
 		</a>
-
-		<a href="product.html" class="s-text16">
-			Women
-			<i class="fa fa-angle-right m-l-8 m-r-9" aria-hidden="true"></i>
-		</a>
-
-		<a href="#" class="s-text16">
-			T-Shirt
-			<i class="fa fa-angle-right m-l-8 m-r-9" aria-hidden="true"></i>
-		</a>
-
-		<span class="s-text17">
-			Boxy T-Shirt with Roll Sleeve Detail
-		</span>
 	</div>
 
 	<!-- Product Detail -->
@@ -430,31 +408,12 @@
 						<div class="s-text15 w-size15 t-center">
 							<h3 style="font-weight: bold">Category: </h3>	<b style="font-weight: bold" th:text="${p.category.name}"></b>
 						</div>
-
-<!--						<div class="rs2-select2 rs3-select2 bo4 of-hidden w-size16">-->
-<!--							<select class="selection-2" name="size" th:field="*{}">-->
-<!--								<option>Choose an option</option>-->
-<!--								<option>Size S</option>-->
-<!--								<option>Size M</option>-->
-<!--								<option>Size L</option>-->
-<!--								<option>Size XL</option>-->
-<!--							</select>-->
-<!--						</div>-->
 					</div>
 
 					<div class="flex-m flex-w">
 						<div class="s-text15 w-size15 t-center" >
 						<h3 style="font-weight: bold">Brand:</h3> 	<b style="font-weight: bold" th:text="${p.brand.name}"></b>
 						</div>
-<!--						<div class="rs2-select2 rs3-select2 bo4 of-hidden w-size16">-->
-<!--							<select class="selection-2" name="color">-->
-<!--								<option>Choose an option</option>-->
-<!--								<option>Gray</option>-->
-<!--								<option>Red</option>-->
-<!--								<option>Black</option>-->
-<!--								<option>Blue</option>-->
-<!--							</select>-->
-<!--						</div>-->
 					</div>
 
 					<div class="flex-r-m flex-w p-t-10">
@@ -854,26 +813,26 @@
 
 				<ul>
 					<li class="p-b-9">
-						<a href="#" class="s-text7">
+						<a href="/products-men" class="s-text7">
 							Men
 						</a>
 					</li>
 
 					<li class="p-b-9">
-						<a href="#" class="s-text7">
+						<a href="/products-women" class="s-text7">
 							Women
 						</a>
 					</li>
 
 					<li class="p-b-9">
-						<a href="#" class="s-text7">
-							Dresses
+						<a href="/products-laptop" class="s-text7">
+							Laptops
 						</a>
 					</li>
 
 					<li class="p-b-9">
-						<a href="#" class="s-text7">
-							Sunglasses
+						<a href="/products-watch" class="s-text7">
+							Watches
 						</a>
 					</li>
 				</ul>

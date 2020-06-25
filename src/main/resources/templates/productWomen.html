@@ -85,10 +85,6 @@
                             <a href="/products">Shop</a>
                         </li>
 
-                        <li class="sale-noti">
-                            <a href="/products">Sale</a>
-                        </li>
-
                         <li>
                             <a href="/carts">Cart</a>
                         </li>
@@ -316,10 +312,6 @@
 
                 <li class="item-menu-mobile">
                     <a href="product.html">Shop</a>
-                </li>
-
-                <li class="item-menu-mobile">
-                    <a href="product.html">Sale</a>
                 </li>
 
                 <li class="item-menu-mobile">
@@ -576,20 +568,6 @@
                         <a th:href="@{'/products-women'(page=${productWomen.number + 1})}" th:if="${productWomen.hasNext()}">Next</a>
                     </div>
                 </div>
-
-
-                <!--					 Pagination -->
-                <!--					<div>-->
-                <!--						<a th:href="@{'/products'(page=${products.number - 1})}" th:if="${products.hasPrevious()}">Previous</a>-->
-                <!--						<span th:text="${products.number + 1}"></span>/<span th:text="${products.totalPages}"></span>-->
-                <!--						<a th:href="@{'/products'(page=${products.number + 1})}" th:if="${products.hasNext()}">Next</a>-->
-                <!--					</div>-->
-                <!--					 Pagination -->
-
-                <!--					<div class="pagination flex-m flex-w p-t-26">-->
-                <!--						<a href="#" class="item-pagination flex-c-m trans-0-4 active-pagination">1</a>-->
-                <!--						<a href="#" class="item-pagination flex-c-m trans-0-4">2</a>-->
-                <!--					</div>-->
             </div>
         </div>
     </div>
@@ -639,26 +617,26 @@
 
             <ul>
                 <li class="p-b-9">
-                    <a href="#" class="s-text7">
+                    <a href="/products-men" class="s-text7">
                         Men
                     </a>
                 </li>
 
                 <li class="p-b-9">
-                    <a href="#" class="s-text7">
+                    <a href="/products-women" class="s-text7">
                         Women
                     </a>
                 </li>
 
                 <li class="p-b-9">
-                    <a href="#" class="s-text7">
-                        Dresses
+                    <a href="/products-laptop" class="s-text7">
+                        Laptops
                     </a>
                 </li>
 
                 <li class="p-b-9">
-                    <a href="#" class="s-text7">
-                        Sunglasses
+                    <a href="/products-watch" class="s-text7">
+                        Watches
                     </a>
                 </li>
             </ul>
