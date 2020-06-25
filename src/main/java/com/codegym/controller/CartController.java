@@ -57,9 +57,10 @@ public class CartController {
 
     @GetMapping("/cart-buy")
     public ModelAndView billPage(@ModelAttribute("sessionCustomer") AppCustomer customer) {
-
+        System.out.println(customer.getId());
         if (customer.getId() == null) {
             ModelAndView modelAndView = new ModelAndView("login");
+            modelAndView.addObject("customer", new AppCustomer());
             return modelAndView;
         } else {
             ModelAndView modelAndView = new ModelAndView("bill");
