@@ -480,15 +480,6 @@
             <div class="col-sm-6 col-md-8 col-lg-9 p-b-50">
                 <!--  -->
                 <div class="flex-sb-m flex-w p-b-35">
-                    <div class="flex-w">
-                        <div class="rs2-select2 bo4 of-hidden w-size12 m-t-5 m-b-5 m-r-10">
-                            <select class="selection-2" name="sorting">
-                                <option>Default Sorting</option>
-                                <option>Price: low to high</option>
-                                <option>Price: high to low</option>
-                            </select>
-                        </div>
-
                         <form th:action="@{/products-accesory-price}" method="post" th:object="${price}">
                             <div class="rs2-select2 bo4 of-hidden w-size12 m-t-5 m-b-5 m-r-10" >
                                 <select th:field="*{price}" class="selection-2" name="sorting">
@@ -543,24 +534,11 @@
                         </div>
                     </div>
                     <div>
-                        <a th:href="@{'/products/accesory'(page=${productAccesory.number - 1})}" th:if="${productAccesory.hasPrevious()}">Previous</a>
+                        <a th:href="@{'/products-accesory'(page=${productAccesory.number - 1})}" th:if="${productAccesory.hasPrevious()}">Previous</a>
                         <span th:text="${productAccesory.number + 1}"></span>/<span th:text="${productAccesory.totalPages}"></span>
-                        <a th:href="@{'/products/accesory'(page=${productAccesory.number + 1})}" th:if="${productAccesory.hasNext()}">Next</a>
+                        <a th:href="@{'/products-accesory'(page=${productAccesory.number + 1})}" th:if="${productAccesory.hasNext()}">Next</a>
                     </div>
                 </div>
-
-                <!--					 Pagination -->
-                <!--					<div>-->
-                <!--						<a th:href="@{'/products'(page=${products.number - 1})}" th:if="${products.hasPrevious()}">Previous</a>-->
-                <!--						<span th:text="${products.number + 1}"></span>/<span th:text="${products.totalPages}"></span>-->
-                <!--						<a th:href="@{'/products'(page=${products.number + 1})}" th:if="${products.hasNext()}">Next</a>-->
-                <!--					</div>-->
-                <!--					 Pagination -->
-
-                <!--					<div class="pagination flex-m flex-w p-t-26">-->
-                <!--						<a href="#" class="item-pagination flex-c-m trans-0-4 active-pagination">1</a>-->
-                <!--						<a href="#" class="item-pagination flex-c-m trans-0-4">2</a>-->
-                <!--					</div>-->
             </div>
         </div>
     </div>

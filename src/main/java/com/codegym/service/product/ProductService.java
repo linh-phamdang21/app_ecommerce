@@ -60,4 +60,29 @@ public class ProductService implements IProduceService {
     public Page<Product> findAllByType_NameAndPriceBetween(String typeName, float lowPrice, float highPrice, Pageable pageable) {
         return productRepository.findAllByType_NameAndPriceBetween(typeName, lowPrice, highPrice,pageable);
     }
+
+    @Override
+    public Page<Product> findAllByType_NameOrderByPrice(String type, Pageable pageable) {
+        return productRepository.findAllByType_NameOrderByPrice(type, pageable);
+    }
+
+    @Override
+    public Page<Product> findAllByType_NameOrderByPriceAsc(String typeName, Pageable pageble) {
+        return productRepository.findAllByType_NameOrderByPriceAsc(typeName, pageble);
+    }
+
+    @Override
+    public Page<Product> findAllByType_NameAndPriceBetweenOrderByPrice(String productType, Float lowPrice, Float highPrice, Pageable pageable) {
+        return productRepository.findAllByType_NameAndPriceBetweenOrderByPrice(productType, lowPrice, highPrice, pageable);
+    }
+
+    @Override
+    public Page<Product> findAllByType_NameAndPriceBetweenOrderByPriceDesc(String productType, Float lowPrice, Float highPrice, Pageable pageable) {
+        return productRepository.findAllByType_NameAndPriceBetweenOrderByPriceDesc(productType, lowPrice, highPrice, pageable);
+    }
+
+    @Override
+    public Page<Product> findAllByType_NameOrderByPriceDesc(String type, Pageable pageble) {
+        return productRepository.findAllByType_NameOrderByPriceDesc(type, pageble);
+    }
 }
