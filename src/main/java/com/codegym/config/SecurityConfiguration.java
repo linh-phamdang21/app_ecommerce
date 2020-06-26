@@ -32,11 +32,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
 
                 .antMatchers("/").permitAll()
-                .antMatchers("/bill").access("hasRole('USER')")
                 .antMatchers("/admin/**").access("hasRole('ADMIN')")
 
 
-                .and().formLogin().loginPage("/loginForm").loginProcessingUrl("/do_login").successHandler(customSuccessHandler)
+                .and().formLogin().loginPage("/login").loginProcessingUrl("/do_login").successHandler(customSuccessHandler)
                 .usernameParameter("username").passwordParameter("password")
                 .and().logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
                 .and().exceptionHandling().accessDeniedPage("/Access_Denied").and().csrf().disable();

@@ -71,33 +71,33 @@
 </head>
 <body>
 <!--style="background-image: url(/images/Test.jpg); background-size: cover; background-repeat: no-repeat"-->
-<h2> Nhập tài khoản để đăng nhập</h2>
+<h5 style="margin-top: 20px; text-align: center"> Login for more information</h5>
 
 <form action="/do_login" method="post">
-    <div class="imgcontainer">
-        <img src="/images/dog.jpg" alt="Avatar" class="avatar">
-    </div>
-
+<!--    <div class="imgcontainer">-->
+<!--        <img src="/images/dog.jpg" alt="Avatar" class="avatar">-->
+<!--    </div>-->
+    <br>
     <div class="container">
-        <label for="username"><b>Tài khoản</b></label>
-        <input style="border-radius: 5px" type="text" placeholder="Nhập tài khoản..." name="username" id="username" required>
+        <label for="username">Username</label>
+        <input style="border-radius: 5px" type="text" placeholder="Enter username..." name="username" id="username" required>
 
-        <label for="password"><b>Mật khẩu</b></label>
-        <input style="border-radius: 5px" type="password" placeholder="Nhập mật khẩu..." name="password" id="password" required>
+        <label for="password">Password</label>
+        <input style="border-radius: 5px" type="password" placeholder="Enter password..." name="password" id="password" required>
 
-        <button type="submit">Đang nhập</button>
+        <button type="submit">Login</button>
         <label>
-            <input type="checkbox" checked="checked" name="remember"> Ghi nhớ tài khoản
+            <input type="checkbox" checked="checked" name="remember"> Remember
         </label>
     </div>
 
     <table>
         <tr>
-            <td style="width: 180px">
-                <span class="psw" style="margin-left: 30px"> <a href="/">Quay lại</a></span>
+            <td style="width: 180px; text-align: center">
+                <span> <a href="/">Back</a></span>
             </td>
-            <td style="width: 150px">
-                <span class="psw" style="margin-left: 20px"> <a th:href="@{/do_register}">Đăng Kí</a> </span>
+            <td style="width: 180px; text-align: center">
+                <span> <a th:href="@{/do_register}">Register</a> </span>
             </td>
         </tr>
     </table>

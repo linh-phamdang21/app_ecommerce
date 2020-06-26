@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface IBillService extends IGenericService<Bill> {
     List<Bill> getAllBillByCustomerIdAndStatus(Long customerId, Long statusId);
+    List<Bill> findBillByBillStatus_Id(Long id);
 }

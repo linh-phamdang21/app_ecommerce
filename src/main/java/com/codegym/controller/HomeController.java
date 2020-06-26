@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -27,12 +29,32 @@ import java.util.Optional;
 
 
 @Controller
-@SessionAttributes({"cart", "sessionCustomer"})
+@SessionAttributes({"cart", "sessionCustomer", "login", "logout"})
 public class HomeController {
+
+    private String getPrincipal(){
+        String userName = null;
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        if (principal instanceof UserDetails) {
+            userName = ((UserDetails)principal).getUsername();
+        } else {
+            userName = principal.toString();
+        }
+        return userName;
+    }
 
     @ModelAttribute("sessionCustomer")
     public AppCustomer setUpCustomer(){
         return new AppCustomer();
+    }
+    @ModelAttribute("login")
+    public String setUpLogin(){
+        return "";
+    }
+    @ModelAttribute("logout")
+    public String setUpLogout(){
+        return "";
     }
 
     @Autowired
@@ -66,15 +88,24 @@ public class HomeController {
     }
 
     @GetMapping("/")
-    public ModelAndView homePage() {
+    public ModelAndView homePage( @ModelAttribute("sessionCustomer") AppCustomer sessionCustomer) {
         ModelAndView modelAndView = new ModelAndView("index");
+        if (getPrincipal().equals("anonymousUser")){
+            sessionCustomer.setUsername(null);
+        }else {
+
+            AppCustomer customer = customerService.getCustomerByName(getPrincipal());
+            sessionCustomer.setId(customer.getId());
+                sessionCustomer.setUsername(customer.getUsername());
+                sessionCustomer.setPassword(customer.getPassword());
+                sessionCustomer.setPhone(customer.getPhone());
+                sessionCustomer.setAddress(customer.getAddress());
+        }
         List<Product> products = (List<Product>) productService.findAll();
-        //  System.out.println(products.size());
         List<Product> featuredProducts = new ArrayList<>();
         for (int i = 0; i < 8; i++) {
             featuredProducts.add(products.get(i));
         }
-//        System.out.println(featuredProducts.size());
         modelAndView.addObject("featuredProducts", featuredProducts);
         return modelAndView;
     }
@@ -276,30 +307,30 @@ public class HomeController {
         return modelAndView;
     }
 
-    @PostMapping("/login")
-    public ModelAndView login(@ModelAttribute("sessionCustomer") AppCustomer sessionCustomer, @ModelAttribute("customer") AppCustomer customer) {
-        Iterable<AppCustomer> customers = customerService.findAll();
-        for (AppCustomer customer1 : customers) {
-            if (customer.getUsername().equals(customer1.getUsername()) && customer.getPassword().equals(customer1.getPassword())) {
-                ModelAndView modelAndView = new ModelAndView("login");
-                AppCustomer customer2 = customerService.getCustomerByName(customer.getUsername());
-                sessionCustomer.setId(customer2.getId());
-                sessionCustomer.setUsername(customer2.getUsername());
-                sessionCustomer.setPassword(customer2.getPassword());
-                sessionCustomer.setPhone(customer2.getPhone());
-                sessionCustomer.setAddress(customer2.getAddress());
-                modelAndView.addObject("customer", new AppCustomer());
-                modelAndView.addObject("message", "Login Successfully !!");
-                System.out.println(sessionCustomer.getId());
-                System.out.println(customer.getId());
-                return modelAndView;
-
-            }
-        }
-        ModelAndView modelAndView = new ModelAndView("login");
-        modelAndView.addObject("message", "Login Fail !!");
-        return modelAndView;
-    }
+//    @PostMapping("/login")
+//    public ModelAndView login(@ModelAttribute("sessionCustomer") AppCustomer sessionCustomer, @ModelAttribute("customer") AppCustomer customer) {
+//        Iterable<AppCustomer> customers = customerService.findAll();
+//        for (AppCustomer customer1 : customers) {
+//            if (customer.getUsername().equals(customer1.getUsername()) && customer.getPassword().equals(customer1.getPassword())) {
+//                ModelAndView modelAndView = new ModelAndView("login");
+//                AppCustomer customer2 = customerService.getCustomerByName(customer.getUsername());
+//                sessionCustomer.setId(customer2.getId());
+//                sessionCustomer.setUsername(customer2.getUsername());
+//                sessionCustomer.setPassword(customer2.getPassword());
+//                sessionCustomer.setPhone(customer2.getPhone());
+//                sessionCustomer.setAddress(customer2.getAddress());
+//                modelAndView.addObject("customer", new AppCustomer());
+//                modelAndView.addObject("message", "Login Successfully !!");
+//                System.out.println(sessionCustomer.getId());
+//                System.out.println(customer.getId());
+//                return modelAndView;
+//
+//            }
+//        }
+//        ModelAndView modelAndView = new ModelAndView("login");
+//        modelAndView.addObject("message", "Login Fail !!");
+//        return modelAndView;
+//    }
 
     @PostMapping("/products-price")
     public ModelAndView showAllPrice(@ModelAttribute("price") Price price,
