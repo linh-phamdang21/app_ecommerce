@@ -7,11 +7,7 @@ import com.codegym.service.bill.IBillService;
 import com.codegym.service.billStatus.IBillStatusService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.Optional;
@@ -25,11 +21,25 @@ public class BillController {
     @Autowired
     private IBillStatusService billStatusService;
 
+    @ModelAttribute("bills")
+    public Iterable<Bill> bills() {
+        return billService.findAll();
+    }
+
     @GetMapping("/bills")
     public ModelAndView show() {
         ModelAndView modelAndView = new ModelAndView("bill/list");
         modelAndView.addObject("bills", billService.findAll());
         return modelAndView;
+    }
+
+    @PostMapping("/bills_status")
+    public ModelAndView listBillsByStatus(@RequestParam Long status_id){
+        System.out.println(status_id);
+        ModelAndView modelAndView = new ModelAndView("bill/list");
+        modelAndView.addObject("bills",billService.findBillByBillStatus_Id(status_id));
+        System.out.println(billService.findBillByBillStatus_Id(status_id).get(0).getId());
+        return  modelAndView;
     }
 
     @ModelAttribute("billStatuses")
@@ -46,11 +56,11 @@ public class BillController {
     public ModelAndView getDetailBill(@PathVariable Long id) {
         ModelAndView modelAndView = new ModelAndView("bill/bill-detail");
         Optional<Bill> bill = billService.getById(id);
-        if (bill.isPresent()){
+        if (bill.isPresent()) {
             Bill bill1 = new Bill();
             bill1 = bill.get();
             modelAndView.addObject("bill", bill1);
-        }else {
+        } else {
             modelAndView.addObject("billStatuses", new Bill());
         }
         return modelAndView;
@@ -60,10 +70,10 @@ public class BillController {
     @PostMapping("/bills-update")
     public ModelAndView updateDetailBill(@ModelAttribute("bill") Bill bill) {
         ModelAndView modelAndView = new ModelAndView("bill/bill-detail");
-        if (bill.getId() != null){
+        if (bill.getId() != null) {
             System.out.println(bill.getId());
             modelAndView.addObject("message", "Edit success");
-        }else {
+        } else {
             modelAndView.addObject("message", "Edit no success");
         }
         Optional<Bill> bill1 = billService.getById(bill.getId());

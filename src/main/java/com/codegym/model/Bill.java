@@ -15,6 +15,7 @@ public class Bill {
     private Long id;
 
     private Timestamp orderDate;
+
     @ManyToOne
     private BillStatus billStatus;
 
