@@ -43,8 +43,11 @@ Language: <a href="?lang=en">English</a> | <a href="?lang=vn">Vietnamese</a>
 <hr>
 <section class="cart bgwhite p-t-70 p-b-100">
     <div class="container">
+        <div>
+            <a class="btn btn-primary" th:href="@{/admin/bills}">Back</a>
+        </div>
         <!-- Cart item -->
-        <form th:action="@{/bills-update}" method="post" th:object="${bill}">
+        <form th:action="@{/admin/bills-update}" method="post" th:object="${bill}">
             <input type="hidden" th:field="*{id}">
             <div class="container-table-cart pos-relative">
                 <div class="wrap-table-shopping-cart bgwhite">
@@ -71,8 +74,9 @@ Language: <a href="?lang=en">English</a> | <a href="?lang=vn">Vietnamese</a>
                         <span>Ngày đặt hàng:</span>
                         <span th:text="${bill.getOrderDate()}"></span>
                     </div>
+                    <div>Danh sách sản phẩm:</div>
 
-                    <table class="table-shopping-cart">
+                    <table class="table table-hover">
                         <tr class="table-head">
                             <th class="column-1">Id</th>
                             <th class="column-2">Product</th>
@@ -126,7 +130,7 @@ Language: <a href="?lang=en">English</a> | <a href="?lang=vn">Vietnamese</a>
 <!--                    </div>-->
                 </div>
             </div>
-            <button type="submit">Update</button>
+            <button class="btn btn-primary" type="submit">Update</button>
         </form>
         <p th:text="${message}"></p>
     </div>

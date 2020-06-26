@@ -63,7 +63,7 @@ Language: <a href="?lang=en">English</a> | <a href="?lang=vn">Vietnamese</a>
                 <td th:text="${bill.getCustomer().getId()}"></td>
                 <td th:text="${bill.getOrderDate()}"></td>
                 <td th:text="${bill.getStatus().getName()}"></td>
-                <td><a th:href="@{/bills/{id}(id=${bill.getId()})}">Chi tiết</a></td>
+                <td><a th:href="@{/admin/bills/{id}(id=${bill.getId()})}">Chi tiết</a></td>
             </tr>
 <!--            <tr>-->
 <!--                <th scope="row">2</th>-->

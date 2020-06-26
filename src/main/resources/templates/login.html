@@ -167,9 +167,10 @@
 
             <!-- Header Icon -->
             <div class="header-icons">
-                <a href="#" class="header-wrapicon1 dis-block">
-                    <img src="images/icons/icon-header-01.png" class="header-icon1" alt="ICON">
-                </a>
+                <a href="/login">Login</a>
+<!--                <a href="#" class="header-wrapicon1 dis-block">-->
+<!--                    <img src="images/icons/icon-header-01.png" class="header-icon1" alt="ICON">-->
+<!--                </a>-->
 
                 <span class="linedivide1"></span>
 
@@ -432,20 +433,19 @@
 <!--style="background-image: url(/images/Test.jpg); background-size: cover; background-repeat: no-repeat"-->
 <h5 style="text-align: center; margin-top: 20px"> Login for more information</h5>
 
-<form th:action="@{/login}" method="post" th:object="${customer}">
-<!--    <div class="imgcontainer">-->
-<!--        <img src="/images/dog.jpg" alt="Avatar" class="avatar">-->
-<!--    </div>-->
+
+<form name="f" action="do_login" method="post">
+    <div class="imgcontainer">
+        <img src="/images/dog.jpg" alt="Avatar" class="avatar">
+    </div>
 
     <div class="container">
         <label for="username">Username</label>
-        <input style="border-radius: 5px" type="text" th:field="*{username}" placeholder="Enter username..." name="username" id="username"
+        <input style="border-radius: 5px" type="text"  placeholder="Enter username..." name="username" id="username"
                required minlength="4" maxlength="100">
-
         <label for="password"><b>Password</b></label>
-        <input style="border-radius: 5px" type="password" th:field="*{password}" placeholder="Enter password..." name="password" id="password"
+        <input style="border-radius: 5px" type="password"  placeholder="Enter password..." name="password" id="password"
                required minlength="4" maxlength="100">
-
         <button type="submit">Login</button>
         <label>
             <input type="checkbox" name="remember"> Remember

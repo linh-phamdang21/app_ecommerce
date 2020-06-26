@@ -103,9 +103,13 @@
 
 				<!-- Header Icon -->
 				<div class="header-icons">
-					<a href="#" class="header-wrapicon1 dis-block">
-						<img src="images/icons/icon-header-01.png" class="header-icon1" alt="ICON">
-					</a>
+					<div th:if="${sessionCustomer.getUsername()}">
+						<span th:text="${sessionCustomer.getUsername()}"></span>
+						<a th:href="@{/logout}" >Logout</a>
+					</div>
+					<div th:unless="${sessionCustomer.getUsername()}">
+						<a th:href="@{/login}">Login</a>
+					</div>
 
 					<span class="linedivide1"></span>
 
@@ -147,7 +151,7 @@
 
 								<div class="header-cart-wrapbtn">
 									<!-- Button -->
-									<a href="#" class="flex-c-m size1 bg1 bo-rad-20 hov1 s-text1 trans-0-4">
+									<a th:href="@{/cart-buy}" class="flex-c-m size1 bg1 bo-rad-20 hov1 s-text1 trans-0-4">
 										Check Out
 									</a>
 								</div>
@@ -339,6 +343,9 @@
 		<nav class="menu">
 			<ul class="main_menu">
 				<li>
+					<a href="/carts">Giỏ hàng</a>
+				</li>
+				<li>
 					<a href="/wait-confirm">Chờ xác nhận</a>
 				</li>
 				<span class="linedivide1"></span>
@@ -348,7 +355,7 @@
 				</li>
 				<span class="linedivide1"></span>
 
-				<li class="sale-noti">
+				<li>
 					<a href="/delivering">Đang giao</a>
 				</li>
 				<span class="linedivide1"></span>
@@ -456,7 +463,7 @@
 
 				<div class="size15 trans-0-4">
 					<!-- Button -->
-						<a  class="flex-c-m sizefull bg1 bo-rad-23 hov1 s-text1 trans-0-4" href="/cart-buy">
+						<a  class="flex-c-m sizefull bg1 bo-rad-23 hov1 s-text1 trans-0-4" th:href="@{/cart-buy}">
 							Proceed to Checkout
 						</a>
 				</div>

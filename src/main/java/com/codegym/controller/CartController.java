@@ -15,14 +15,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -57,9 +55,9 @@ public class CartController {
 
     @GetMapping("/cart-buy")
     public ModelAndView billPage(@ModelAttribute("sessionCustomer") AppCustomer customer) {
-
         if (customer.getId() == null) {
             ModelAndView modelAndView = new ModelAndView("login");
+            modelAndView.addObject("customer", new AppCustomer());
             return modelAndView;
         } else {
             ModelAndView modelAndView = new ModelAndView("bill");
@@ -71,6 +69,11 @@ public class CartController {
     @PostMapping("/cart-buy")
     public ModelAndView buyProduct(@ModelAttribute("sessionCustomer") AppCustomer customer, @ModelAttribute("cart") Cart cart) {
         ModelAndView modelAndView = new ModelAndView("bill");
+        if(cart.getTotalQuantity() == 0){
+            modelAndView.addObject("message", "Đặt hàng thất bại do không có sản phẩm để đặt !!");
+            modelAndView.addObject("customer", customer);
+            return modelAndView;
+        }
         Long ti = System.currentTimeMillis();
         Timestamp timestamp = new Timestamp(ti);
         List<Product> products = new ArrayList<>();
@@ -97,7 +100,7 @@ public class CartController {
 
     @GetMapping("/wait-confirm")
     public ModelAndView getWaitConfirmProduct(@ModelAttribute("sessionCustomer") AppCustomer customer) {
-        ModelAndView modelAndView = new ModelAndView("wait-confirm");
+        ModelAndView modelAndView = new ModelAndView("bills-status");
         List<Bill> bills = billService.getAllBillByCustomerIdAndStatus(customer.getId(), (long) 1);
         modelAndView.addObject("bills", bills);
         return modelAndView;
@@ -105,7 +108,7 @@ public class CartController {
 
     @GetMapping("/wait-delivery")
     public ModelAndView getWaitDeliveryProduct(@ModelAttribute("sessionCustomer") AppCustomer customer) {
-        ModelAndView modelAndView = new ModelAndView("wait-confirm");
+        ModelAndView modelAndView = new ModelAndView("bills-status");
         List<Bill> bills = billService.getAllBillByCustomerIdAndStatus(customer.getId(), (long) 2);
         modelAndView.addObject("bills", bills);
         return modelAndView;
@@ -113,7 +116,7 @@ public class CartController {
 
     @GetMapping("/delivering")
     public ModelAndView getDeliveringProduct(@ModelAttribute("sessionCustomer") AppCustomer customer) {
-        ModelAndView modelAndView = new ModelAndView("wait-confirm");
+        ModelAndView modelAndView = new ModelAndView("bills-status");
         List<Bill> bills = billService.getAllBillByCustomerIdAndStatus(customer.getId(), (long) 3);
         modelAndView.addObject("bills", bills);
         return modelAndView;
@@ -121,7 +124,7 @@ public class CartController {
 
     @GetMapping("/delivered")
     public ModelAndView getDeliveredProduct(@ModelAttribute("sessionCustomer") AppCustomer customer) {
-        ModelAndView modelAndView = new ModelAndView("wait-confirm");
+        ModelAndView modelAndView = new ModelAndView("bills-status");
         List<Bill> bills = billService.getAllBillByCustomerIdAndStatus(customer.getId(), (long) 4);
         modelAndView.addObject("bills", bills);
         return modelAndView;
@@ -129,7 +132,7 @@ public class CartController {
 
     @GetMapping("cancelOrder")
     public ModelAndView getCancelOrder(@ModelAttribute("sessionCustomer") AppCustomer customer) {
-        ModelAndView modelAndView = new ModelAndView("wait-confirm");
+        ModelAndView modelAndView = new ModelAndView("bills-status");
         List<Bill> bills = billService.getAllBillByCustomerIdAndStatus(customer.getId(), (long) 5);
         modelAndView.addObject("bills", bills);
         return modelAndView;

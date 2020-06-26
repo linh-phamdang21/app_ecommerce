@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <title>Home</title>
     <meta charset="UTF-8">
@@ -109,7 +110,15 @@
 
             <!-- Header Icon -->
             <div class="header-icons">
-                <a href="/login">Login</a>
+                <div th:if="${sessionCustomer.getUsername()}">
+                    <span th:text="${sessionCustomer.getUsername()}"></span>
+                    <a th:href="@{/logout}" >Logout</a>
+                </div>
+                <div th:unless="${sessionCustomer.getUsername()}">
+                    <a th:href="@{/login}">Login</a>
+                </div>
+
+
 <!--                <a href="#" class="header-wrapicon1 dis-block">-->
 <!--                    <img src="images/icons/icon-header-01.png" class="header-icon1" alt="ICON">-->
 <!--                </a>-->
@@ -154,7 +163,7 @@
 
                             <div class="header-cart-wrapbtn">
                                 <!-- Button -->
-                                <a href="#" class="flex-c-m size1 bg1 bo-rad-20 hov1 s-text1 trans-0-4">
+                                <a th:href="@{/cart-buy}" class="flex-c-m size1 bg1 bo-rad-20 hov1 s-text1 trans-0-4">
                                     Check Out
                                 </a>
                             </div>
