@@ -38,4 +38,9 @@ public class BillService implements IBillService {
     public List<Bill> getAllBillByCustomerIdAndStatus(Long customerId, Long statusId) {
         return billRepository.findByCustomer_IdAndBillStatus_Id(customerId, statusId);
     }
+
+    @Override
+    public List<Bill> findBillByBillStatus_Id(Long id) {
+        return billRepository.findBillByBillStatus_Id(id);
+    }
 }

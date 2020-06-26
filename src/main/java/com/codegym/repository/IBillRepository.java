@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface IBillRepository extends JpaRepository<Bill, Long> {
     List<Bill> findByCustomer_IdAndBillStatus_Id(Long customerId, Long statusId);
+    List<Bill> findBillByBillStatus_Id(Long id);
 }
