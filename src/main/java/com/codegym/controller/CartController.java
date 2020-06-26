@@ -40,7 +40,7 @@ public class CartController {
     private IBillDetailService billDetailService;
 
     @Autowired
-    private IProduceService produceService;
+    private IProduceService productService;
 
 
     @ModelAttribute("sessionCustomer")
@@ -78,7 +78,7 @@ public class CartController {
         Timestamp timestamp = new Timestamp(ti);
         List<Product> products = new ArrayList<>();
         for (CartProduct cartProduct : cart.getProduct()) {
-            Optional<Product> product = produceService.getById(cartProduct.getId());
+            Optional<Product> product = productService.getById(cartProduct.getId());
             Product product1 = product.get();
              product1.setQuantity(cartProduct.getQuantity());
             products.add(product1);
